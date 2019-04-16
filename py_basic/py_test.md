@@ -1,4 +1,4 @@
-#　doctest
+# doctest
 
 本格的なテストというよりは、例を示して他のプログラマーに使い方を教えるついでのものという感じ
 
@@ -34,7 +34,7 @@ if __name__ == "__main__":
     doctest.testmod()
 ```
 
-#　Unitest
+# Unitest
 
 他のファイルからimportしたモジュールをテストする
 
@@ -78,7 +78,7 @@ Ran 1 test in 0.000s
 FAILED (failures=1)
 ```
 
-##　例外テスト
+## 例外テスト
 
 ```python
 import unittest
@@ -195,7 +195,7 @@ def test_add_num_and_double(self):
             4)
 ```
 
-#　pytest
+# pytest
 
 pytestを事前にインストールしておく
 
