@@ -1,4 +1,4 @@
-#　classとobject指向
+# classとobject指向
 
 grobalは汚さない方がよい！汚さないで記述する方法がobject指向である。
 
@@ -20,7 +20,7 @@ class str(object):
 """
 ```
 
-##　classとobject指向
+## classとobject指向
 
 親クラスとしてobjectを渡してある(諸説あり)
 
@@ -47,7 +47,7 @@ person.say_something("girl")
 
 特殊な条件で呼び出されるメソッド、いっぱいあるからドキュメント参照
 
-###　\__init__()
+### \__init__()
 
 クラスが呼び出されたときにで最初の呼び出されるmethod. 
 
@@ -67,7 +67,7 @@ person = Person()
 >> Hello
 ```
 
-###　\__str__()
+### \__str__()
 
 オブジェクトを文字列扱いすると呼び出せる
 
@@ -84,7 +84,7 @@ print(sample)
 
 
 
-##　basic (self, constructor, destructor)
+## basic (self, constructor, destructor)
 
 ``` python
 class Person(object):
@@ -229,7 +229,7 @@ print(toyota_car.model)
 >> Lexus
 ```
 
-##　superによる親methodの呼び出し
+## superによる親methodの呼び出し
 
 継承したクラスで親クラスと同じ関数を定義する場合
 
@@ -284,7 +284,7 @@ Chess __init__: 8*8 GAURI
 
 
 
-##　propertyを使った属性の設定
+## propertyを使った属性の設定
 
 ```python
 class TeslaCar(Car):
@@ -364,7 +364,7 @@ print(tesla_car.__enable_auto_run)
 >>> ##########
 ```
 
-##　クラスメソッドとスタティックメソッド
+## クラスメソッドとスタティックメソッド
 
 ```python
 class Person(object):
@@ -397,7 +397,7 @@ human
 
 ### オブジェクトを生成する前にアクセスする方法
 
-###　①クラスメソッド
+### ①クラスメソッド
 
 ```python
 class Person(object):
@@ -420,7 +420,7 @@ print(Person.kind)
 >>> human
 ```
 
-###　②スタティックメソッド
+### ②スタティックメソッド
 
 使用頻度低め。外に定義しても使えるが、クラスとの関連性は担保しておきたい時に使用する。
 
