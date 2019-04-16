@@ -1,6 +1,6 @@
 # ファイル操作とシステム
 
-##　ファイルの作成
+## ファイルの作成
 
 > 　今いるコマンドでファイルが作成されることに注意
 
@@ -25,7 +25,7 @@ with open("new_test.csv", "a", newline="") as f:
 # 実行するたびにデータが足される＝データの保持
 ```
 
-##　withステートメント
+## withステートメント
 
 ```python
 # f.closeがなくてもcloseできる
@@ -33,7 +33,7 @@ with open("test.txt", "w") as f:
     f.write("hoge")
 ```
 
-##　ファイルの読み込み
+## ファイルの読み込み
 
 ```python
 s = """\
@@ -106,7 +106,7 @@ with open("test.txt", "r") as f:
     >> 
 ```
 
-##　書き込み読み込み
+## 書き込み読み込み
 
 > w+は新しいもの書き込む状態になるので、書き込む前に読み込むと何も入ってない状態になる
 
@@ -173,7 +173,7 @@ print(contents)
 
 ## CSVファイルへの書き込み、読み込み
 
-###　書き込み
+### 書き込み
 
 ```python
 import csv
@@ -185,7 +185,7 @@ with open("test.csv", "w", newline="") as csv_file:
     writer.writerow({"Name": "B", "Count": "2"})
 ```
 
-###　読み込み
+### 読み込み
 
 ```python
 with open("test.csv", "r") as csv_file:
@@ -199,7 +199,7 @@ OrderedDict([('Name', 'B'), ('Count', '2')])
         print(row["Name"], row["count"])
 ```
 
-##　ファイル操作
+## ファイル操作
 
 > 四つのライブラリさえ覚えておけばやりたいことはほとんど出てくる
 
