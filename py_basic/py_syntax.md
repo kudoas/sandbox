@@ -4,7 +4,7 @@
 
 > テスト形式で自分で思い出す(答えを知りたかったら出力してみればOK！
 
-##　学習上の注意点
+## 学習上の注意点
 
 1．学習のための学習にならないようにする(手段の目的化)
 
@@ -12,7 +12,7 @@
 
 3．使い方に詳しくなるより、どう使うかの視点を重視する(基礎より応用)
 
-##　output
+## output
 
 ```python
 import math
@@ -52,7 +52,7 @@ print("="*10)
 > ==========
 ```
 
-##　method
+## method
 
 ```python
 s = "My name is Yui. Hi, Yui."
@@ -76,7 +76,7 @@ print(s.lower())
 print(s.replace("Yui","Dobugaeru"))
 ```
 
-##　format
+## format
 
 これはめちゃめちゃ便利
 
@@ -248,7 +248,7 @@ print(id(X)) # 1786278601416
 print(id(Y)) # 1786278601416 adressが同じ
 ```
 
-###　list内包記
+### list内包記
 
 ```python
 t = (1,2,3,4,5)
@@ -360,7 +360,7 @@ new_tuple = (2,3,4)+(5,6,7) # tuple同士の足し算は出来る
 #new_tuple = (1) + (2,3,4) # (1)はint型なので足し算が出来ない
 ```
 
-###　tuple unpacking
+### tuple unpacking
 
 ``` python
 num_tuple = (10, 20)
@@ -373,7 +373,7 @@ a, b = b, a
 print(a, b)  # tupleを使うと変数の中身の入れ替えが分かりやすくなる
 ```
 
-###　tuple 使いどころ
+### tuple 使いどころ
 
 > 例. ３つの選択肢から２つを選ぶアプリ
 
@@ -461,7 +461,7 @@ l = [
 print(l[2]) # listの場合は最初からページを捲って探すイメージ(重)
 ```
 
-###　辞書内包記
+### 辞書内包記
 
 
 > {キー: 値 for 任意の変数名 in イテラブルオブジェクト}
@@ -509,7 +509,7 @@ for i in range(10):
 s = {i i in range(10)}
 ```
 
-###　集合 method
+### 集合 method
 
 ```python
 >>> s = {1,2,3,4,5} # 場所の概念がないので、s[0]はエラー
@@ -528,7 +528,7 @@ set() # dictionary型と区別する手目
 >>> help(set)
 ```
 
-###　集合 使いどころ
+### 集合 使いどころ
 
 > 共通点探し、種類を知りたいとき
 
@@ -577,7 +577,7 @@ if a > 0 and b > 0: #論理演算子
     print("OK")
 ```
 
-###　値が入っていない判定(かなり使える) 
+### 値が入っていない判定(かなり使える) 
 
 ```python
 # False, 0, 0.0, {}, [], (), set()　True, それ以外
@@ -589,7 +589,7 @@ else:
     print("NO") # NO
 ```
 
-###　Noneかどうかの判定
+### Noneかどうかの判定
 
 ```python
 is_empty = None
@@ -603,7 +603,7 @@ print(1 is True)  # 1とTrueはタイプが異なる
 
 
 
-##　論理演算子
+## 論理演算子
 
 ```python
 a == b
@@ -612,7 +612,7 @@ a > 0 and b > 0
 a > 0 or b > 0 #よりスマートに書けるようになる
 ```
 
-###　in, not 使いどころ
+### in, not 使いどころ
 
 > 　if文やコードを簡略化する際に用いる
 
@@ -639,7 +639,7 @@ if a != 25:　# This is "simple".
     print("OK")
 ```
 
-##　if, break, continue
+## if, break, continue
 
 ```python
 count = 0
@@ -665,7 +665,7 @@ while True:
 print("finish")
 ```
 
-##　for, break, continue
+## for, break, continue
 
 ```python
 some_list = [1, 2, 3, 4, 5]
@@ -701,7 +701,7 @@ else:
     print("I ate all.")
 ```
 
-##　関数
+## 関数
 
 ```python
 # input関数
@@ -854,7 +854,7 @@ banana
 {'entree': 'beef', 'drink': 'coffee'}
 ```
 
-###　ローカル変数とグローバル変数
+### ローカル変数とグローバル変数
 
 関数内で定義されたローカル変数とその外で定義されたグローバル変数がある
 
@@ -898,7 +898,7 @@ print("grobal:", __name__) # __main__
 
 
 
-##　Docstrings
+## Docstrings
 
 ```python
 # Docstrings
@@ -920,7 +920,7 @@ def example_func(param1,param2):
 example_func.__doc__ # help(example_func)でも可
 ```
 
-##　closure
+## closure
 
 関数内関数(inner関数)をouter関数の返り値として実行する
 
@@ -960,13 +960,13 @@ print(ca1(10))
 print(ca2(10))
 ```
 
-##　decorater
+## decorater
 
 関数自体(関数の実行ではない)を引数にとってその関数処理の前後に別の処理や機能を付け加えることが出来る
 
 一度記載すれば@のfunctionで何度も実行できるのがメリット
 
-###　基本
+### 基本
 
 ```python
 # 関数を引数にする
@@ -1157,7 +1157,7 @@ f()
 print("grobal:", __name__) # __main__
 ```
 
-##　例外処理
+## 例外処理
 
 ```python
 # 例外処理
@@ -1184,7 +1184,7 @@ finally:
 print("####")
 ```
 
-###　独自のエラー宣言
+### 独自のエラー宣言
 
 > 　独自のエラーを宣言して他のプログラマーに教えてあげる
 
