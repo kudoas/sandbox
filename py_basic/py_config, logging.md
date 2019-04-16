@@ -167,7 +167,7 @@ def do_something():
     logging.info("from logtest")
 ```
 
-##　logging handler
+## logging handler
 
 > loggerで受け取ったlogを保存できる(fileやemailで送るものもある)
 
@@ -254,7 +254,7 @@ INFO:__main__:from main # logger.info("from main password = 1234567890")は非�
             })
 ```
 
-###　例２
+### 例２
 
 ```python
 def find_template(temp_file):
