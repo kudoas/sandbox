@@ -1,8 +1,8 @@
 # Djangoの検索フォーム実装
 
-##　選択肢から絞り込む
+## 選択肢から絞り込む
 
-> 　今回は部署と部活を指定して該当している人を表示する
+>部署と部活を指定して、そこに該当している人を表示する
 
 ## 流れ
 
@@ -11,7 +11,7 @@
 >   フォームから受け取ったデータを処理
 > - index.html: フォームを表示する
 
-##　フォームの作成
+## フォームの作成
 
 ```python
 # forms.py
@@ -33,7 +33,9 @@ class SearchForm(forms.Form):
     )
 ```
 
-##　モデル
+## モデル
+
+>外部キーに部署を指定する。部活は多対多で指定する。
 
 ```python
 from django.db import models
@@ -73,7 +75,9 @@ class Employee(models.Model):
         return '{0}{1}{2}'.format(self.last_name, self.first_name, self.department)
 ```
 
-##　汎用ビューを用いた書き方
+## 汎用ビューを用いた書き方
+
+>コードが少なくなる分見やすくなるが、内部的に何をしているのかをしっかりと理解しておく必要がある。
 
 ```python
 # views.py
@@ -121,6 +125,8 @@ class IndexView(generic.ListView):
 ```
 
 ## template
+
+>formはfromタグが用意されている。modelはfor文で回してやればよい。
 
 ```html
 {% extends 'employee/base.html' %}

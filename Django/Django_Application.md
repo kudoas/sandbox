@@ -1,6 +1,6 @@
-#　日記あぷり作るぞー！おぉー！
+# 日記あぷり作るぞー！おぉー！
 
-##　初期設定
+## 初期設定
 
 > プロジェクトの作成
 
@@ -38,7 +38,7 @@ diary/
     views.py
 ```
 
-###　appliの登録
+### appliの登録
 
 ```python
 # setting.py
@@ -61,7 +61,7 @@ class DiaryConfig(AppConfig):
     name = 'diary'
 ```
 
-###　urlの登録
+### urlの登録
 
 > 　viewで表示させるものを登録する
 
@@ -107,7 +107,7 @@ path(route, view, kwargs, name)
 
 
 
-###　views.pyの編集
+### views.pyの編集
 
 ```python
 from django.shortcuts import render
@@ -229,7 +229,7 @@ Running migrations:
   Applying sessions.0001_initial... OK
 ```
 
-##　データの追加機能
+## データの追加機能
 
 > 　日記を書くたびにDBに保存されるシステムを作ろう
 
