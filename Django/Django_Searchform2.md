@@ -1,10 +1,10 @@
-#　Djangoの検索機能の実装
+# Djangoの検索機能の実装
 
 > searchformに検索文字を入れて該当している内容(タイトルや内容)をもつ記事だけ抜き出す
 
 ## クラスビューを使用した場合
 
-###　HTML
+### HTML
 
 > bootstrap4.3vのnavbarを使用
 
@@ -94,7 +94,7 @@ class IndexView(generic.ListView):
 queryset = queryset.filter(title__icontains=keyword)
 ```
 
-####　タイトルと本文でOR検索させる場合
+#### タイトルと本文でOR検索させる場合
 
 ```python
 from djnago.db.models import Q
