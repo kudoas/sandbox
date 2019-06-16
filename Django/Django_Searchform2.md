@@ -40,9 +40,9 @@
     </ul>
  
 <!--
-input_tagを利用してkeywordとして検索内容を受け取る！
-今回acitonでURLを指定しているのは、このnavbarがどの画面でもindexの検索として機能してほしいため
-(空の場合は詳細ページだと詳細ページの検索になってしまう)
+inputタグで検索ワードをname=keywordとして受け取る
+acitonでURLを指定しているのは、このnavbarがどの画面でもindexの検索として機能してほしいため
+(空の場合はそのページ内の記事検索機能になる)
 -->
     <form class="form-inline my-2 my-lg-0" method='GET' action='{% url 'blog:index' %}'>
       <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="keyword">
@@ -77,9 +77,11 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         # model.objectを日付順にソート、記事ごと(タイトル、発行日、日付)取り出す
         queryset = Blog.objects.order_by('-create_at')
+        
         # 検索フォーム(HTML)から値を受け取る
         keyword = self.request.GET.get('keyword')
         if keyword:
+        
             # keywordとtitleが完全一致しているものをfilter
             queryset = queryset.filter(title=keyword)
         
@@ -90,6 +92,7 @@ class IndexView(generic.ListView):
 
 ```python
 # __icontains
+
 # 大文字小文字を区別する場合は__containを使う
 queryset = queryset.filter(title__icontains=keyword)
 ```
@@ -106,7 +109,7 @@ class IndexView(generic.ListView):
     
     def get_queryset(self):
         queryset = model.objects.ordered_by('-create_at')
-        keyword = self .request.GET.get('keyword')
+        keyword = self.request.GET.get('keyword')
         if keyword:
             queryset = queryset.filter(
                 Q(title__icontains=keyword) | Q(text__icontains=keyword)
