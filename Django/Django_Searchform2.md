@@ -106,7 +106,7 @@ class IndexView(generic.ListView):
     
     def get_queryset(self):
         queryset = model.objects.ordered_by('-create_at')
-        keyword = seld.request.GET.get('keyword')
+        keyword = self .request.GET.get('keyword')
         if keyword:
             queryset = queryset.filter(
                 Q(title__icontains=keyword) | Q(text__icontains=keyword)
