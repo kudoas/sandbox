@@ -1,6 +1,6 @@
 ---
 title: 過去の活動
-menuTitle: works
+menuTitle: Works
 ---
 
 ### 掲示板アプリ
