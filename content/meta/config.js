@@ -1,9 +1,9 @@
 module.exports = {
   siteTitle: "Kudoa-Blog", // <title>
   shortSiteTitle: "KudoLog", // <title> ending for posts and pages
-  siteDescription: "HeroBlog is a GatsbyJS starter.",
-  siteUrl: "https://gatsby-starter-hero-blog.greglobinski.com",
-  // pathPrefix: "",
+  siteDescription: "KudoLog is created by Kudoa",
+  siteUrl: "https://kudolog.netlify.com",
+  pathPrefix: "",
   siteImage: "preview.jpg",
   siteLanguage: "ja",
 
