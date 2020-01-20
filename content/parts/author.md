@@ -1,5 +1,5 @@
 ---
-title: author
+title: Kudoa
 ---
 
-**Mr. Gatsby** Proin ornare ligula eu tellus tempus elementum. Aenean [bibendum](/) iaculis mi, nec blandit lacus interdum vitae. Vestibulum non nibh risus, a scelerisque purus. Blandit lacus interdum vitae. Vestibulum non nibh risus, a scelerisque purus.
+**Kudoa** 某薬科大の薬学部4年。都内で薬学生をする傍ら、プログラミングで開発やデータ解析を行っている。

@@ -15,7 +15,9 @@ const Share = asyncComponent(() =>
     .then(module => {
       return module.default;
     })
-    .catch(error => {})
+    .catch(error => {
+      console.log("asyncComponentError: ", error);
+    })
 );
 
 const Post = props => {
