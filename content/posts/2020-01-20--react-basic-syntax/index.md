@@ -1,6 +1,6 @@
 ---
 title: React.jsの特徴とJavaScriptの頻出構文
-category: "React.js"
+category: "react"
 cover: photo-1465070845512-2b2dbdc6df66.jpg
 author: Kudoa
 ---
