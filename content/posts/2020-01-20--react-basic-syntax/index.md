@@ -1,6 +1,6 @@
 ---
 title: React.jsの特徴とJavaScriptの頻出構文
-category: "react"
+category: "react" 
 cover: photo-1465070845512-2b2dbdc6df66.jpg
 author: Kudoa
 ---
@@ -55,7 +55,7 @@ Componentとは部品という意味です。
 
 そもそもWebページはさまざまな部品によって構成されています。
 
-<img src='https://cdn-ak.f.st-hatena.com/images/fotolife/k/kudoa/20191223/20191223152048.jpg' width=100%>
+<img src='https://kudoa-image-store.s3-ap-northeast-1.amazonaws.com/react-basic-syntax/react-component.jpeg' width=100%>
 
 通常のHTMLでデザインする場合、Header部分は\<Header>タグや\<nav>タグなどを使い、List-itemは\<li>タグや\<ul>タグなどを使います。
 React.jsではComponentを1つのJavaScriptファイルや関数、クラスとして定義します。
@@ -68,7 +68,7 @@ React.jsではComponentを1つのJavaScriptファイルや関数、クラスと�
 
 通常のDOM生成からレンダリングまでの手順はHTMLファイルが変更されるたびに行われます。
 
-<img src='https://cdn-ak.f.st-hatena.com/images/fotolife/k/kudoa/20191223/20191223152043.jpg' width=100%>
+<img src='https://kudoa-image-store.s3-ap-northeast-1.amazonaws.com/react-basic-syntax/v-dom1.jpeg' width=100%>
 
 しかしこの場合だと新しいファイルが読み込まれるたびにすべてDOMへ変換します。
 そして毎回最初からこの工程を行うので時間がかかってしまいます。
@@ -77,7 +77,7 @@ React.jsではComponentを1つのJavaScriptファイルや関数、クラスと�
 そこでReact.jsではDOMを生成する前に**仮想DOM**を生成します。
 仮想DOMが生成された時点で新しい仮想DOMと古い仮想DOMと比較を行いその差分だけDOMを書き換えます。
 
-<img src='https://cdn-ak.f.st-hatena.com/images/fotolife/k/kudoa/20191223/20191223152038.jpg' width=100%>
+<img src='https://kudoa-image-store.s3-ap-northeast-1.amazonaws.com/react-basic-syntax/v-dom2.jpeg' width=100%>
 
 すべてのDOMを作り直すよりも高速で画面を表示できます。
 Reactでは非常に重要です。
@@ -250,7 +250,7 @@ age >= 18 ? console.log("You can ride a motorcycle.") : console.log("You can't r
 アプリケーションに何らかの変化(ボタンを押すなど)が起きてthis.state.showがtrueになった場合はModalのCSSに`transform: translateY(0);`と`opacity: 1`となり画面に表示させます。
 falseのときは`transform: translateY(-100vh);`と`opacity: 0`なので画面外に透明な状態で隠れていることになります。
 
-<img src='https://cdn-ak.f.st-hatena.com/images/fotolife/k/kudoa/20191224/20191224091834.jpg' width=100%>
+<img src='https://kudoa-image-store.s3-ap-northeast-1.amazonaws.com/react-basic-syntax/modal.jpeg' width=100%>
 
 このようにアプリの状態に応じた処理の変更がする際によく使用されます。
 

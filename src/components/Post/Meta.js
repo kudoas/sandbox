@@ -15,7 +15,8 @@ const Meta = props => {
         <FaCalendar size={18} /> {prefix}
       </span>
       <span>
-        <FaUser size={18} /> {authorName}
+        <FaUser size={18} />
+        <Link to={`/about/`}>{authorName}</Link>
       </span>
       {category && (
         <span>
