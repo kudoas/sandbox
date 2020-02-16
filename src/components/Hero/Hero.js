@@ -10,7 +10,7 @@ const Hero = props => {
     <React.Fragment>
       <section className="hero">
         <h1>
-          This site is created by Kudoa
+          No coffee, No life.
           <br />
           <strong>KudoLog</strong>
         </h1>
