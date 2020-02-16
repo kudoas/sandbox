@@ -1,8 +1,8 @@
 module.exports = {
-  siteTitle: "Kudoa-Blog", // <title>
+  siteTitle: "KudoLog", // <title>
   shortSiteTitle: "KudoLog", // <title> ending for posts and pages
   siteDescription: "KudoLog is created by Kudoa",
-  siteUrl: "https://kudolog.netlify.com",
+  siteUrl: "https://www.kudolog.net",
   pathPrefix: "",
   siteImage: "preview.jpg",
   siteLanguage: "ja",
@@ -16,7 +16,7 @@ module.exports = {
   headerSubTitle: "presents by Kudoa",
 
   /* manifest.json */
-  manifestName: "Kudoa-Blog",
+  manifestName: "KudoLog",
   manifestShortName: "KudoLog", // max 12 characters
   manifestStartUrl: "/index.html",
   manifestBackgroundColor: "white",
