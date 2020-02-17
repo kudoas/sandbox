@@ -25,8 +25,6 @@ class Menu extends React.Component {
       icon: page.node.frontmatter.menuTitle == "About" ? FaUser : FaEgg
     }));
 
-    console.log("pages", pages);
-
     this.items = [
       { to: "/", label: "Home", icon: FaHome },
       { to: "/category/", label: "Categories", icon: FaTag },
