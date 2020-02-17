@@ -41,7 +41,7 @@ const Contact = props => {
     })
       .then(() => {
         console.log("Form submission success");
-        navigate("/success");
+        navigate("/");
       })
       .catch(error => {
         console.error("Form submission error:", error);
