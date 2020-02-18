@@ -62,6 +62,22 @@ const Bodytext = props => {
             padding: 0.1em 0.3em 0.2em;
             border-radius: 0.1em;
           }
+
+          // table design
+          :global(table) {
+            border-spacing: 0;
+            box-shadow: 0px 0px 5px 1px #eee;
+            width: 100%;
+            :global(tbody tr:nth-child(odd)) {
+              background-color: #eee;
+            }
+            :global(th),
+            :global(td) {
+              text-align: center;
+              width: 25%;
+              padding: 15px 0;
+            }
+          }
         }
 
         @keyframes bodytextEntry {
