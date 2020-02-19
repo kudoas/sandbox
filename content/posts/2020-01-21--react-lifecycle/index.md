@@ -1,7 +1,7 @@
 ---
 title: React.jsのライフサイクルメソッドについて
 category: "react"
-cover: photo-1465070845512-2b2dbdc6df66.jpg
+cover: ../cover-images/react-image.png
 author: Kudoa
 ---
 
@@ -14,15 +14,10 @@ author: Kudoa
 ## 目次
 
 - [Reactのライフサイクルとは](#1)
-
 - [ライフサイクルメソッドとは](#2)
-
 - [ライフサイクルメソッドの流れ](#3)
-
 - [Mounting時のライフサイクルメソッドの実行](#4)
-
 - [まとめ](#5)
-
 - [参考URL](#6)
 
 <a id=1></a>
@@ -92,24 +87,24 @@ class Welcome extends Component {
 
 <img src='https://kudoa-image-store.s3-ap-northeast-1.amazonaws.com/lifecycle/component-mount.jpeg' width=100%>
 
-- constructor()
+- constructor
 
 Mounting時に一番最初に呼ばれるメソッドです。
-JSXでは使われることがほとんどないため、見かけることもまれです。 
+JSXでは使われることがほとんどないため、見かけることはまれです。 
 super(props)を呼び、更新がする必要性があれば更新できます。
 
-- getDerivedFromProps()
+- getDerivedFromProps
 
 このメソッドだけは`static`です。
 render()が呼ばれる前にstateの更新があるかどうかを確認します。
 もしあれば更新後の`state`、無ければ`null`を返します。
 
-- render()
+- render
 
 このメソッドだけはコンポーネントで必須です。
 ReactがJSXコードを評価して、仮想DOMを構築します。
 
-- componentDidMount()
+- componentDidMount
 
 このメソッドは重要なライフサイクルメソッドの一つです。
 クラスベースのコンポーネントを操作する時に非常に多く使用します。
@@ -119,29 +114,29 @@ ReactがJSXコードを評価して、仮想DOMを構築します。
 
 <img src='https://kudoa-image-store.s3-ap-northeast-1.amazonaws.com/lifecycle/component-update.jpeg' width=100%>
 
-- getDerivedStateFromProps()
+- getDerivedStateFromProps
 
 Update時に一番最初に呼ばれるメソッドです。
 コンポーネントのstateを初期化します。
 ただし、使用頻度は低いです。
 
-- shouldComponentUpdate()
+- shouldComponentUpdate
 
 コンポーネントの評価と再レンダリングを継続するかどうかを決定します。
 つまり更新をここでキャンセル出来ます。
 ただし、更新をブロックするとコンポーネントが破損する可能性があるので慎重に使う必要があります。
 
-- render()
+- render
 
 上記と同様にレンダリングするメソッドです。
 これも必須のメソッドです。
 
-- getSnapshotBeforeUpdate()
+- getSnapshotBeforeUpdate
 
-更新が発生する直前のスクロールを位置を記憶して、提供するような使い方が出来ます。
+更新が発生する直前のスクロールを位置を記憶して提供する等に使うことができます。
 このメソッドも使用頻度は低いです。
 
-- componentDidUpdate()
+- componentDidUpdate
 
 更新が完了した際に呼ばれるメソッドです。
 HTTPリクエストを作成できますが、無限ループにならないように注意する必要があります。
@@ -150,7 +145,7 @@ HTTPリクエストを作成できますが、無限ループにならないよ�
 
 <img src='https://kudoa-image-store.s3-ap-northeast-1.amazonaws.com/lifecycle/component-unmount.jpeg' width=100%>
 
-- componentWillUnmount()
+- componentWillUnmount
 
 コンポーネントがUnmountされるときに呼ばれるメソッドです。
 アニメーションなどを設定した場合はここで破棄します。
@@ -163,7 +158,7 @@ HTTPリクエストを作成できますが、無限ループにならないよ�
 メソッドの呼ばれる順番とそれぞれの役割について説明しました。
 
 最後にMounting時のライフサイクルメソッドが呼ばれる過程を実際にコンソールに出力させて確認してみます。
-以下のコードをReactのApp.jsに記述し、実際にコンパイルしてみます。
+以下のコードを実際にコンパイルしてみます。
 
 ```jsx
 import React, { Component } from 'react';
@@ -217,7 +212,7 @@ export default App;
 
 すると以下のようにレンダリングされると同時に、呼ばれたメソッド名もコンソールに出力されます。
 
-<img src='https://cdn-ak.f.st-hatena.com/images/fotolife/k/kudoa/20191021/20191021231514_original.png' width=100%>
+![image5](https://cdn-ak.f.st-hatena.com/images/fotolife/k/kudoa/20191021/20191021231514_original.png)
 
 Consoleに`contructor → getDerivedStateFromProps → render → componentDidMount`の順に出力されています。
 今回はこれらのメソッドに機能を追加しているわけでないですが、実際にライフサイクルが存在することは確認できました。
@@ -228,7 +223,7 @@ Consoleに`contructor → getDerivedStateFromProps → render → componentDidMo
 
 今回はライフサイクルとライフサイクルメソッドについて紹介しました。
 
-実際に使う時にならないとなかなかイメージが湧きづらいかもしれませんが、概要をつかめればこれからの開発時に役立つはずです。
+実際に使う時にならないとなかなかイメージが湧きづらいかもしれませんが、開発の際に非常になってきます。
 これからReactを学んでみたい方の一助になれば幸いです。
 
 <a id=6></a>

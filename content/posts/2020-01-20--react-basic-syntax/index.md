@@ -1,7 +1,7 @@
 ---
 title: React.jsの特徴とJavaScriptの頻出構文
 category: "react" 
-cover: photo-1465070845512-2b2dbdc6df66.jpg
+cover: ../cover-images/react-image.png
 author: Kudoa
 ---
 
@@ -39,7 +39,7 @@ author: Kudoa
 ## 今回使用するJavaScript
 
 今回の記事では<u>ES7(ES2016)</u>以降の文法を使用します。
-特にクラスや関数の定義の仕方がそれ以前の文法と少し違うため、参考資料による違いに注意しましょう。
+古いバージョンだと書き方が違うので注意して下さい。
 
 <a id='2'></a>
 
@@ -55,7 +55,7 @@ Componentとは部品という意味です。
 
 そもそもWebページはさまざまな部品によって構成されています。
 
-<img src='https://kudoa-image-store.s3-ap-northeast-1.amazonaws.com/react-basic-syntax/react-component.jpeg' width=100%>
+![image1](https://kudoa-image-store.s3-ap-northeast-1.amazonaws.com/react-basic-syntax/react-component.jpeg)
 
 通常のHTMLでデザインする場合、Header部分は\<Header>タグや\<nav>タグなどを使い、List-itemは\<li>タグや\<ul>タグなどを使います。
 React.jsではComponentを1つのJavaScriptファイルや関数、クラスとして定義します。
@@ -68,26 +68,25 @@ React.jsではComponentを1つのJavaScriptファイルや関数、クラスと�
 
 通常のDOM生成からレンダリングまでの手順はHTMLファイルが変更されるたびに行われます。
 
-<img src='https://kudoa-image-store.s3-ap-northeast-1.amazonaws.com/react-basic-syntax/v-dom1.jpeg' width=100%>
+![image2](https://kudoa-image-store.s3-ap-northeast-1.amazonaws.com/react-basic-syntax/v-dom1.jpeg)
 
 しかしこの場合だと新しいファイルが読み込まれるたびにすべてDOMへ変換します。
 そして毎回最初からこの工程を行うので時間がかかってしまいます。
 特にReact.jsのようなComponent指向型フレームワークでは画面上で変更される部分は一部なので、そこだけ表示を変更する方が効率的です。
 
 そこでReact.jsではDOMを生成する前に**仮想DOM**を生成します。
-仮想DOMが生成された時点で新しい仮想DOMと古い仮想DOMと比較を行いその差分だけDOMを書き換えます。
+仮想DOMが生成された時点で新しい仮想DOMと古い仮想DOMと比較を行い、そのdiffだけDOMを書き換えます。
 
-<img src='https://kudoa-image-store.s3-ap-northeast-1.amazonaws.com/react-basic-syntax/v-dom2.jpeg' width=100%>
+![image3](https://kudoa-image-store.s3-ap-northeast-1.amazonaws.com/react-basic-syntax/v-dom2.jpeg)
 
 すべてのDOMを作り直すよりも高速で画面を表示できます。
-Reactでは非常に重要です。
 
 <a id='3'></a>
 
 ## React.jsでよく使う文法
 
 ここからはReact.jsで非常によく使うJavaScriptの文法について紹介します。
-React.jsでは実際にどう使うのかも例示するので実際につかうイメージが身につくと良いと思います。
+React.jsでは実際にどう使うのかも例示するので、実際につかうイメージが身につくと良いと思います。
 
 どれも重要かつ頻出なのでこの際にまとめて覚えましょう。
 
@@ -127,7 +126,7 @@ class App extends Component {
 export default App;
 ```
 
-エクスポートしなければ他のファイルからインポートできないので慣れないうちは注意しましょう。
+エクスポートしなければ他のファイルからインポートできないので、うまく読み込めない際は確認して下さい。
 
 ### constとlet
 
@@ -138,7 +137,7 @@ const Person1 = 'Fuginami';
 let Person2 = 'Hashimoto';
 ```
 
-同じように思えるかもしれませんが、これらには使い分けが存在します。
+これらには使い分けが存在します。
 constで宣言した変数は再代入ができません。
 
 ```javascript
@@ -250,7 +249,7 @@ age >= 18 ? console.log("You can ride a motorcycle.") : console.log("You can't r
 アプリケーションに何らかの変化(ボタンを押すなど)が起きてthis.state.showがtrueになった場合はModalのCSSに`transform: translateY(0);`と`opacity: 1`となり画面に表示させます。
 falseのときは`transform: translateY(-100vh);`と`opacity: 0`なので画面外に透明な状態で隠れていることになります。
 
-<img src='https://kudoa-image-store.s3-ap-northeast-1.amazonaws.com/react-basic-syntax/modal.jpeg' width=100%>
+![image4](https://kudoa-image-store.s3-ap-northeast-1.amazonaws.com/react-basic-syntax/modal.jpeg)
 
 このようにアプリの状態に応じた処理の変更がする際によく使用されます。
 
@@ -392,13 +391,7 @@ class LoggingButton extends React.Component {
 
 ## まとめ
 
-お疲れさまでした。
 React.jsの特徴と文法は理解できたでしょうか。
-特に一番最後のbind()は少しわかりにくかったかもしれません。
-
-ここまで理解できればReact.jsを学習するための素地はできています。
-まったく何もわからない状態から始めるよりもスムーズに学習できるはずです。
-
 今回の記事が読んでくれた方の学習の糧になれば幸いです。
 
 <a id='5'></a>
