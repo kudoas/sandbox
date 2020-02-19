@@ -13,6 +13,13 @@ const Bodytext = props => {
           animation-name: bodytextEntry;
           animation-duration: ${theme.time.duration.long};
 
+          :global(body > *:first-child) {
+            margin-top: 0 !important;
+          }
+          :global(body > *:last-child) {
+            margin-bottom: 0 !important;
+          }
+
           :global(h2),
           :global(h3) {
             margin: 1.5em 0 1em;
@@ -77,6 +84,49 @@ const Bodytext = props => {
               width: 25%;
               padding: 15px 0;
             }
+          }
+          :global(table tr th :first-child),
+          :global(table tr td :first-child) {
+            marigin-top: 0;
+          }
+          :global(table tr th :last-child),
+          :global(table tr td :last-child) {
+            marigin-bottom: 0;
+          }
+
+          // blockquote
+          :global(blockquote) {
+            border-left: 4px solid #dddddd;
+            padding: 0 15px;
+            color: #777777;
+          }
+          :global(blockquote > :first-child) {
+            margin-top: 0;
+          }
+          :global(blockquote > :last-child) {
+            margin-bottom: 0;
+          }
+          :global(img) {
+            max-width: 100%;
+            box-shadow: 0px 0px 5px 1px #eee;
+            border-radius: 3px;
+            margin: 2px;
+          }
+
+          :global(code, tt) {
+            margin: 0 2px;
+            padding: 0 5px;
+            white-space: nowrap;
+            border: 1px solid #eaeaea;
+            background-color: #f8f8f8;
+            border-radius: 3px;
+          }
+          :global(pre code) {
+            margin: 0;
+            padding: 0;
+            white-space: pre;
+            border: none;
+            background: transparent;
           }
         }
 
