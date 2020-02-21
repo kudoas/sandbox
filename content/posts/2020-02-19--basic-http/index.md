@@ -5,8 +5,6 @@ cover: ../cover-images/web-image.jpeg
 author: Kudoa
 ---
 
-![web-img](https://kudoa-image-store.s3-ap-northeast-1.amazonaws.com/basic-web/web-image1.jpg)
-
 ## はじめに
 
 私たちは、毎日のようにスマートフォンやパソコンでホームページを見ます。  

@@ -5,8 +5,6 @@ cover: ../cover-images/react-image.png
 author: Kudoa
 ---
 
-<img src='https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2378&q=80' width=100%>
-
 ## はじめに
 
 この記事ではReactのライフサイクルについて紹介します。
