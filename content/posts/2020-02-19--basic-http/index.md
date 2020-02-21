@@ -5,7 +5,7 @@ cover: ../cover-images/web-image.jpeg
 author: Kudoa
 ---
 
-![web-img](https://cdn.pixabay.com/photo/2014/10/12/12/38/google-485611_1280.jpg)
+![web-img](https://kudoa-image-store.s3-ap-northeast-1.amazonaws.com/basic-web/web-image1.jpg)
 
 ## はじめに
 
