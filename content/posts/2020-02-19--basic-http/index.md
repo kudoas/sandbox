@@ -5,8 +5,6 @@ cover: ../cover-images/web-image.jpeg
 author: Kudoa
 ---
 
-![web-img](https://cdn.pixabay.com/photo/2014/10/12/12/38/google-485611_1280.jpg)
-
 ## はじめに
 
 私たちは、毎日のようにスマートフォンやパソコンでホームページを見ます。  
