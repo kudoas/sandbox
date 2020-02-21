@@ -5,7 +5,7 @@ cover: ../cover-images/web-image.jpeg
 author: Kudoa
 ---
 
-nodejsでの重要な概念である**stream**と**buffer**についてのメモ
+nodejsでの重要な概念である**stream**と**buffer**についてのメモ  
 正直まだ1ぐらいしか分かってないが、これからの学習に橋渡しのために残しておく
 
 ## Streamを制するものは、Node.jsを制す
@@ -59,7 +59,7 @@ const server = http.createServer((req, res) => {
       // bufferに読み込まれたchuckを文字列に戻す
       const parsedBody = Buffer.concat(body).toString();
       console.log("parsedBody", parsedBody);
-
+			
       const message = parsedBody.split("=")[1];
       // writeFileSync: 同期的にファイル書き込みを行う
       fs.writeFileSync("messagge.txt", message);
@@ -83,10 +83,12 @@ server.listen(3000);
 
 formに`hoge`と入力すると以下の内容がコンソールに出力される
 
-```
+```txt
 chuck <Buffer 6d 65 73 73 61 67 65 3d 68 6f 67 65>
 parsedBody message=hoge
 ```
 
-chuckは2文字ずつの英数字で書かれている。
+chuckは2文字ずつの英数字で書かれていた。
+bufferに溜まっているのでこれをパースして、`hoge`部分だけ抜き出してテキストファイルに書き込む
 
+ここだけ切り取ってもまだまだ深そうな分野である。

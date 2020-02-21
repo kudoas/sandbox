@@ -8,9 +8,11 @@ import { FaEnvelope } from "react-icons/fa/";
 import { FaTag } from "react-icons/fa/";
 import { FaUser } from "react-icons/fa/";
 import { FaEgg } from "react-icons/fa/";
+import { GoMarkGithub } from "react-icons/go";
 
 import Item from "./Item";
 import Expand from "./Expand";
+import OuterLink from "./OuterLink";
 
 class Menu extends React.Component {
   constructor(props) {
@@ -152,6 +154,11 @@ class Menu extends React.Component {
             {this.items.map(item => (
               <Item item={item} key={item.label} icon={item.icon} theme={theme} />
             ))}
+            <OuterLink
+              item={{ to: "https://github.com/Kudoas", label: "GitHub", icon: GoMarkGithub }}
+              key="GitHub"
+              theme={theme}
+            />
           </ul>
           {this.state.hiddenItems.length > 0 && <Expand onClick={this.toggleMenu} theme={theme} />}
           {open && screenWidth >= 1024 && (
