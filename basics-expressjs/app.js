@@ -1,22 +1,28 @@
-// const http = require("http");
-
 const express = require("express");
+const bodyParser = require("body-parser");
 
 const app = express();
 
-app.use((req, res, next) => {
-  console.log("In the middleware");
-  next(); // Allows the request to continue to the next middleware in line
-});
+const adminRoutes = require("./routes/admin");
+const shopRoutes = require("./routes/shop");
 
-app.use((req, res, next) => {
-  console.log("In another middleware");
-  // Headerにtext/htmlと指定しなくてもsend()の中身がstr型ならxpress側がdefaultで行ってくれる
-  res.send("<h1>Hello from Express!</h1>");
-});
+// nextを指定しなければ2回め以降のmiddlewareは更新されない(呼び出しはされる)
+// app.use("/", (req, res, next) => {
+//   console.log("This is always runs!");
+//   next();
+// });
 
-// express側で省略できる
-// const server = http.createServer(app);
-// server.listen(3000);
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// admin.jsへ
+app.use(adminRoutes);
+
+// shop.jsへ
+app.use(shopRoutes);
+
+// 404
+app.use((req, res, next) => {
+  res.status(404).send("<h1>Page not found</h1>");
+});
 
 app.listen(3000);
