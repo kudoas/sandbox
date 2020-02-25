@@ -5,6 +5,11 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
+// expressが対応しているtemplate engineなら簡単に導入可能
+app.set("view engine", "pug");
+// viewsフォルダをviewsに指定
+app.set("views", "views");
+
 const adminData = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 
