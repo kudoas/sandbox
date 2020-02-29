@@ -14,3 +14,4 @@
 
 - Connecting your Models and your Views
 - Contains the "in-between" logic
+- Should only make sure that the two can communicate (in both directions)
