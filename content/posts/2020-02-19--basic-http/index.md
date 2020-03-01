@@ -115,7 +115,7 @@ POSTの場合は、サーバー内の情報そのものが変化します。上�
 | 400番台          | (クライアントにおける)処理失敗 |
 | 500番台          | サーバーエラー                 |
 
-HTTPステータスコード：http://www5.plala.or.jp/vaio0630/mail/st_code.htm
+[HTTPステータスコード](http://www5.plala.or.jp/vaio0630/mail/st_code.htm)
 
 例えばリクエストが成功すれば、ステータスコード200が表示されます。
 
