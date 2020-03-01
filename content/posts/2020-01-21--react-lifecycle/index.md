@@ -212,7 +212,7 @@ export default App;
 
 ![image5](https://cdn-ak.f.st-hatena.com/images/fotolife/k/kudoa/20191021/20191021231514_original.png)
 
-Consoleに`contructor → getDerivedStateFromProps → render → componentDidMount`の順に出力されています。
+Consoleにcontructor → getDerivedStateFromProps → render → componentDidMountの順に出力されています。
 今回はこれらのメソッドに機能を追加しているわけでないですが、実際にライフサイクルが存在することは確認できました。
 
 <a id=5></a>

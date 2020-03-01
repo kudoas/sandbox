@@ -125,7 +125,7 @@ const post = props => (
 export default post;
 ```
 
-ブラウザ上では表示されたHTMLを確認すると`<article class="Post_Post__2uao7">`とクラス名が振られています。
+ブラウザ上では表示されたHTMLを確認するとarticleタグに`class="Post_Post__2uao7"`とクラス名が振られています。
 これがCSS Modules側で自動的に振られたユニークなIDです。
 
 <a id=3></a>

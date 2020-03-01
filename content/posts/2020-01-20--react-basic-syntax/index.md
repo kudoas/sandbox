@@ -335,7 +335,7 @@ React.jsではイベントハンドラを定義する際に使用します。
 >
 > イベント処理：https://ja.reactjs.org/docs/handling-events.html
 
-つまり何らかの関数をクラス型のコンポーネントで使用する際にはconctructorで`this.handleClick = this.handleClick.bind(this);`のようにする必要があります。
+つまり何らかの関数をクラス型のコンポーネントで使用する際にはconctructorで`handleClick`をbindする必要があります。
 
 ```jsx
 class LoggingButton extends React.Component {
@@ -384,8 +384,7 @@ class LoggingButton extends React.Component {
 この他にも回避する方法をさまざまあります。
 興味があれば、以下の記事を参考にしてみてください。
 
-> Reactをes6で使う場合のbindの問題：
-> https://qiita.com/cubdesign/items/ee8bff7073ebe1979936
+> [Reactをes6で使う場合のbindの問題](https://qiita.com/cubdesign/items/ee8bff7073ebe1979936)
 
 <a id='4'></a>
 
