@@ -48,3 +48,37 @@ module.exports = class Product {
     // });
   }
 };
+
+// async, await
+// const fs = require("fs").promises;
+// const path = require("path");
+
+// const rootDir = require("../util/path");
+
+// module.exports = class Product {
+//   constructor(title, price) {
+//     this.title = title;
+// const fs = require("fs").promises;
+// const path = require("path");
+
+// const rootDir = require("../util/path");
+
+// module.exports = class Product {
+//   constructor(title, price) {
+//     this.title = title;
+//     this.price = price;
+//   }
+//   async save() {
+//     const p = path.join(rootDir, "data", "products.json");
+//     const data = await fs.readFile(p);
+//     let products = [];
+//     products = JSON.parse(data);
+//     products.push(this);
+//     fs.writeFile(p, JSON.stringify(products), err => console.log(err));
+//   }
+//   static async fetchAll() {
+//     const p = path.join(rootDir, "data", "products.json");
+//     let data = await fs.readFile(p);
+//     return JSON.parse(data);
+//   }
+// };

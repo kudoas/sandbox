@@ -29,3 +29,23 @@ exports.getProducts = (req, res, next) => {
     });
   });
 };
+
+// async, await
+// const Product = require("../models/product");
+
+// exports.getAddProduct = (req, res) => {
+//   res.render('add-product', { docTitle: 'Add Product', path: '/admin/add-product' });
+// }
+
+// exports.postAddProduct = (req, res) => {
+//   const price = Math.random() * 20;
+//   const product = new Product(req.body.title, price.toFixed(2));
+//   product.save();
+//   res.redirect('/');
+// }
+
+// exports.getProducts = async (req, res) => {
+//   const products = await Product.fetchAll();
+//   res.render('shop', { prods: products, docTitle: 'Shop', path: '/' });
+
+// }
