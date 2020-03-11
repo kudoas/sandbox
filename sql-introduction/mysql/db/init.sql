@@ -10,5 +10,11 @@ CREATE TABLE products (
   unique index id_unique (id asc) visible
 );
 
-insert into products (title, price, description, imageUrl) 
-values ('Book', '11', 'this is a good book!', 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80')
+insert into products (
+  title, price, description, imageUrl
+  ) values (
+    'Book', 
+    '11', 
+    'this is a good book!', 
+    'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80'
+  )
