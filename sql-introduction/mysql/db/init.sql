@@ -10,6 +10,7 @@ CREATE TABLE products (
   unique index id_unique (id asc) visible
 );
 
+-- sample data
 insert into products (
   title, price, description, imageUrl
   ) values (
