@@ -11,7 +11,7 @@
 // module.exports = pool.promise();
 
 // ORM
-const Sequelize = require("sequelize");
+const Sequelize = require("sequelize").Sequelize;
 
 const sequelize = new Sequelize("sample_db", "root", "root", {
   dialect: "mysql",
