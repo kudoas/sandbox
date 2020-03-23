@@ -107,10 +107,12 @@ const Bodytext = props => {
             margin-bottom: 0;
           }
           :global(img) {
+            text-align: center;
             max-width: 100%;
             box-shadow: 0px 0px 5px 1px #eee;
             border-radius: 3px;
-            margin: 2px;
+            display: block;
+            margin: auto;
           }
 
           :global(code, tt) {
