@@ -2,7 +2,7 @@ import React from "react";
 
 import styled from "@emotion/styled";
 
-const NumBtn = (props) => <Button onClick={props.clicked}>{props.num}</Button>;
+const CalBtn = (props) => <Button onClick={props.clicked}>{props.children}</Button>;
 
 const Button = styled.button`
   width: 100px;
@@ -11,7 +11,7 @@ const Button = styled.button`
   text-decoration: none;
   color: #12250e;
   border-radius: 5px;
-  background: #f1ddf9;
+  background: #f9dde5;
 `;
 
-export default NumBtn;
+export default CalBtn;

@@ -1,9 +1,18 @@
 import React from "react";
 
-const Result = props => (
-  <div>
-    Result: <span>{props.result}</span>
-  </div>
+import styled from "@emotion/styled";
+
+const Result = (props) => (
+  <Wrapper>
+    <span>{props.result}</span>
+  </Wrapper>
 );
+
+const Wrapper = styled.div`
+  text-align: center;
+  margin: 5px;
+  border-radius: 5px;
+  border: solid 1px black;
+`;
 
 export default Result;
