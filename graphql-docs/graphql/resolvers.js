@@ -77,6 +77,20 @@ module.exports = {
       updatedAt: post.updatedAt.toISOString(),
     };
   },
+  user: async function (args, req) {
+    if (!req.isAuth) {
+      const error = new Error({ message: "Not authenticated" });
+      error.code = 401;
+      throw error;
+    }
+    const user = await User.findById(req.userId);
+    if (!user) {
+      const error = new Error("User not found.");
+      error.code = 401;
+      throw error;
+    }
+    return { ...user._doc, _id: user._id.toString() };
+  },
   createUser: async function ({ userInput }, req) {
     //   const email = args.userInput.email;
     const errors = [];
@@ -222,5 +236,22 @@ module.exports = {
     user.posts.pull(id);
     await user.save();
     return true;
+  },
+  updateStatus: async function ({ status }, req) {
+    if (!req.isAuth) {
+      const error = new Error({ message: "Not authenticated" });
+      error.code = 401;
+      throw error;
+    }
+    const user = await User.findById(req.userId);
+    if (!user) {
+      const error = new Error("User not found.");
+      error.code = 401;
+      throw error;
+    }
+    user.status = status;
+    user.save();
+    console.log(user._doc);
+    return { ...user._doc, _id: user._id.toString() };
   },
 };
