@@ -118,7 +118,7 @@ const Hero = props => {
           }
 
           h1 {
-            max-width: 80%;
+            max-width: 95%;
             font-size: ${`calc(${theme.hero.h1.size} * 1.5)`};
           }
 
