@@ -7,7 +7,7 @@ import { FaUser } from "react-icons/fa/";
 import { FaTag } from "react-icons/fa/";
 
 const Meta = props => {
-  const { prefix, author: authorName, category, theme } = props;
+  const { prefix, category, theme } = props;
 
   return (
     <p className="meta">
@@ -16,7 +16,7 @@ const Meta = props => {
       </span>
       <span>
         <FaUser size={18} />
-        <Link to={`/about/`}>{authorName}</Link>
+        <Link to={`/about/`}>Kudoa</Link>
       </span>
       {category && (
         <span>
@@ -57,7 +57,6 @@ const Meta = props => {
 
 Meta.propTypes = {
   prefix: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
   category: PropTypes.string,
   theme: PropTypes.object.isRequired
 };

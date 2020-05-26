@@ -1,8 +1,6 @@
 ---
 title: Web技術の基本とその仕組み
 category: "web"
-cover: ../cover-images/web-image.jpeg
-author: Kudoa
 ---
 
 私たちは、毎日のようにスマートフォンやパソコンでホームページを見ます。  
