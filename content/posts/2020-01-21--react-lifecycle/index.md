@@ -1,8 +1,6 @@
 ---
 title: React.jsのライフサイクルメソッドについて
 category: "reactjs"
-cover: ../cover-images/react-image.png
-author: Kudoa
 ---
 
 ## はじめに

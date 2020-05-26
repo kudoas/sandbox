@@ -1,8 +1,6 @@
 ---
 title: node.jsでのstreamとbufferについて
 category: "nodejs"
-cover: ../cover-images/web-image.jpeg
-author: Kudoa
 ---
 
 nodejsでの重要な概念である**stream**と**buffer**についてのメモ  
@@ -83,7 +81,7 @@ server.listen(3000);
 
 formに`hoge`と入力すると以下の内容がコンソールに出力される
 
-```txt
+```text
 chuck <Buffer 6d 65 73 73 61 67 65 3d 68 6f 67 65>
 parsedBody message=hoge
 ```

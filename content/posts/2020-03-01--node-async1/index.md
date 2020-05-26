@@ -1,8 +1,6 @@
 ---
 title: 非同期処理でハマったこと
 category: "nodejs"
-cover: ../cover-images/web-image.jpeg
-author: Kudoa
 ---
 
 JavaSctipt特有の非同期通信メモ

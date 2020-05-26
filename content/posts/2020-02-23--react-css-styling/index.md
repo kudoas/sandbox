@@ -1,8 +1,6 @@
 ---
 title: React Componentでのスタイリングの紹介
 category: "reactjs"
-cover: ../cover-images/react-image.png
-author: Kudoa
 ---
 
 ## はじめに
