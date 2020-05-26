@@ -1,8 +1,6 @@
 ---
 title: chromeで表示したHTMLにCSSが反映されないときの対処法
 category: "chrome"
-cover: ../cover-images/web-image.jpeg
-author: Kudoa
 ---
 
 Chrome上でWebデザインをいじっている時にCSSを変更しても反映されないときのメモ
