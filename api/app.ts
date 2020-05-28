@@ -5,14 +5,37 @@ import { NextFunction, Request, Response } from "express";
 import * as bodyParser from "body-parser";
 import * as mongoose from "mongoose";
 import * as dotenv from "dotenv";
+import * as multer from "multer";
 
 import { router } from "./routes/feed";
 
 const app: express.Express = express();
 dotenv.config();
 
+const fileStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "images");
+  },
+  filename: (req, file, cb) => {
+    cb(null, new Date().toISOString() + "-" + file.originalname);
+  },
+});
+
+const fileFilter = (req: any, file: any, cb: any) => {
+  if (
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/jpg" ||
+    file.mimetype === "image/jpeg"
+  ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
 // app.use(bodyParser.urlencoded()); // x-www-form-urlencoded <form>
 app.use(bodyParser.json()); //application/json
+app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).single("image"));
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 app.use((req: Request, res: Response, next: NextFunction) => {
