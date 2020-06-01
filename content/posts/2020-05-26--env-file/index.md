@@ -27,7 +27,7 @@ dotenv.config();
 
 以下の例はMongooseを利用したMongoDBとの接続方法について。
 
-### .env file
+### .envファイル
 
 ```bash
 MONGO_DB_URL = "DB_URL"
