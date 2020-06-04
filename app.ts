@@ -39,4 +39,4 @@ app.get("/", (req: Request, res: Response, next: NextFunction) => {
   ]);
 });
 
-app.listen(8000 || process.env.PORT);
+app.listen(process.env.PORT || 8000);
