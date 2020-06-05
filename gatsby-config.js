@@ -235,14 +235,11 @@ module.exports = {
               {
                 allMarkdownRemark(
                   limit: 1000,
-                  sort: { order: DESC, fields: [fields___prefix] },
+                  sort: { fields: [frontmatter___createdAt], order: DESC },
                   filter: {
                     fields: {
                       prefix: { ne: null },
                       slug: { ne: null }
-                    },
-                    frontmatter: {
-                      author: { ne: null }
                     }
                   }
                 ) {
