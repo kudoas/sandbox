@@ -15,7 +15,8 @@ const Item = props => {
       fields: { slug, prefix },
       frontmatter: {
         title,
-        category
+        category,
+        createdAt
         // author
         // cover: {
         //   children: [{ fluid }]
@@ -24,6 +25,7 @@ const Item = props => {
     }
   } = props;
 
+  console.log(JSON.stringify(props));
   return (
     <React.Fragment>
       <li>
@@ -36,7 +38,7 @@ const Item = props => {
           </h1>
           <p className="meta">
             <span>
-              <FaCalendar size={18} /> {prefix}
+              <FaCalendar size={18} /> {createdAt}
             </span>
             {/* <span>
               <FaUser size={18} /> {author}

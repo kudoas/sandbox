@@ -1,6 +1,7 @@
 ---
 title: React Componentでのスタイリングの紹介
 category: "reactjs"
+createdAt: "2020-02-23"
 ---
 
 ## はじめに
