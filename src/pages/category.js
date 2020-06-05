@@ -99,16 +99,7 @@ export const query = graphql`
           frontmatter {
             title
             category
-            author
-            cover {
-              children {
-                ... on ImageSharp {
-                  fluid(maxWidth: 800, maxHeight: 360) {
-                    ...GatsbyImageSharpFluid_withWebp
-                  }
-                }
-              }
-            }
+            createdAt
           }
         }
       }

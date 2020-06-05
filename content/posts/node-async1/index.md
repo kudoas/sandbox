@@ -1,6 +1,7 @@
 ---
 title: 非同期処理でハマったこと
 category: "nodejs"
+createdAt: "2020-03-01"
 ---
 
 JavaSctipt特有の非同期通信メモ

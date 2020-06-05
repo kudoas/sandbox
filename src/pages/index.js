@@ -47,7 +47,6 @@ class IndexPage extends React.Component {
         </ThemeContext.Consumer>
 
         <hr ref={this.separator} />
-
         <ThemeContext.Consumer>
           {theme => <Blog posts={posts} theme={theme} />}
         </ThemeContext.Consumer>
@@ -75,29 +74,19 @@ export default IndexPage;
 export const query = graphql`
   query IndexQuery {
     posts: allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "//posts/[0-9]+.*--/" } }
-      sort: { fields: [fields___prefix], order: DESC }
+      filter: { fileAbsolutePath: { regex: "//posts/" } }
+      sort: { fields: [frontmatter___createdAt], order: DESC }
     ) {
       edges {
         node {
           excerpt
           fields {
             slug
-            prefix
           }
           frontmatter {
             title
             category
-            author
-            cover {
-              children {
-                ... on ImageSharp {
-                  fluid(maxWidth: 800, maxHeight: 360) {
-                    ...GatsbyImageSharpFluid_withWebp
-                  }
-                }
-              }
-            }
+            createdAt
           }
         }
       }

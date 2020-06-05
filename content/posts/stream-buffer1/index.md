@@ -1,6 +1,7 @@
 ---
 title: node.jsでのstreamとbufferについて
 category: "nodejs"
+createdAt: "2020-02-20"
 ---
 
 nodejsでの重要な概念である**stream**と**buffer**についてのメモ  

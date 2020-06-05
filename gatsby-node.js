@@ -44,18 +44,21 @@ exports.createPages = ({ graphql, actions }) => {
     const categoryTemplate = path.resolve("./src/templates/CategoryTemplate.js");
 
     // Do not create draft post files in production.
-    let activeEnv = process.env.ACTIVE_ENV || process.env.NODE_ENV || "development"
-    console.log(`Using environment config: '${activeEnv}'`)
+    let activeEnv = process.env.ACTIVE_ENV || process.env.NODE_ENV || "development";
+    console.log(`Using environment config: '${activeEnv}'`);
     let filters = `filter: { fields: { slug: { ne: null } } }`;
-    if (activeEnv == "production") filters = `filter: { fields: { slug: { ne: null } , prefix: { ne: null } } }`
+    if (activeEnv == "production")
+      filters = `filter: { fields: { slug: { ne: null } , prefix: { ne: null } } }`;
 
     resolve(
       graphql(
         `
           {
             allMarkdownRemark(
-              ` + filters + `
-              sort: { fields: [fields___prefix], order: DESC }
+              ` +
+          filters +
+          `
+              sort: { fields: [frontmatter___createdAt], order: DESC }
               limit: 1000
             ) {
               edges {
@@ -68,6 +71,7 @@ exports.createPages = ({ graphql, actions }) => {
                   }
                   frontmatter {
                     title
+                    createdAt
                     category
                   }
                 }

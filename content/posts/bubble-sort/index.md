@@ -1,8 +1,7 @@
 ---
 title: バブルソート
 category: "algorithm"
-cover: ../cover-images/web-image.jpeg
-author: Kudoa
+createdAt: "2020-06-01"
 ---
 
 面接でのコーディング試験で配列をソートしてくれという課題がでた。
@@ -20,11 +19,11 @@ author: Kudoa
 ```python
 def bubble_sort(A):
   	n = len(A)
-		for _ in range(n):
-      	for i in range(n-1):
-          	if A[i] > A[i+1]:
-              	A[i], A[i+1] = A[i+1], A[i]
-    return A
+	for _ in range(n):
+		for i in range(n-1):
+			if A[i] > A[i+1]:
+				A[i], A[i+1] = A[i+1], A[i]
+  	return A
 
 # example
 A = [2,3,4,1,5]

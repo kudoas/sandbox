@@ -10,11 +10,11 @@ const NextPrev = props => {
     theme,
     next: {
       fields: { prefix: nextPrefix, slug: nextSlug } = {},
-      frontmatter: { title: nextTitle } = {}
+      frontmatter: { title: nextTitle, createdAt: nextCreatedAt } = {}
     } = {},
     prev: {
       fields: { prefix: prevPrefix, slug: prevSlug } = {},
-      frontmatter: { title: prevTitle } = {}
+      frontmatter: { title: prevTitle, createdAt: prevCreatedAt } = {}
     } = {}
   } = props;
 
@@ -25,7 +25,7 @@ const NextPrev = props => {
           <Link to={nextSlug}>
             <FaArrowRight />
             <h4>
-              {nextTitle} <time>{nextPrefix} </time>
+              {nextTitle} <time>{nextCreatedAt}</time>
             </h4>
           </Link>
         )}
@@ -33,7 +33,7 @@ const NextPrev = props => {
           <Link to={prevSlug}>
             <FaArrowLeft />
             <h4>
-              {prevTitle} <time>{prevPrefix}</time>
+              {prevTitle} <time>{prevCreatedAt}</time>
             </h4>
           </Link>
         )}
