@@ -1,4 +1,5 @@
 import * as bodyParser from "body-parser";
+import * as cors from "cors";
 import * as dotenv from "dotenv";
 import * as express from "express";
 import { NextFunction, Request, Response } from "express";
@@ -10,22 +11,26 @@ dotenv.config();
 
 const app: express.Express = express();
 
+// body parsing middleware
 app.use(bodyParser.json());
-app.use((req: Request, res: Response, next: NextFunction): void => {
-  // CORS: development localhost
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  next();
-});
 
-interface error {
-  statusCode?: number;
-  message?: string;
-}
+// cors
+const corsOption = {
+  origin: "*",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+};
+app.use(cors(corsOption));
+// app.use((req: Request, res: Response, next: NextFunction): void => {
+//   // CORS: development localhost
+//   res.setHeader("Access-Control-Allow-Origin", "*");
+//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
+//   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+//   next();
+// });
 
-let error: error;
-
+// routes
 app.get("/posts", (req: Request, res: Response, next: NextFunction): void => {
   Post.find()
     .then((posts) => {
@@ -51,7 +56,6 @@ app.post("/post", (req: Request, res: Response, next: NextFunction): void => {
   post
     .save()
     .then((result) => {
-      console.log(result);
       // Content-type: application/json
       res.status(201).json({
         message: "Post created successfully",
@@ -63,9 +67,10 @@ app.post("/post", (req: Request, res: Response, next: NextFunction): void => {
     });
 });
 
+// build server
 mongoose
   .connect(process.env.MONGO_DB_URL)
-  .then((result) => {
+  .then(() => {
     app.listen(process.env.PORT || 8080);
     console.log("connected!");
   })
