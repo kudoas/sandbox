@@ -17,7 +17,6 @@ const Item = props => {
         title,
         category,
         createdAt
-        // author
         // cover: {
         //   children: [{ fluid }]
         // }
@@ -40,9 +39,6 @@ const Item = props => {
             <span>
               <FaCalendar size={18} /> {createdAt}
             </span>
-            {/* <span>
-              <FaUser size={18} /> {author}
-            </span> */}
             {category && (
               <span>
                 <FaTag size={18} /> {category}
@@ -191,7 +187,7 @@ const Item = props => {
             top: ${`calc(${theme.space.default} * -2.75)`};
           }
           h1 {
-            font-size: 2.5em;
+            font-size: 1.5em;
             padding: ${`calc(${theme.space.default} * 1.2) calc(${theme.space.default} * 2) 0`};
           }
           .meta {
@@ -215,24 +211,9 @@ const Item = props => {
               h1 {
                 color: ${theme.blog.h1.hoverColor};
               }
-              :global(.arrow) {
-                opacity: 1;
-                stroke: ${theme.color.special.attention};
-                transform: translateX(0);
-              }
             }
             :global(.gatsby-image-wrapper) {
               transition: all ${theme.time.duration.default};
-            }
-            :global(.arrow) {
-              display: inline-block;
-              fill: ${theme.color.special.attention};
-              stroke: ${theme.color.special.attention};
-              stroke-width: 40;
-              stroke-linecap: round;
-              opacity: 0;
-              transition: all 0.5s;
-              transform: translateX(-50%);
             }
           }
         }

@@ -108,7 +108,7 @@ const Bodytext = props => {
           }
           :global(img) {
             text-align: center;
-            max-width: 100%;
+            max-width: 70%;
             box-shadow: 0px 0px 5px 1px #eee;
             border-radius: 3px;
             display: block;

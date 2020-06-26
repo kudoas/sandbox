@@ -9,7 +9,7 @@ const Blog = props => {
   return (
     <React.Fragment>
       <main className="main">
-        <ul>
+        <ul className="grid">
           {posts.map(post => {
             const {
               node,
@@ -43,6 +43,12 @@ const Blog = props => {
           }
         }
         @above desktop {
+          .main {
+            .grid {
+              display: grid;
+              grid-template-columns: 33% 33% 33%;
+            }
+          }
           ul {
             max-width: ${theme.text.maxWidth.desktop};
           }
