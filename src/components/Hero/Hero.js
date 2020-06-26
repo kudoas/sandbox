@@ -7,7 +7,8 @@ const Hero = props => {
   return (
     <React.Fragment>
       <section className="hero">
-        <h1>Welcome to Daichi Kudo's Portfolio Site</h1>
+        <h1>Kudoaの自習室</h1>
+        <p>日々学習したことや知見を共有するためのブログです</p>
       </section>
 
       {/* --- STYLES --- */}
@@ -25,6 +26,11 @@ const Hero = props => {
           height: 100px;
           padding: ${theme.space.inset.l};
           padding-top: ${theme.header.height.homepage};
+        }
+
+        p {
+          font-size: 1.5em;
+          color: white;
         }
 
         h1 {
@@ -53,45 +59,6 @@ const Hero = props => {
           }
         }
 
-        button {
-          background: ${theme.background.color.brand};
-          border: 0;
-          border-radius: 50%;
-          font-size: ${theme.font.size.m};
-          padding: ${theme.space.s} ${theme.space.m};
-          cursor: pointer;
-          width: ${theme.space.xl};
-          height: ${theme.space.xl};
-
-          &:focus {
-            outline-style: none;
-            background: ${theme.color.brand.primary.active};
-          }
-
-          :global(svg) {
-            position: relative;
-            top: 5px;
-            fill: ${theme.color.neutral.white};
-            stroke-width: 40;
-            stroke: ${theme.color.neutral.white};
-            animation-duration: ${theme.time.duration.long};
-            animation-name: buttonIconMove;
-            animation-iteration-count: infinite;
-          }
-        }
-
-        @keyframes buttonIconMove {
-          0% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-10px);
-          }
-          100% {
-            transform: translateY(0);
-          }
-        }
-
         @from-width tablet {
           .hero {
             background-image: url(${backgrounds.tablet});
@@ -101,24 +68,19 @@ const Hero = props => {
             max-width: 90%;
             font-size: ${`calc(${theme.hero.h1.size} * 1.3)`};
           }
-
-          button {
-            font-size: ${theme.font.size.l};
-          }
         }
 
         @from-width desktop {
           .hero {
             background-image: url(${backgrounds.desktop});
           }
-
           h1 {
             max-width: 95%;
-            font-size: ${`calc(${theme.hero.h1.size} * 1.5)`};
+            font-size: 4.2em;
           }
-
-          button {
-            font-size: ${theme.font.size.xl};
+          p {
+            font-size: 1.5em;
+            color: white;
           }
         }
       `}</style>

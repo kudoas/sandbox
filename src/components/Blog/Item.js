@@ -24,7 +24,6 @@ const Item = props => {
     }
   } = props;
 
-  console.log(JSON.stringify(props));
   return (
     <React.Fragment>
       <li>
@@ -59,7 +58,6 @@ const Item = props => {
         li {
           border: 1px solid transparent;
           border-radius: ${theme.size.radius.default};
-          margin: ${`calc(${theme.space.default} * 2) 0 calc(${theme.space.default} * 3)`};
           padding: ${theme.space.inset.s};
           position: relative;
           transition: all ${theme.time.duration.default};
@@ -72,32 +70,6 @@ const Item = props => {
           }
           :global(.gatsby-image-outer-wrapper img) {
             z-index: -1;
-          }
-
-          &::after {
-            border-top: 1px solid ${theme.line.color};
-            content: "";
-            height: 0;
-            position: absolute;
-            bottom: ${`calc(${theme.space.default} * -1.5)`};
-            left: 50%;
-            transform: translateX(-50%);
-            transition: all ${theme.time.duration.default};
-            width: 50%;
-          }
-
-          &:first-child {
-            &::before {
-              border-top: 1px solid ${theme.line.color};
-              content: "";
-              height: 0;
-              position: absolute;
-              top: ${`calc(${theme.space.default} * -1.5)`};
-              left: 50%;
-              transform: translateX(-50%);
-              transition: all ${theme.time.duration.default};
-              width: 50%;
-            }
           }
         }
 
@@ -144,10 +116,6 @@ const Item = props => {
             margin: ${`calc(${theme.space.default} * 3) 0 calc(${theme.space.default} * 4)`};
             padding: ${theme.space.default};
 
-            &::after {
-              bottom: ${`calc(${theme.space.default} * -2)`};
-            }
-
             &:first-child {
               &::before {
                 top: ${`calc(${theme.space.default} * -1.75)`};
@@ -169,18 +137,7 @@ const Item = props => {
         }
         @from-width desktop {
           li {
-            margin: ${`calc(${theme.space.default} * 4) 0 calc(${theme.space.default} * 5)`};
             padding: 0 0 ${`calc(${theme.space.default} * 2)`};
-
-            &::after {
-              bottom: ${`calc(${theme.space.default} * -1.5)`};
-            }
-
-            &:first-child {
-              &::before {
-                top: ${`calc(${theme.space.default} * -2.75)`};
-              }
-            }
           }
 
           :global(.blogItemLink:first-child) > li::before {
@@ -200,11 +157,8 @@ const Item = props => {
           li {
             &:hover {
               border: 1px solid ${theme.line.color};
-              box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.03);
+              box-shadow: rgb(163, 177, 198) 1px 1px 5px, rgb(255, 255, 255) -1px -1px 5px;
 
-              &:after {
-                bottom: ${`calc(${theme.space.default} * -2.5)`};
-              }
               :global(.gatsby-image-wrapper) {
                 transform: scale(1.1);
               }
