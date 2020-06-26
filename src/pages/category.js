@@ -11,7 +11,7 @@ import Seo from "../components/Seo";
 const CategoryPage = props => {
   const {
     data: {
-      posts: { edges: posts },
+      posts: { edges: posts = [] },
       site: {
         siteMetadata: { facebook }
       }
@@ -86,7 +86,7 @@ export default CategoryPage;
 export const query = graphql`
   query PostsQuery {
     posts: allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "//posts/[0-9]+.*--/" } }
+      filter: { fileAbsolutePath: { regex: "//posts/" } }
       sort: { fields: [fields___prefix], order: DESC }
     ) {
       edges {

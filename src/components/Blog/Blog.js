@@ -9,7 +9,8 @@ const Blog = props => {
   return (
     <React.Fragment>
       <main className="main">
-        <ul>
+        <h2>ブログ一覧</h2>
+        <ul className="grid">
           {posts.map(post => {
             const {
               node,
@@ -26,6 +27,11 @@ const Blog = props => {
       <style jsx>{`
         .main {
           padding: 0 ${theme.space.inset.default};
+          h2 {
+            text-align: center;
+            font-size: 2.1em;
+            margin-top: 50px;
+          }
         }
 
         ul {
@@ -43,6 +49,12 @@ const Blog = props => {
           }
         }
         @above desktop {
+          .main {
+            .grid {
+              display: grid;
+              grid-template-columns: 33% 33% 33%;
+            }
+          }
           ul {
             max-width: ${theme.text.maxWidth.desktop};
           }

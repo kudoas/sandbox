@@ -37,16 +37,7 @@ class Header extends React.Component {
       <React.Fragment>
         <header className={`header ${this.getHeaderSize()}`}>
           <Link to="/" className="logoType">
-            <div className="logo">
-              <img
-                src={config.gravatarImgMd5 == "" ? kudoa : config.gravatarImgMd5}
-                alt={config.siteTitle}
-              />
-            </div>
-            <div className="type">
-              <h1>{config.headerTitle}</h1>
-              <h2>{config.headerSubTitle}</h2>
-            </div>
+            <div>Kudoaの自習室</div>
           </Link>
           <FontLoadedContext.Consumer>
             {loaded => (

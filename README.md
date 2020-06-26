@@ -1,8 +1,8 @@
-# Portfolio Site
+# My Blog
 
-個人ブログと過去に開発したサービス、アプリケーションを紹介するサイトです。日々の知見をアウトプットする場が欲しいと感じ、作成しました。
+日々学習したことや知見について共有するためのブログです。
 
-![portfolio](https://kudoa-image-store.s3-ap-northeast-1.amazonaws.com/basic-web/portfolio-site.png)
+![portfolio](https://user-images.githubusercontent.com/45157831/85885990-35d77b80-b820-11ea-973c-e854be618523.png)
 
 ## 使用技術
 

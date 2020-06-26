@@ -92,7 +92,6 @@ class Layout extends React.Component {
                   }
                   frontmatter {
                     title
-                    menuTitle
                   }
                 }
               }
