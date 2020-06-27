@@ -138,6 +138,8 @@ const Item = props => {
         @from-width desktop {
           li {
             padding: 0 0 ${`calc(${theme.space.default} * 2)`};
+            margin: 20px 10px;
+            border: 1px solid #eee;
           }
 
           :global(.blogItemLink:first-child) > li::before {

@@ -2,5 +2,5 @@
 title: footnote
 ---
 
-* © Copyright 2020 [KudoLog](https://github.com/Kudoas). All rights reserved.
-
+* © Copyright 2020 KudoLog. All rights reserved.
+* [Source Code](https://github.com/Kudoas/portofolio-site)

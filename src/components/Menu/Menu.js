@@ -4,10 +4,7 @@ require("core-js/fn/array/from");
 
 import { FaHome } from "react-icons/fa/";
 // import { FaSearch } from "react-icons/fa/";
-import { FaEnvelope } from "react-icons/fa/";
-import { FaTag } from "react-icons/fa/";
-import { FaUser } from "react-icons/fa/";
-import { FaEgg } from "react-icons/fa/";
+import { FaEnvelope, FaTag, FaUser, FaEgg, FaTwitter } from "react-icons/fa/";
 import { GoMarkGithub } from "react-icons/go";
 
 import Item from "./Item";
@@ -153,6 +150,11 @@ class Menu extends React.Component {
             {this.items.map(item => (
               <Item item={item} key={item.label} icon={item.icon} theme={theme} />
             ))}
+            <OuterLink
+              item={{ to: "https://twitter.com/kudoadd", label: "Twitter", icon: FaTwitter }}
+              key="Twitter"
+              theme={theme}
+            />
             <OuterLink
               item={{ to: "https://github.com/Kudoas", label: "GitHub", icon: GoMarkGithub }}
               key="GitHub"
