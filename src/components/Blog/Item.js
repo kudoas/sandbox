@@ -56,12 +56,11 @@ const Item = props => {
 
         li {
           border: 1px solid #eee;
+          padding: 0 0 20px;
           border-radius: ${theme.size.radius.default};
-          padding: ${theme.space.inset.s};
           position: relative;
           transition: all ${theme.time.duration.default};
           margin: 20px 10px;
-
           :global(.gatsby-image-outer-wrapper) {
             border-radius: ${theme.size.radius.default};
             border: 1px solid ${theme.line.color};
@@ -108,12 +107,13 @@ const Item = props => {
           line-height: 1.5;
           padding: 0 ${theme.space.s};
           text-remove-gap: both;
+          margin-bottom: 10px;
         }
 
         @from-width tablet {
           li {
+            padding: 0 0 20px;
             margin: 20px 10px;
-            padding: ${theme.space.default};
             border: 1px solid #eee;
 
             &:first-child {
@@ -124,7 +124,7 @@ const Item = props => {
           }
 
           h1 {
-            font-size: ${`calc(${theme.blog.h1.size} * 1.2)`};
+            font-size: 1.5em;
             padding: ${`calc(${theme.space.default} * 1.5) ${theme.space.default} 0`};
             transition: all 0.5s;
           }
@@ -133,11 +133,12 @@ const Item = props => {
           }
           p {
             padding: 0 ${theme.space.default};
+            margin-bottom: 10px;
           }
         }
         @from-width desktop {
           li {
-            padding: 0 0 ${`calc(${theme.space.default} * 2)`};
+            padding: 0 0 20px;
             margin: 20px 10px;
             border: 1px solid #eee;
           }
