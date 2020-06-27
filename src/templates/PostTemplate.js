@@ -64,6 +64,7 @@ export const postQuery = graphql`
         category
         createdAt
       }
+      timeToRead
     }
     authornote: markdownRemark(fileAbsolutePath: { regex: "/author/" }) {
       id
