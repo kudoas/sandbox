@@ -4,6 +4,7 @@
 
 日々学習したことや知見について共有するためのブログです。
 
+[https://www.kudolog.net/](https://www.kudolog.net/)
 ![portfolio](https://user-images.githubusercontent.com/45157831/85885990-35d77b80-b820-11ea-973c-e854be618523.png)
 
 ## 使用技術

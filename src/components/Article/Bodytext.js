@@ -98,6 +98,7 @@ const Bodytext = props => {
           :global(blockquote) {
             border-left: 4px solid #dddddd;
             padding: 0 15px;
+            margin-bottom: 15px;
             color: #777777;
           }
           :global(blockquote > :first-child) {
@@ -112,7 +113,7 @@ const Bodytext = props => {
             box-shadow: 0px 0px 5px 1px #eee;
             border-radius: 3px;
             display: block;
-            margin: auto;
+            margin: 20px auto;
           }
 
           :global(code, tt) {
