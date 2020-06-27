@@ -2,6 +2,7 @@
 title: React.jsの特徴とJavaScriptの頻出構文
 category: "reactjs" 
 createdAt: "2020-01-20"
+cover: background.jpeg
 ---
 
 React.jsにおける特徴と非常によく使う文法事項のメモ
