@@ -1,8 +1,7 @@
 import { FaArrowRight } from "react-icons/fa/";
 import { FaCalendar } from "react-icons/fa/";
 import { FaTag } from "react-icons/fa/";
-// import { FaUser } from "react-icons/fa/";
-// import Img from "gatsby-image";
+import Img from "gatsby-image";
 import { Link } from "gatsby";
 import PropTypes from "prop-types";
 import React from "react";
@@ -16,10 +15,10 @@ const Item = props => {
       frontmatter: {
         title,
         category,
-        createdAt
-        // cover: {
-        //   children: [{ fluid }]
-        // }
+        createdAt,
+        cover: {
+          children: [{ fluid }]
+        }
       }
     }
   } = props;
@@ -28,9 +27,9 @@ const Item = props => {
     <React.Fragment>
       <li>
         <Link to={slug} key={slug} className="link">
-          {/* <div className="gatsby-image-outer-wrapper">
+          <div className="gatsby-image-outer-wrapper">
             <Img fluid={fluid} />
-          </div> */}
+          </div>
           <h1>
             {title} <FaArrowRight className="arrow" />
           </h1>
@@ -56,12 +55,12 @@ const Item = props => {
         }
 
         li {
-          border: 1px solid transparent;
+          border: 1px solid #eee;
           border-radius: ${theme.size.radius.default};
           padding: ${theme.space.inset.s};
           position: relative;
           transition: all ${theme.time.duration.default};
-          background: transparent;
+          margin: 20px 10px;
 
           :global(.gatsby-image-outer-wrapper) {
             border-radius: ${theme.size.radius.default};
@@ -113,8 +112,9 @@ const Item = props => {
 
         @from-width tablet {
           li {
-            margin: ${`calc(${theme.space.default} * 3) 0 calc(${theme.space.default} * 4)`};
+            margin: 20px 10px;
             padding: ${theme.space.default};
+            border: 1px solid #eee;
 
             &:first-child {
               &::before {

@@ -2,6 +2,7 @@
 title: バブルソート
 category: "algorithm"
 createdAt: "2020-06-01"
+cover: background.jpeg
 ---
 
 面接でのコーディング試験で配列をソートしてくれという課題がでた。

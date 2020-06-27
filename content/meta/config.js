@@ -1,7 +1,7 @@
 module.exports = {
   siteTitle: "KudoLog", // <title>
   shortSiteTitle: "KudoLog", // <title> ending for posts and pages
-  siteDescription: "KudoLog is created by Kudoa",
+  siteDescription: "KudoLog is technology blog created by Kudoa",
   siteUrl: "https://www.kudolog.net",
   pathPrefix: "",
   siteImage: "preview.jpg",

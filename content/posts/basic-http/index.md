@@ -2,6 +2,7 @@
 title: Web技術の基本とその仕組み
 category: "web"
 createdAt: "2020-02-19"
+cover: background.jpeg
 ---
 
 私たちは、毎日のようにスマートフォンやパソコンでホームページを見ます。  
