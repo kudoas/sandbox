@@ -9,9 +9,8 @@
 
 ## 使用技術
 
-- Gatsby
-- React.js
+- Gatsby.js
 - GraphQL
+- Facebook API
+- S3
 - Netlify：Hosting, Contact Form
-- Facebook API：ブログのコメント
-- S3：メディアストレージ
