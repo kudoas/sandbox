@@ -59,7 +59,7 @@ const Item = props => {
           transition: all ${theme.time.duration.default};
           margin: 20px 10px;
           :global(.gatsby-image-outer-wrapper) {
-            border-radius: ${theme.size.radius.default};
+            border-radius: ${theme.size.radius.default} ${theme.size.radius.default} 0px 0px;
             border: 1px solid ${theme.line.color};
             overflow: hidden;
           }

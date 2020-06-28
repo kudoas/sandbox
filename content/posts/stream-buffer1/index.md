@@ -2,7 +2,7 @@
 title: node.jsでのstreamとbufferについて
 category: "nodejs"
 createdAt: "2020-02-20"
-cover: background.jpeg
+cover: background.png
 ---
 
 nodejsでの重要な概念である**stream**と**buffer**についてのメモ  
