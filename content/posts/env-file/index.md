@@ -9,13 +9,13 @@ Node.jsでAPIを作っていた時にProduction KeyやDBのパスワードをハ
 
 ## dotenvの使い方
 
-yarnで`dotenv`をインストールするだけで使用できる。
+`dotenv`をインストールするだけで使用できる。
 
 ```bash
 $ yarn add dotenv
 ```
 
-あとはメインのファイルで以下のように使用する。
+そしてメインのファイルで以下のように使用する。
 
 ```typescript
 import * as dotenv from "dotenv";
@@ -23,9 +23,19 @@ import * as dotenv from "dotenv";
 dotenv.config();
 ```
 
-たったのこれだけ。こうすることで開発環境では.envファイルから`process.env`経由で環境変数が読み込まれるし、運用環境ではホスティング先で環境変数を設定すればよい。
+たったのこれだけでOK。こうすることで開発環境では.envファイルから`process.env`経由で環境変数が読み込まれ、本番環境ではホスティング先で環境変数を設定すればよい。
+
+## 実装例
 
 以下の例はMongooseを利用したMongoDBとの接続方法について。
+
+### フォルダ構造
+
+```reStructuredText
+root
+├── index.ts
+└── .envt
+```
 
 ### .env
 
@@ -49,5 +59,5 @@ mongoose
   .catch((err) => console.log(err));
 ```
 
-TypeScriptだとこのような感じで使用できる。
-pushする際は`.env`ファイルをignoreすることをお忘れなく。
+
+GitHubにpushする際は`.env`をignoreすることをお忘れなく。

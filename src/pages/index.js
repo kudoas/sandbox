@@ -77,7 +77,7 @@ export const query = graphql`
     ) {
       edges {
         node {
-          excerpt
+          excerpt(truncate: true)
           fields {
             slug
           }
@@ -88,7 +88,7 @@ export const query = graphql`
             cover {
               children {
                 ... on ImageSharp {
-                  fluid(maxWidth: 800, maxHeight: 360) {
+                  fluid(maxWidth: 800, maxHeight: 400) {
                     ...GatsbyImageSharpFluid_withWebp
                   }
                 }

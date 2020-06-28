@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Img from "gatsby-image";
 import "prismjs/themes/prism-okaidia.css";
 
 import asyncComponent from "../AsyncComponent";
 import Headline from "../Article/Headline";
 import Bodytext from "../Article/Bodytext";
 import Meta from "./Meta";
-import Author from "./Author";
 import Comments from "./Comments";
 import NextPrev from "./NextPrev";
 
@@ -26,7 +26,15 @@ const Post = props => {
     post: {
       html,
       fields: { prefix, slug },
-      frontmatter: { title, author, category, createdAt }
+      frontmatter: {
+        title,
+        author,
+        category,
+        createdAt,
+        cover: {
+          children: [{ fluid }]
+        }
+      }
     },
     authornote,
     facebook,
@@ -40,6 +48,9 @@ const Post = props => {
       <header>
         <Headline title={title} theme={theme} />
         <Meta prefix={createdAt} author={author} category={category} theme={theme} />
+        <div className="gatsby-image-outer-wrapper">
+          <Img fluid={fluid} />
+        </div>
       </header>
       <Bodytext html={html} theme={theme} />
       <footer>
@@ -47,6 +58,17 @@ const Post = props => {
         <NextPrev next={nextPost} prev={prevPost} theme={theme} />
         <Comments slug={slug} facebook={facebook} theme={theme} />
       </footer>
+      <style jsx>{`
+        .gatsby-image-outer-wrapper {
+          margin: 10px 15px;
+          border: solid 1px #eee;
+          picture {
+            img {
+              border-radius: 10px;
+            }
+          }
+        }
+      `}</style>
     </React.Fragment>
   );
 };
