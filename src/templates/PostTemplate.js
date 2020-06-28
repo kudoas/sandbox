@@ -63,6 +63,15 @@ export const postQuery = graphql`
         title
         category
         createdAt
+        cover {
+          children {
+            ... on ImageSharp {
+              fluid(maxWidth: 800, maxHeight: 400) {
+                ...GatsbyImageSharpFluid_withWebp
+              }
+            }
+          }
+        }
       }
       timeToRead
     }

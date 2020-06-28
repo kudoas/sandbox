@@ -113,7 +113,7 @@ static fetchAll(cb) {
   }
 ```
 
-### async/await Promise
+### async/await
 
 Promiseのasync/awaitを使った方法。これを使うと非同期処理を同期処理っぽく書くことができる。
 
@@ -122,7 +122,7 @@ Promiseのasync/awaitを使った方法。これを使うと非同期処理を�
 static async fetchAll() {
 	const p = path.join(rootDir, "data", "products.json");
   // awaitで処理が終わるまで待ってもらう
-	let data = await fs.readFile(p);
+	const data = await fs.readFile(p);
 	return JSON.parse(data);
 }
 ```

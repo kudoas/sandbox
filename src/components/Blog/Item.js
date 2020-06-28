@@ -1,4 +1,3 @@
-import { FaArrowRight } from "react-icons/fa/";
 import { FaCalendar } from "react-icons/fa/";
 import { FaTag } from "react-icons/fa/";
 import Img from "gatsby-image";
@@ -30,9 +29,7 @@ const Item = props => {
           <div className="gatsby-image-outer-wrapper">
             <Img fluid={fluid} />
           </div>
-          <h1>
-            {title} <FaArrowRight className="arrow" />
-          </h1>
+          <h1>{title}</h1>
           <p className="meta">
             <span>
               <FaCalendar size={18} /> {createdAt}

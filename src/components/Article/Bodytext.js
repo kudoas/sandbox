@@ -27,11 +27,11 @@ const Bodytext = props => {
 
           :global(h2) {
             line-height: ${theme.font.lineHeight.s};
-            font-size: ${theme.font.size.l};
+            font-size: 1.5em;
           }
 
           :global(h3) {
-            font-size: ${theme.font.size.m};
+            font-size: 1.3em;
             line-height: ${theme.font.lineHeight.m};
           }
 
@@ -72,6 +72,7 @@ const Bodytext = props => {
 
           // table design
           :global(table) {
+            margin: 10px;
             border-spacing: 0;
             box-shadow: 0px 0px 5px 1px #eee;
             width: 100%;
@@ -98,7 +99,7 @@ const Bodytext = props => {
           :global(blockquote) {
             border-left: 4px solid #dddddd;
             padding: 0 15px;
-            margin-bottom: 15px;
+            margin: 15px;
             color: #777777;
           }
           :global(blockquote > :first-child) {
