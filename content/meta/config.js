@@ -1,14 +1,14 @@
 module.exports = {
-  siteTitle: "KudoLog", // <title>
-  shortSiteTitle: "KudoLog", // <title> ending for posts and pages
-  siteDescription: "KudoLog is technology blog created by Kudoa",
+  siteTitle: "Kudoa's study room", // <title>
+  shortSiteTitle: "Kudoa's study room", // <title> ending for posts and pages
+  siteDescription: "Kudoaの自習室は日々学習したことや知見を共有するためのブログです",
   siteUrl: "https://www.kudolog.net",
   pathPrefix: "",
-  siteImage: "preview.jpg",
+  siteImage: "avator.jpeg",
   siteLanguage: "ja",
 
   /* author */
-  authorName: "Daichi Kudo",
+  authorName: "Kudoa",
   authorTwitterAccount: "kudoadd",
 
   /* info */
