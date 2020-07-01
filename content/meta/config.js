@@ -4,7 +4,7 @@ module.exports = {
   siteDescription: "Kudoaの自習室は日々学習したことや知見を共有するためのブログです",
   siteUrl: "https://www.kudolog.net",
   pathPrefix: "",
-  siteImage: "avator.jpeg",
+  siteImage: "icon.png",
   siteLanguage: "ja",
 
   /* author */
