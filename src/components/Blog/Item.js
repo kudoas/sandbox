@@ -54,12 +54,12 @@ const Item = props => {
         li {
           border: 1px solid #eee;
           padding: 0 0 20px;
-          border-radius: ${theme.size.radius.default};
+          border-radius: 2px;
           position: relative;
           transition: all ${theme.time.duration.default};
           margin: 20px 10px;
           :global(.gatsby-image-outer-wrapper) {
-            border-radius: ${theme.size.radius.default} ${theme.size.radius.default} 0px 0px;
+            border-radius: 1px 1px 0px 0px;
             border: 1px solid ${theme.line.color};
             overflow: hidden;
           }
