@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"runtime"
 )
 
 func for1() {
@@ -27,7 +28,7 @@ func pow(x, n, lim float64) float64 {
 	// // can't use v here, though
 	// return lim
 
-	// recommend!!
+	// golint マジ神！
 	v := math.Pow(x, n)
 	if v < lim {
 		return v
@@ -41,4 +42,32 @@ func sqrt(x float64) string {
 		return sqrt(-x) + "i"
 	}
 	return fmt.Sprint(math.Sqrt(x))
+}
+
+func switch1() {
+	switch os := runtime.GOOS; os {
+	// case 条件が一致すれば自動でbreak
+	case "darwin":
+		fmt.Println("OS X.")
+	case "linux":
+		fmt.Println("Linux.")
+	default:
+		fmt.Printf("%s.", os)
+	}
+}
+
+// deferへ渡した関数の実行を、呼び出し元の関数の終わり(returnする)まで遅延させる
+// 評価はされるが最後に実行する
+func defer1() {
+	defer fmt.Println("world")
+	fmt.Println("hello")
+}
+
+// defer LIFO
+func deferLikeStack() {
+	fmt.Println("counting")
+	for i := 0; i < 10; i++ {
+		defer fmt.Println(i)
+	}
+	fmt.Println("done")
 }

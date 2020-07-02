@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"math"
 )
 
@@ -23,9 +22,4 @@ func Sqrt2(x float64) float64 {
 		lastZ, z = z, z-(z*z-x)/(2*z)
 	}
 	return z
-}
-
-func main() {
-	fmt.Println(Sqrt1(10000))
-	fmt.Println(math.Sqrt(10000))
 }
