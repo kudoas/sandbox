@@ -134,7 +134,32 @@ func mapFunc() {
 	fmt.Println(m["Bell Labs"], m)
 }
 
-func main() {
+// map literals
+func mapLiterals() map[string]Vertex1 {
+	var m = map[string]Vertex1{
+		"Bell Labs": Vertex1{
+			40.68433, -74.39967,
+		},
+		"Google": {
+			37.42202, -122.08408,
+		},
+	}
+
+	// update, create
+	m["Facevook"] = Vertex1{
+		4.4444, -4.4444,
+	}
+	// delete
+	delete(m, "Facevook")
+
+	// is exit
+	_, ok := m["Answer"]
+	fmt.Println(ok)
+
+	return m
+}
+
+func main0() {
 	// pointers()
 	// pointerToStruct()
 	// fmt.Println(v1, p, v2, v3)
@@ -142,4 +167,5 @@ func main() {
 	// slice()
 	// rangeFunc()
 	mapFunc()
+	fmt.Println(mapLiterals())
 }
