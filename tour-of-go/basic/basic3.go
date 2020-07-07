@@ -1,13 +1,27 @@
-package main
+package basic
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
-// pointer 値のメモリアドレス
-func pointers() {
-	i, j := 42, 2701
-	p := &i            // オペランドへのポインタを示す
-	*p = 21            // set i through the pointer
-	fmt.Println(*p, j) // * ポインタの指す先の変数を示す
+// ポインタ 値のメモリアドレス
+func Pointers() {
+	// var p *int
+	// fmt.Println(p)
+	i, j := 42, 32
+	p := &i // & iへのポインタを探すオペランド
+	// 0xc0000140c8 42 32
+	fmt.Println(p, i, j)
+	// * ポインタの指す先の変数(つまりポインタに対して使うオペランド)
+	fmt.Println(*p)
+
+	p = &j
+	// dereferencing
+	*p = *p * 64
+	fmt.Println(j)
+	i = i * 62
+	fmt.Println(i)
 }
 
 // Vertex struct
@@ -16,15 +30,14 @@ type Vertex struct {
 	Y int
 }
 
-func outputVertex() {
+// structのフィールドへは.を使ってアクセスする
+func StructField() {
 	v := Vertex{1, 2}
 	v.X = 4
-	fmt.Println(v.X)
-}
+	fmt.Println(v)
 
-func pointerToStruct() {
-	v := Vertex{1, 2}
-	p := &v
+	// pointerを使ってアクセスもできる
+	p := &v // 0xc00006cf28
 	p.X = 1e9
 	fmt.Println(v)
 }
@@ -36,8 +49,9 @@ var (
 	p  = &Vertex{1, 2} // has type *Vertex
 )
 
+// array, sliceの違い！！
 // array 固定長
-func arrays() {
+func Arrays() {
 	var a [2]string
 	a[0] = "Hello"
 	a[1] = "World"
@@ -48,7 +62,7 @@ func arrays() {
 }
 
 // slice 可変長
-func slice() {
+func Slice() {
 	primes := [6]int{2, 3, 5, 7, 11, 13}
 	var s []int = primes[1:4]
 	// reference
@@ -73,7 +87,9 @@ func slice() {
 	if sl == nil {
 		fmt.Println("nil")
 	}
+}
 
+func MakeSlice() {
 	// create a slice with make
 	a := make([]int, 5)
 	printSlice(a)
@@ -110,8 +126,9 @@ func printSlice(s []int) {
 }
 
 // range
-func rangeFunc() {
+func RangeFunc() {
 	var pow = []int{1, 2, 4, 8, 16, 32, 64, 128}
+	fmt.Println(pow)
 	for index, value := range pow {
 		fmt.Printf("2**%d = %d\n", index, value)
 	}
@@ -159,13 +176,35 @@ func mapLiterals() map[string]Vertex1 {
 	return m
 }
 
-func main0() {
-	// pointers()
-	// pointerToStruct()
-	// fmt.Println(v1, p, v2, v3)
-	// arrays()
-	// slice()
-	// rangeFunc()
-	mapFunc()
-	fmt.Println(mapLiterals())
+// fuction value
+func compute(f func(float64, float64) float64) float64 {
+	return f(3, 4)
+}
+
+func Computer() {
+	hypot := func(x, y float64) float64 {
+		return math.Sqrt(x*x + y*y)
+	}
+	fmt.Println(compute(hypot))
+
+}
+
+// function closures
+func Outer() func(int) int {
+	sum := 0
+	inner := func(x int) int {
+		sum += x
+		return sum
+	}
+	return inner
+}
+
+func Closure() {
+	pos, neg := Outer(), Outer()
+	for i := 0; i < 10; i++ {
+		fmt.Println(
+			pos(i),
+			neg(-2*i),
+		)
+	}
 }

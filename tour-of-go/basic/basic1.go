@@ -1,4 +1,4 @@
-package main
+package basic
 
 import (
 	"fmt"
@@ -26,8 +26,8 @@ func needFloat(x float64) float64 {
 // 	fmt.Println(needFloat(Big))
 // }
 
-// type suggestion
-func main2() {
+// TypeSuggestion 型推論
+func TypeSuggestion() {
 	var i, j int = 1, 2
 	k := 3
 	c, python, java := true, false, "no!"

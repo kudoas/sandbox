@@ -1,4 +1,4 @@
-package main
+package basic
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 	"runtime"
 )
 
-func for1() {
+func For1() {
 	sum := 1
 	for sum < 1000 {
 		sum += sum
@@ -19,7 +19,7 @@ func infiniteLoop() {
 	}
 }
 
-func pow(x, n, lim float64) float64 {
+func Pow(x, n, lim float64) float64 {
 	// if v := math.Pow(x, n); v < lim {
 	// 	return v
 	// } else {
@@ -37,14 +37,14 @@ func pow(x, n, lim float64) float64 {
 	return lim
 }
 
-func sqrt(x float64) string {
+func Sqrt(x float64) string {
 	if x < 0 {
-		return sqrt(-x) + "i"
+		return Sqrt(-x) + "i"
 	}
 	return fmt.Sprint(math.Sqrt(x))
 }
 
-func switch1() {
+func Switch1() {
 	switch os := runtime.GOOS; os {
 	// case 条件が一致すれば自動でbreak
 	case "darwin":
@@ -58,16 +58,15 @@ func switch1() {
 
 // deferへ渡した関数の実行を、呼び出し元の関数の終わり(returnする)まで遅延させる
 // 評価はされるが最後に実行する
-func defer1() {
+func Defer1() {
 	defer fmt.Println("world")
 	fmt.Println("hello")
 }
 
-// defer LIFO
-func deferLikeStack() {
+func DeferLikeStack() {
 	fmt.Println("counting")
+	defer fmt.Println("done")
 	for i := 0; i < 10; i++ {
-		defer fmt.Println(i)
+		fmt.Println(i)
 	}
-	fmt.Println("done")
 }
