@@ -38,7 +38,6 @@ const Seo = props => {
         name="twitter:creator"
         content={config.authorTwitterAccount ? config.authorTwitterAccount : ""}
       />
-      <meta property="og:image" content={image} />
     </Helmet>
   );
 };
