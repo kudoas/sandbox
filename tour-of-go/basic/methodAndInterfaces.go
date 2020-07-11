@@ -3,6 +3,7 @@ package basic
 import (
 	"fmt"
 	"math"
+	"time"
 )
 
 // classはない
@@ -97,6 +98,7 @@ func CheckDec() {
 	fmt.Println(a.Dec())
 }
 
+// (value, type)
 type I interface {
 	M()
 }
@@ -110,6 +112,64 @@ func (t T) M() {
 }
 
 func CheckM() {
+	// 	(<nil>, <nil>)
+	// panic: runtime error: invalid memory address or nil pointer dereference
+	// fmt.Printf("(%v, %T)\n", i, i)
 	var i I = T{"Hello"}
 	i.M()
+	fmt.Printf("(%v, %T)\n", i, i)
+}
+
+func EmptyInterface() {
+	var i interface{}
+	fmt.Printf("(%v, %T)\n", i, i)
+
+	i = 42
+	fmt.Printf("(%v, %T)\n", i, i)
+
+	i = "hello"
+	fmt.Printf("(%v, %T)\n", i, i)
+}
+
+func TypeAssertion() {
+	var i interface{} = "hello"
+	s, ok := i.(string)
+	fmt.Println(s, ok)
+}
+
+func TypeSwitches(i interface{}) {
+	switch v := i.(type) {
+	case int:
+		fmt.Printf("Twice %v is %v\n", v, v*2)
+	case string:
+		fmt.Printf("%q is %v bytes long\n", v, len(v))
+	default:
+		fmt.Printf("I don't know about type %T!\n", v)
+	}
+}
+
+type Person struct {
+	Name string
+	Age  int
+}
+
+// embedded interface
+func (p Person) String() string {
+	return fmt.Sprintf("%v (%v years)", p.Name, p.Age)
+}
+
+func Stringers() {
+	a := Person{"Arthur Dent", 42}
+	z := Person{"Zaphod Beeblebrox", 9001}
+	fmt.Println(a)
+	fmt.Println(z)
+}
+
+type MyError struct {
+	When time.Time
+	What string
+}
+
+func (e *MyError) Error() string {
+	return fmt.Sprintf("at %v, %s", e.When, e.What)
 }
