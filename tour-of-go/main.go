@@ -4,7 +4,7 @@ import (
 	// "fmt"
 
 	"./basic"
-	"./exercise"
+	// "./exercise"
 )
 
 func main() {
@@ -26,7 +26,11 @@ func main() {
 	// basic.CheckM()
 	// basic.EmptyInterface()
 	// basic.TypeAssertion()
-	basic.Stringers()
+	// basic.Stringers()
+	// basic.Goroutines()
+	basic.Channels()
+	basic.CloseCh()
+	basic.Select()
 
 	// exersizse
 	// exercise.WordCountTest(exercise.WordCount)
@@ -38,7 +42,7 @@ func main() {
 	// 	fmt.Println(f())
 	// }
 	// exercise.Exercise5()
-	exercise.Exercise6()
-	exercise.Exercise7()
-	exercise.Exercise8()
+	// exercise.Exercise6()
+	// exercise.Exercise7()
+	// exercise.Exercise8()
 }
