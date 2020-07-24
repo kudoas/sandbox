@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  db:
+    build: .
+    environment:
+      MYSQL_ROOT_PASSWORD: pass
+      TZ: "Asia/Tokyo"
+    ports:
+      - 3306:3306
+    volumes:
+      - ./initdb.d:/docker-entrypoint-initdb.d
