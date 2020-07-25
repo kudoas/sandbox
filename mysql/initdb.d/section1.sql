@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS sample1;
-CREATE DATABASE sample1;
-USE sample1;
+DROP DATABASE IF EXISTS section1;
+CREATE DATABASE section1;
+USE section1;
 
 DROP TABLE IF EXISTS order_details;
 DROP TABLE IF EXISTS orders;
