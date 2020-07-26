@@ -2,8 +2,11 @@ package main
 
 import (
 	"log"
+	"mime"
 	"net/http"
 	"time"
+
+	"github.com/justinas/alice"
 )
 
 func middlewareOne(next http.Handler) http.Handler {
@@ -25,11 +28,31 @@ func middlewareTwo(next http.Handler) http.Handler {
 	})
 }
 
-// func final(w http.ResponseWriter, r *http.Request) {
-// 	log.Print("Executing finalHandler")
-// 	w.Write([]byte("OK"))
-// }
+func enforceJSONHandler(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		contentType := r.Header.Get("Content-Type")
 
+		if contentType != "" {
+			mt, _, err := mime.ParseMediaType(contentType)
+			if err != nil {
+				http.Error(w, "Malformed Content-Type header", http.StatusBadRequest)
+				return
+			}
+			if mt != "application/json" {
+				http.Error(w, "Content-Type header must be application/json", http.StatusUnsupportedMediaType)
+				return
+			}
+		}
+		next.ServeHTTP(w, r)
+	})
+}
+
+func final(w http.ResponseWriter, r *http.Request) {
+	log.Print("Executing finalHandler")
+	w.Write([]byte("OK"))
+}
+
+// Smart
 func timeHandler(format string) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		tm := time.Now().Format(format)
@@ -38,7 +61,7 @@ func timeHandler(format string) http.Handler {
 	})
 }
 
-// 上の方がスマート
+// Not smart
 // type timeHandler struct {
 // 	format string
 // }
@@ -49,16 +72,24 @@ func timeHandler(format string) http.Handler {
 // 	log.Println(th)
 // }
 
+// th := &timeHandler{time.RFC1123}
+
 func main() {
 	// multiplexor
 	mux := http.NewServeMux()
 
-	rh := http.RedirectHandler("http://example.org", 307)
-	mux.Handle("/foo", rh)
+	// Chain
+	stdChain := alice.New(enforceJSONHandler)
+	mdwChain := alice.New(middlewareOne, middlewareTwo)
 
-	// th := &timeHandler{time.RFC1123}
+	// Handler
+	rh := http.RedirectHandler("http://example.org", 307)
 	th := timeHandler(time.RFC1123)
-	mux.Handle("/time", middlewareOne(middlewareTwo(th)))
+	finalHandler := http.HandlerFunc(final)
+
+	mux.Handle("/foo", rh)
+	mux.Handle("/time", mdwChain.Then(th))
+	mux.Handle("/", stdChain.Then(finalHandler))
 
 	log.Println("Listening...")
 	http.ListenAndServe(":3000", mux)
