@@ -14,10 +14,10 @@ func main() {
 	db.ConnectDB()
 
 	router := gin.Default()
-	router.GET("/todos", controller.AllTodo)
-	router.POST("/new", controller.Create)
-	// router.GET("/:id", controller.Detail)
-	// router.PATCH("/:id", controller.Update)
-	// router.DELETE("/:id", controller.Delete)
+	router.GET("/todos", controller.FindTodos)
+	router.POST("/new", controller.CreateTodo)
+	router.GET("/todo/:id", controller.FindTodo)
+	// router.PATCH("/todo/:id", controller.UpdateTodo)
+	// router.DELETE("/todo/:id", controller.DeleteTodo)
 	router.Run()
 }
