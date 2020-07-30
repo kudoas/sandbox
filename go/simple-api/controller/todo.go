@@ -2,6 +2,7 @@ package controller
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/Kudoas/sandbox/go/simple-api/model"
 	"github.com/Kudoas/sandbox/go/simple-api/repository"
@@ -15,6 +16,20 @@ func FindTodos(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"data": todos})
+}
+
+func FindTodo(c *gin.Context) {
+	n := c.Param("id")
+	id, err := strconv.Atoi(n)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, model.ResponseError{Message: err.Error()})
+	}
+	todo, err := repository.FindTodo(id)
+	if err != nil {
+		c.JSON(http.StatusNotFound, model.ResponseError{Message: err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"todo": todo})
 }
 
 // func CreateTodo(c *gin.Context) {
