@@ -7,35 +7,39 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-func AllTodo() []model.Todo {
-	todos := make([]model.Todo, 0)
+func AllTodo() ([]*model.Todo, error) {
+	todos := []*model.Todo{}
 	db, err := gorm.Open("sqlite3", "sample-app.sqlite3")
 	defer db.Close()
 	if err != nil {
-		log.Print(err)
+		return nil, err
 	}
-	db.Find(&todos)
-	return todos
+	if err := db.Find(&todos).Error; err != nil {
+		return nil, err
+	}
+	return todos, nil
 }
 
-func CreateTodo(todo *model.Todo) {
+func CreateTodo(todo *model.Todo) error {
 	db, err := gorm.Open("sqlite3", "sample-app.sqlite3")
 	defer db.Close()
 	if err != nil {
 		log.Println(err)
 	}
-	db.Create(todo)
+	return db.Create(&todo).Error
 }
 
-func FindTodo(id int) model.Todo {
+func FindTodo(id int) (*model.Todo, error) {
 	var todo model.Todo
 	db, err := gorm.Open("sqlite3", "sample-app.sqlite3")
 	defer db.Close()
 	if err != nil {
 		log.Print(err)
 	}
-	db.First(&todo, id)
-	return todo
+	if err := db.First(&todo, id).Error; err != nil {
+		return nil, err
+	}
+	return &todo, nil
 }
 
 func UpdateTodo(updateTodo model.Todo) model.Todo {

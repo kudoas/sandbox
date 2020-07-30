@@ -15,8 +15,8 @@ func main() {
 
 	router := gin.Default()
 	router.GET("/todos", controller.FindTodos)
-	router.POST("/new", controller.CreateTodo)
-	router.GET("/todo/:id", controller.FindTodo)
+	// router.POST("/new", controller.CreateTodo)
+	// router.GET("/todo/:id", controller.FindTodo)
 	// router.PATCH("/todo/:id", controller.UpdateTodo)
 	// router.DELETE("/todo/:id", controller.DeleteTodo)
 	router.Run()
