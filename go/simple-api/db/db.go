@@ -1,19 +1,18 @@
 package db
 
 import (
-	"log"
-
 	"github.com/Kudoas/sandbox/go/simple-api/model"
 	"github.com/jinzhu/gorm"
 	_ "github.com/mattn/go-sqlite3"
 )
 
+var DB *gorm.DB
+
 func ConnectDB() {
-	dbName := "sample-app.sqlite3"
-	db, err := gorm.Open("sqlite3", dbName)
-	defer db.Close()
+	database, err := gorm.Open("sqlite3", "sample-app.sqlite3")
 	if err != nil {
-		log.Print(err)
+		panic("Failed to cennect to database")
 	}
-	db.AutoMigrate(&model.Todo{})
+	database.AutoMigrate(&model.Todo{})
+	DB = database
 }

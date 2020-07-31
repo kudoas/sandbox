@@ -13,11 +13,13 @@ import (
 func main() {
 	db.ConnectDB()
 
-	router := gin.Default()
-	router.GET("/todos", controller.FindTodos)
-	router.GET("/todo/:id", controller.FindTodo)
-	// router.POST("/todo/new", controller.CreateTodo)
-	// router.PATCH("/todo/:id", controller.UpdateTodo)
-	// router.DELETE("/todo/:id", controller.DeleteTodo)
-	router.Run()
+	r := gin.Default()
+	todosGroup := r.Group("/todos")
+	todosGroup.GET("", controller.GetTodos)
+	todosGroup.GET(":id", controller.GetTodo)
+	todosGroup.POST("", controller.CreateTodo)
+	todosGroup.PATCH(":id", controller.UpdateTodo)
+	// router.DELETE(":id", controller.DeleteTodo)
+
+	r.Run(":8080")
 }
