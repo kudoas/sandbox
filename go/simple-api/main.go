@@ -13,7 +13,7 @@ import (
 )
 
 func main() {
-	newDB := persistance.NewDB("sample-app.sqlite3")
+	newDB := persistance.NewDB("sample-api.sqlite3")
 	DB, err := newDB.Open()
 	defer DB.Close()
 	if err != nil {
