@@ -3,31 +3,23 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/Kudoas/sandbox/go/simple-api/infrastructure/api/handler"
 	"github.com/Kudoas/sandbox/go/simple-api/infrastructure/persistance"
-	"github.com/jinzhu/gorm"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/mattn/go-sqlite3"
 )
 
-func InitDB(datasource string) (*gorm.DB, error) {
-	newDB := persistance.NewDB("sample-api.splite3")
-	DB, err := newDB.Open()
-	if err != nil {
-		return nil, fmt.Errorf("failed db init. %s", err)
-	}
-	newDB.Migrate(DB)
-	return DB, nil
-}
-
 func main() {
-	DB, err := InitDB("sample-app.sqlite3")
+	newDB := persistance.NewDB("sample-app.sqlite3")
+	DB, err := newDB.Open()
 	defer DB.Close()
 	if err != nil {
+		log.Fatal(err)
+	}
+	if err := newDB.InitDB(); err != nil {
 		log.Fatal(err)
 	}
 
