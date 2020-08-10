@@ -2,17 +2,41 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
+	"log"
 	"net/http"
+	"os"
+
+	"github.com/gorilla/handlers"
+	"github.com/gorilla/mux"
+
+	"example.com/user/go-tips/controller"
+	"example.com/user/go-tips/db"
+	"example.com/user/go-tips/repository"
 )
 
 // handler: ServeHTTPというメソッドを持ったインターフェース
 type AppHandler struct {
-	h interface{}
+	// コントローラーを定義
+	h func(http.ResponseWriter, *http.Request) (int, interface{}, error)
 }
 
 func (a AppHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "Hello world")
+	code, res, err := a.h(w, r)
+	if err != nil {
+		w.WriteHeader(code)
+		_, writeErr := w.Write([]byte(err.Error()))
+		if writeErr != nil {
+			log.Print(writeErr)
+		}
+		return
+	}
+	w.WriteHeader(code)
+
+	response, err := json.Marshal(res)
+	if _, writeErr := w.Write(response); writeErr != nil {
+		log.Print(writeErr)
+	}
+	return
 }
 
 // goでのjsonの取り扱い
@@ -30,14 +54,29 @@ func HelloHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write(b)
 }
 
+// HelloHandler := HandlerFunc(Hello)
+// HandleFunc: ハンドル関数をDefaultServerMuxに登録する関数
+// HandlerFunc: 型の名前
+
+// handler or handler func
+// 設計の問題：既存のインターフェース、もしくはハンドラとして使える型が欲しいなら、
+// 単にそのインターフェースにメソッドServeHTTP追加すれば、URLに割り当てられるハンドラを得られる
+
 func main() {
-	server := http.Server{
-		Addr: "127.0.0.1:8080",
+	cs := db.NewDB("blog.sqlite3")
+	dbcon, err := cs.Open()
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := repository.CreateTable(dbcon); err != nil {
+		log.Fatal(err)
 	}
 
-	// handler: middlewareを噛ませやすい？
-	http.Handle("/", AppHandler{})
-	http.HandleFunc("/hello", HelloHandler)
+	postController := controller.NewPost(dbcon)
+	r := mux.NewRouter()
+	r.Methods(http.MethodGet).Path("/post").Handler(AppHandler{postController.Index})
 
-	server.ListenAndServe()
+	if err := http.ListenAndServe("127.0.0.1:8080", handlers.CombinedLoggingHandler(os.Stdout, r)); err != nil {
+		log.Fatal(err)
+	}
 }
