@@ -1,13 +1,15 @@
 package repository
 
 import (
+	"database/sql"
+
 	"example.com/user/go-tips/model"
 	"github.com/jmoiron/sqlx"
 )
 
 func CreateTable(db *sqlx.DB) error {
 	const sqlStr = `CREATE TABLE IF NOT EXISTS post(
-		id        INTEGER PRIMARY KEY,
+		id        INTEGER PRIMARY KEY AUTOINCREMENT,
 		title     TEXT NOT NULL,
 		content   INTEGER NOT NULL
 	);`
@@ -21,4 +23,21 @@ func AllPost(db *sqlx.DB) ([]model.Post, error) {
 		return nil, err
 	}
 	return p, nil
+}
+
+func CreatePost(db *sqlx.DB, p *model.Post) (result sql.Result, err error) {
+	if err != nil {
+		return nil, err
+	}
+	stmt, err := db.Prepare(`
+		INSERT INTO post (title, content) VALUES (?, ?)
+	`)
+	if err != nil {
+		return nil, err
+	}
+	result, err = stmt.Exec(p.Title, p.Content)
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
 }
