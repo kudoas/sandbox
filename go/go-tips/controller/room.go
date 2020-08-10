@@ -6,6 +6,7 @@ import (
 
 	"example.com/user/go-tips/model"
 	"example.com/user/go-tips/repository"
+	"example.com/user/go-tips/services"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -30,11 +31,8 @@ func (a *Post) Create(w http.ResponseWriter, r *http.Request) (int, interface{},
 	if err := json.NewDecoder(r.Body).Decode(&newPost); err != nil {
 		return http.StatusBadRequest, nil, err
 	}
-	result, err := repository.CreatePost(a.db, newPost)
-	if err != nil {
-		return http.StatusBadRequest, nil, err
-	}
-	id, err := result.LastInsertId()
+	postService := services.NewPost(a.db)
+	id, err := postService.Create(newPost)
 	if err != nil {
 		return http.StatusInternalServerError, nil, err
 	}

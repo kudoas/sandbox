@@ -26,9 +26,6 @@ func AllPost(db *sqlx.DB) ([]model.Post, error) {
 }
 
 func CreatePost(db *sqlx.DB, p *model.Post) (result sql.Result, err error) {
-	if err != nil {
-		return nil, err
-	}
 	stmt, err := db.Prepare(`
 		INSERT INTO post (title, content) VALUES (?, ?)
 	`)
