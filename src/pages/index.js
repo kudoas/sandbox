@@ -3,7 +3,7 @@ import React from "react";
 import { graphql } from "gatsby";
 import { ThemeContext } from "../layouts";
 import Blog from "../components/Blog";
-import Hero from "../components/Hero";
+// import Hero from "../components/Hero";
 import Seo from "../components/Seo";
 
 class IndexPage extends React.Component {
@@ -32,19 +32,14 @@ class IndexPage extends React.Component {
       }
     } = this.props;
 
-    const backgrounds = {
-      desktop,
-      tablet,
-      mobile
-    };
+    // const backgrounds = {
+    //   desktop,
+    //   tablet,
+    //   mobile
+    // };
 
     return (
       <React.Fragment>
-        <ThemeContext.Consumer>
-          {theme => (
-            <Hero scrollToContent={this.scrollToContent} backgrounds={backgrounds} theme={theme} />
-          )}
-        </ThemeContext.Consumer>
         <ThemeContext.Consumer>
           {theme => <Blog posts={posts} theme={theme} />}
         </ThemeContext.Consumer>

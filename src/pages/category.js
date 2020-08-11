@@ -47,7 +47,7 @@ const CategoryPage = props => {
         {theme => (
           <Article theme={theme}>
             <header>
-              <Headline title="記事のカテゴリー 一覧" theme={theme} />
+              <Headline title="Categories" theme={theme} />
             </header>
             {categoryList.map(item => (
               <section key={item[0]}>

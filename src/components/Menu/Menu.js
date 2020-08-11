@@ -8,7 +8,7 @@ import { FaEnvelope, FaTag, FaUser, FaEgg, FaTwitter } from "react-icons/fa/";
 import { GoMarkGithub } from "react-icons/go";
 
 import Item from "./Item";
-import Expand from "./Expand";
+// import Expand from "./Expand";
 import OuterLink from "./OuterLink";
 
 class Menu extends React.Component {
@@ -35,8 +35,7 @@ class Menu extends React.Component {
   }
 
   state = {
-    open: false,
-    hiddenItems: []
+    open: false
   };
 
   static propTypes = {
@@ -76,33 +75,6 @@ class Menu extends React.Component {
 
     const itemsContainer = this.itemList.current;
     const maxWidth = itemsContainer.offsetWidth - PADDING_AND_SPACE_FOR_MORELINK;
-
-    this.setState({ hiddenItems: [] }); // clears previous state
-
-    const menu = this.renderedItems.reduce(
-      (result, item) => {
-        item.classList.add("item");
-        item.classList.remove("hideItem");
-
-        const currentCumulativeWidth = result.cumulativeWidth + item.offsetWidth;
-        result.cumulativeWidth = currentCumulativeWidth;
-
-        if (!item.classList.contains("more") && currentCumulativeWidth > maxWidth) {
-          const link = item.querySelector("a");
-
-          item.classList.add("hideItem");
-          item.classList.remove("item");
-          result.hiddenItems.push({
-            to: link.getAttribute("data-slug"),
-            label: link.text
-          });
-        }
-        return result;
-      },
-      { visibleItems: [], cumulativeWidth: 0, hiddenItems: [] }
-    );
-
-    this.setState(prevState => ({ hiddenItems: menu.hiddenItems }));
   };
 
   toggleMenu = e => {
@@ -140,12 +112,11 @@ class Menu extends React.Component {
   };
 
   render() {
-    const { screenWidth, theme } = this.props;
-    const { open } = this.state;
+    const { theme } = this.props;
 
     return (
       <React.Fragment>
-        <nav className={`menu ${open ? "open" : ""}`} rel="js-menu">
+        <nav className="menu">
           <ul className="itemList" ref={this.itemList}>
             {this.items.map(item => (
               <Item item={item} key={item.label} icon={item.icon} theme={theme} />
@@ -161,33 +132,18 @@ class Menu extends React.Component {
               theme={theme}
             />
           </ul>
-          {this.state.hiddenItems.length > 0 && <Expand onClick={this.toggleMenu} theme={theme} />}
+          {/* {this.state.hiddenItems.length > 0 && <Expand onClick={this.toggleMenu} theme={theme} />}
           {open && screenWidth >= 1024 && (
             <ul className="hiddenItemList">
               {this.state.hiddenItems.map(item => (
                 <Item item={item} key={item.label} hiddenItem theme={theme} />
               ))}
             </ul>
-          )}
+          )} */}
         </nav>
 
         {/* --- STYLES --- */}
         <style jsx>{`
-          .menu {
-            align-items: center;
-            background: ${theme.color.neutral.white};
-            bottom: 0;
-            display: flex;
-            flex-grow: 1;
-            left: 0;
-            max-height: ${open ? "1000px" : "50px"};
-            padding: 0 ${theme.space.inset.s};
-            position: fixed;
-            width: 100%;
-            z-index: 1;
-            transition: all ${theme.time.duration.default};
-          }
-
           .itemList {
             display: flex;
             flex-wrap: wrap;
@@ -201,23 +157,8 @@ class Menu extends React.Component {
 
           @below desktop {
             .menu {
-              &::after {
-                position: absolute;
-                content: "";
-                left: ${theme.space.m};
-                right: ${theme.space.m};
-                top: 0;
-                height: 1px;
-                background: ${theme.color.brand.primary};
-              }
-
-              &.open {
-                padding: ${theme.space.inset.m};
-              }
-
-              :global(.homepage):not(.fixed) & {
-                bottom: -100px;
-              }
+              border-bottom: 1px solid #eee;
+              border-top: 1px solid #eee;
             }
           }
 

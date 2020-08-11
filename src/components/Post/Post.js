@@ -36,7 +36,6 @@ const Post = props => {
         }
       }
     },
-    authornote,
     facebook,
     next: nextPost,
     prev: prevPost,
@@ -46,6 +45,7 @@ const Post = props => {
   return (
     <React.Fragment>
       <header>
+        <div className="timer">{createdAt}</div>
         <Headline title={title} theme={theme} />
         <Meta prefix={createdAt} author={author} category={category} theme={theme} />
         <div className="gatsby-image-outer-wrapper">
@@ -59,6 +59,12 @@ const Post = props => {
         <Comments slug={slug} facebook={facebook} theme={theme} />
       </footer>
       <style jsx>{`
+        .timer {
+          font-size: 1.3em;
+          color: #666;
+          letter-spacing: 0.5px;
+          text-align: center;
+        }
         .gatsby-image-outer-wrapper {
           margin: 10px 15px;
           border: solid 1px #eee;

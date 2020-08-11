@@ -11,8 +11,9 @@ const Headline = props => {
       {/* --- STYLES --- */}
       <style jsx>{`
         h1 {
+          text-align: center;
           font-size: ${theme.font.size.xxl};
-          margin: ${theme.space.stack.l};
+          margin: 20px;
           animation-name: headlineEntry;
           animation-duration: ${theme.time.duration.long};
 
@@ -41,12 +42,14 @@ const Headline = props => {
 
         @from-width tablet {
           h1 {
+            text-align: center;
             font-size: ${`calc(${theme.font.size.xl} * 1.2)`};
           }
         }
 
         @from-width desktop {
           h1 {
+            text-align: center;
             font-size: ${`calc(${theme.font.size.xl} * 1.4)`};
           }
         }
