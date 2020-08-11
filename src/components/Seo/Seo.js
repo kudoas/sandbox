@@ -6,12 +6,13 @@ import config from "../../../content/meta/config";
 const Seo = props => {
   const { data, facebook } = props;
   const postTitle = ((data || {}).frontmatter || {}).title;
-  const postDescription = ((data || {}).frontmatter || {}).description;
+  // const postDescription = ((data || {}).excerpt || {}).description;
   const postCover = ((data || {}).frontmatter || {}).cover;
   const postSlug = ((data || {}).fields || {}).slug;
 
   const title = postTitle ? `${postTitle} - ${config.shortSiteTitle}` : config.siteTitle;
-  const description = postDescription ? postDescription : config.siteDescription;
+  const description = (data || {}).excerpt ? data.excerpt : config.siteDescription;
+
   const image = postCover
     ? "https://www.kudolog.net" + postCover.children[0].fluid.src
     : "https://user-images.githubusercontent.com/45157831/85885990-35d77b80-b820-11ea-973c-e854be618523.png";
