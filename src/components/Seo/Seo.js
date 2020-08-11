@@ -15,6 +15,8 @@ const Seo = props => {
   const image = postCover ? postCover : config.siteImage;
   const url = config.siteUrl + config.pathPrefix + postSlug;
 
+  console.log(config.siteImage, "postCover");
+
   return (
     <Helmet
       htmlAttributes={{
@@ -33,6 +35,7 @@ const Seo = props => {
       <meta property="og:type" content="website" />
       <meta property="fb:app_id" content={facebook.appId} />
       {/* Twitter Card tags */}
+      <meta name="twitter:image" content={image.children[0].fluid.src} />
       <meta name="twitter:card" content="summary" />
       <meta
         name="twitter:creator"
