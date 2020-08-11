@@ -60,6 +60,7 @@ const Post = props => {
       </footer>
       <style jsx>{`
         .timer {
+          margin: 10px;
           font-size: 1.3em;
           color: #666;
           letter-spacing: 0.5px;
