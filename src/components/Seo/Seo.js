@@ -12,7 +12,9 @@ const Seo = props => {
 
   const title = postTitle ? `${postTitle} - ${config.shortSiteTitle}` : config.siteTitle;
   const description = postDescription ? postDescription : config.siteDescription;
-  const image = postCover ? postCover.children[0].fluid.src : config.siteImage;
+  const image = postCover
+    ? "https://www.kudolog.net" + postCover.children[0].fluid.src
+    : "https://user-images.githubusercontent.com/45157831/85885990-35d77b80-b820-11ea-973c-e854be618523.png";
   const url = config.siteUrl + config.pathPrefix + postSlug;
 
   return (
@@ -34,7 +36,7 @@ const Seo = props => {
       <meta property="fb:app_id" content={facebook.appId} />
       {/* Twitter Card tags */}
       <meta name="twitter:image" content={image} />
-      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:card" content="summary_large_image" />
       <meta
         name="twitter:creator"
         content={config.authorTwitterAccount ? config.authorTwitterAccount : ""}

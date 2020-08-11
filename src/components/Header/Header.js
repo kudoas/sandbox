@@ -116,8 +116,6 @@ class Header extends React.Component {
 
           @from-width tablet {
             .header {
-              padding: ${theme.space.inset.l};
-
               &.homepage {
                 height: ${theme.header.height.homepage};
               }
@@ -194,6 +192,7 @@ class Header extends React.Component {
               flex-direction: row;
               flex-shrink: 0;
               width: auto;
+              margin-left: 40px;
             }
 
             .logo {
