@@ -41,8 +41,8 @@ class Menu extends React.Component {
   static propTypes = {
     path: PropTypes.string.isRequired,
     fixed: PropTypes.bool.isRequired,
-    screenWidth: PropTypes.number.isRequired,
-    fontLoaded: PropTypes.bool.isRequired,
+    // screenWidth: PropTypes.number.isRequired,
+    // fontLoaded: PropTypes.bool.isRequired,
     pages: PropTypes.array.isRequired,
     theme: PropTypes.object.isRequired
   };
