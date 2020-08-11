@@ -73,9 +73,11 @@ func main() {
 	}
 
 	postController := controller.NewPost(dbcon)
+
 	r := mux.NewRouter()
 	r.Methods(http.MethodGet).Path("/post").Handler(AppHandler{postController.Index})
 	r.Methods(http.MethodPost).Path("/post").Handler(AppHandler{postController.Create})
+	r.Methods(http.MethodGet).Path("/ping").Handler(AppHandler{controller.PingDB})
 
 	if err := http.ListenAndServe("127.0.0.1:8080", handlers.CombinedLoggingHandler(os.Stdout, r)); err != nil {
 		log.Fatal(err)
