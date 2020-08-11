@@ -59,6 +59,7 @@ export const postQuery = graphql`
         slug
         prefix
       }
+      excerpt(truncate: true)
       frontmatter {
         title
         category
