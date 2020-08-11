@@ -149,7 +149,7 @@ class Menu extends React.Component {
             flex-wrap: wrap;
             justify-content: center;
             list-style: none;
-            margin: 0;
+            margin-right: 40px;
             padding: 0; /* 0 ${theme.space.s}; */
             position: relative;
             width: 100%;
