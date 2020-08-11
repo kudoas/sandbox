@@ -14,7 +14,6 @@ const Footer = props => {
           background: ${theme.color.neutral.white};
           padding: ${theme.space.inset.default};
           padding-top: 0;
-          padding-bottom: 120px;
 
           :global(ul) {
             list-style: none;
@@ -27,15 +26,6 @@ const Footer = props => {
               padding: ${theme.space.xxs} ${theme.space.s};
               position: relative;
               display: inline-block;
-
-              &::after {
-                content: "•";
-                position: absolute;
-                right: ${`calc(${theme.space.xs} * -1)`};
-              }
-              &:last-child::after {
-                content: "";
-              }
             }
           }
         }

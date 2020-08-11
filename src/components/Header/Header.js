@@ -1,26 +1,24 @@
 import { Link } from "gatsby";
 import PropTypes from "prop-types";
 import React from "react";
-import VisibilitySensor from "react-visibility-sensor";
+// import VisibilitySensor from "react-visibility-sensor";
 
-import { ScreenWidthContext, FontLoadedContext } from "../../layouts";
-import config from "../../../content/meta/config";
+// import { ScreenWidthContext, FontLoadedContext } from "../../layouts";
+// import config from "../../../content/meta/config";
 import Menu from "../Menu";
-
-import kudoa from "../../images/jpg/mine.png";
 
 class Header extends React.Component {
   state = {
     fixed: false
   };
 
-  visibilitySensorChange = val => {
-    if (val) {
-      this.setState({ fixed: false });
-    } else {
-      this.setState({ fixed: true });
-    }
-  };
+  // visibilitySensorChange = val => {
+  //   if (val) {
+  //     this.setState({ fixed: false });
+  //   } else {
+  //     this.setState({ fixed: true });
+  //   }
+  // };
 
   getHeaderSize = () => {
     const fixed = this.state.fixed ? "fixed" : "";
@@ -35,30 +33,12 @@ class Header extends React.Component {
 
     return (
       <React.Fragment>
-        <header className={`header ${this.getHeaderSize()}`}>
+        <header className="header">
           <Link to="/" className="logoType">
-            <div>Kudoaの自習室</div>
+            <h1>Kudoaの自習室</h1>
           </Link>
-          <FontLoadedContext.Consumer>
-            {loaded => (
-              <ScreenWidthContext.Consumer>
-                {width => (
-                  <Menu
-                    path={path}
-                    fixed={fixed}
-                    screenWidth={width}
-                    fontLoaded={loaded}
-                    pages={pages}
-                    theme={theme}
-                  />
-                )}
-              </ScreenWidthContext.Consumer>
-            )}
-          </FontLoadedContext.Consumer>
+          <Menu path={path} fixed={fixed} pages={pages} theme={theme} />
         </header>
-        <VisibilitySensor onChange={this.visibilitySensorChange}>
-          <div className="sensor" />
-        </VisibilitySensor>
 
         {/* --- STYLES --- */}
         <style jsx>{`
@@ -68,14 +48,13 @@ class Header extends React.Component {
             background-color: ${theme.color.neutral.white};
             display: flex;
             height: ${theme.header.height.default};
-            position: relative;
-            top: 0;
             width: 100%;
             align-items: center;
+            border-bottom: 1px solid #eee;
 
             :global(a.logoType) {
               align-items: center;
-              display: flex;
+
               flex-direction: "column";
               color: ${theme.text.color.primary};
 
@@ -146,6 +125,15 @@ class Header extends React.Component {
           }
 
           @below desktop {
+            .header {
+              display: inline;
+            }
+            h1 {
+              font-size: ${theme.font.size.m};
+              font-weight: ${theme.font.weight.standard};
+              margin: 20px;
+              text-align: center;
+            }
             .header.homepage {
               .logo {
                 border: none;
@@ -166,7 +154,6 @@ class Header extends React.Component {
               align-items: center;
               background-color: ${theme.color.neutral.white};
               display: flex;
-              position: absolute;
               top: 0;
               width: 100%;
               justify-content: space-between;
@@ -211,11 +198,6 @@ class Header extends React.Component {
 
             .logo {
               margin: ${theme.space.inline.default};
-
-              .fixed & {
-                height: 36px;
-                width: 36px;
-              }
 
               .header.homepage:not(.fixed) & {
                 border: none;

@@ -9,7 +9,6 @@ const Blog = props => {
   return (
     <React.Fragment>
       <main className="main">
-        <h2>ブログ一覧</h2>
         <ul className="grid">
           {posts.map(post => {
             const {
@@ -25,24 +24,14 @@ const Blog = props => {
 
       {/* --- STYLES --- */}
       <style jsx>{`
-        .main {
-          padding: 0 ${theme.space.inset.default};
-          h2 {
-            text-align: center;
-            font-size: 2.1em;
-            margin-top: 50px;
-          }
-        }
-
         ul {
           list-style: none;
           margin: 0 auto;
-          padding: ${`calc(${theme.space.default} * 1.5) 0 calc(${theme.space.default} * 0.5)`};
         }
 
         @above tablet {
           .main {
-            padding: 0 ${`0 calc(${theme.space.default} * 1.5)`};
+            margin-top: 30px;
             .grid {
               display: grid;
               grid-template-columns: 50% 50%;
@@ -54,6 +43,7 @@ const Blog = props => {
         }
         @above desktop {
           .main {
+            margin-top: 30px;
             .grid {
               display: grid;
               grid-template-columns: 33% 33% 33%;

@@ -5,8 +5,8 @@ const outerItem = props => {
 
   return (
     <React.Fragment>
-      <li className={"hiddenItem" in props ? "hiddenItem" : "item"} key={label}>
-        <a href={to} className={"hiddenItem" in props ? "inHiddenItem" : ""} onClick={onClick}>
+      <li className="item" key={label}>
+        <a href={to} onClick={onClick}>
           {Icon && <Icon />} {label}
         </a>
       </li>
