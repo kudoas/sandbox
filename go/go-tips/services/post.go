@@ -22,14 +22,35 @@ func (p *Post) Create(post *model.Post) (int64, error) {
 		if err != nil {
 			return err
 		}
+		if err := tx.Commit(); err != nil {
+			return err
+		}
 		id, err := result.LastInsertId()
 		if err != nil {
 			return err
 		}
 		createdId = id
-		return err
+		return nil
 	}); err != nil {
 		return 0, err
 	}
 	return createdId, nil
+}
+
+func (p *Post) Show(id int64) (*model.Post, error) {
+	showPost := &model.Post{}
+	if err := dbutil.Transact(p.db, func(tx *sqlx.Tx) error {
+		post, err := repository.GetPost(p.db, id)
+		if err != nil {
+			return err
+		}
+		if err := tx.Commit(); err != nil {
+			return err
+		}
+		showPost = post
+		return nil
+	}); err != nil {
+		return nil, err
+	}
+	return showPost, nil
 }

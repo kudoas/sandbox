@@ -25,6 +25,14 @@ func AllPost(db *sqlx.DB) ([]model.Post, error) {
 	return p, nil
 }
 
+func GetPost(db *sqlx.DB, id int64) (*model.Post, error) {
+	a := model.Post{}
+	if err := db.Get(&a, `SELECT * FROM post where id = ?`, id); err != nil {
+		return nil, err
+	}
+	return &a, nil
+}
+
 func CreatePost(db *sqlx.DB, p *model.Post) (result sql.Result, err error) {
 	stmt, err := db.Prepare(`
 		INSERT INTO post (title, content) VALUES (?, ?)

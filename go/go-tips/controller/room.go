@@ -3,10 +3,12 @@ package controller
 import (
 	"encoding/json"
 	"net/http"
+	"strconv"
 
 	"example.com/user/go-tips/model"
 	"example.com/user/go-tips/repository"
 	"example.com/user/go-tips/services"
+	"github.com/gorilla/mux"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -20,6 +22,19 @@ func NewPost(db *sqlx.DB) *Post {
 
 func (a *Post) Index(w http.ResponseWriter, r *http.Request) (int, interface{}, error) {
 	post, err := repository.AllPost(a.db)
+	if err != nil {
+		return http.StatusInternalServerError, nil, err
+	}
+	return http.StatusOK, post, nil
+}
+
+func (a *Post) Show(w http.ResponseWriter, r *http.Request) (int, interface{}, error) {
+	id, err := strconv.ParseInt(mux.Vars(r)["id"], 10, 64)
+	if err != nil {
+		return http.StatusInternalServerError, nil, err
+	}
+	postService := services.NewPost(a.db)
+	post, err := postService.Show(id)
 	if err != nil {
 		return http.StatusInternalServerError, nil, err
 	}

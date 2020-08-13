@@ -76,6 +76,7 @@ func main() {
 	pingController := controller.NewPing(dbcon)
 
 	r := mux.NewRouter()
+	r.Methods(http.MethodGet).Path("/post/{id:[0-9]+}").Handler(AppHandler{postController.Show})
 	r.Methods(http.MethodGet).Path("/post").Handler(AppHandler{postController.Index})
 	r.Methods(http.MethodPost).Path("/post").Handler(AppHandler{postController.Create})
 
