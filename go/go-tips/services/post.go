@@ -54,3 +54,18 @@ func (p *Post) Show(id int64) (*model.Post, error) {
 	}
 	return showPost, nil
 }
+
+func (p *Post) Update(post *model.Post) error {
+	if err := dbutil.Transact(p.db, func(tx *sqlx.Tx) error {
+		if _, err := repository.UpdatePost(tx, post); err != nil {
+			return err
+		}
+		if err := tx.Commit(); err != nil {
+			return err
+		}
+		return nil
+	}); err != nil {
+		return err
+	}
+	return nil
+}

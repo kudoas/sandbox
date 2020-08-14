@@ -54,3 +54,23 @@ func (a *Post) Create(w http.ResponseWriter, r *http.Request) (int, interface{},
 	newPost.ID = id
 	return http.StatusOK, newPost, nil
 }
+
+func (a *Post) Update(w http.ResponseWriter, r *http.Request) (int, interface{}, error) {
+	newPost := &model.Post{}
+	id, err := strconv.ParseInt(mux.Vars(r)["id"], 10, 64)
+	if err != nil {
+		return http.StatusInternalServerError, nil, err
+	}
+	newService := services.NewPost(a.db)
+	if _, err := newService.Show(id); err != nil {
+		return http.StatusNotFound, nil, err
+	}
+	if err := json.NewDecoder(r.Body).Decode(&newPost); err != nil {
+		return http.StatusBadRequest, nil, err
+	}
+	newPost.ID = id
+	if err := newService.Update(newPost); err != nil {
+		return http.StatusInternalServerError, nil, err
+	}
+	return http.StatusOK, newPost, nil
+}

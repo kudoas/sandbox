@@ -19,7 +19,7 @@ func CreateTable(db *sqlx.DB) error {
 
 func AllPost(db *sqlx.DB) ([]model.Post, error) {
 	p := make([]model.Post, 0)
-	if err := db.Select(&p, `SELECT id, title FROM post`); err != nil {
+	if err := db.Select(&p, `SELECT * FROM post`); err != nil {
 		return nil, err
 	}
 	return p, nil
@@ -45,4 +45,19 @@ func CreatePost(db *sqlx.DB, p *model.Post) (result sql.Result, err error) {
 		return nil, err
 	}
 	return result, nil
+}
+
+func UpdatePost(db *sqlx.Tx, p *model.Post) (result sql.Result, err error) {
+	stmt, err := db.Prepare(`
+		UPDATE post SET title = ?, content = ? WHERE id = ?
+	`)
+	if err != nil {
+		return nil, err
+	}
+	defer func() {
+		if closeErr := stmt.Close(); closeErr != nil {
+			err = closeErr
+		}
+	}()
+	return stmt.Exec(p.Title, p.Content, p.ID)
 }
