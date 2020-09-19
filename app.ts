@@ -1,5 +1,4 @@
 import * as bodyParser from "body-parser";
-import * as cors from "cors";
 import * as dotenv from "dotenv";
 import * as express from "express";
 import * as morgan from "morgan";
@@ -12,20 +11,10 @@ dotenv.config();
 
 const app: express.Express = express();
 
-// cors config
-const corsOption = {
-  origin: "*",
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  preflightContinue: false,
-  optionsSuccessStatus: 204,
-};
-
 // middlewares
 app.use(morgan("dev")); // logging
 app.use(bodyParser.json());
-app.use(cors(corsOption));
 app.use((_, res: Response, next: NextFunction) => {
-  // CORS: development localhost
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
