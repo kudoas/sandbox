@@ -2,6 +2,7 @@ import * as bodyParser from "body-parser";
 import * as cors from "cors";
 import * as dotenv from "dotenv";
 import * as express from "express";
+import * as morgan from "morgan";
 import { NextFunction, Request, Response } from "express";
 import * as mongoose from "mongoose";
 
@@ -11,8 +12,9 @@ dotenv.config();
 
 const app: express.Express = express();
 
-// body parsing middleware
-app.use(bodyParser.json());
+// middlewares
+app.use(morgan("dev")); // logging
+app.use(bodyParser.json()); // body parser
 
 // cors config
 const corsOption = {
