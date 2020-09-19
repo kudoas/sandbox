@@ -113,3 +113,6 @@ mongoose
     console.log("Connected MongoDB!");
   })
   .catch((err) => console.log(err));
+
+const list = endpointTable("", app._router.stack);
+console.log(list.toString());
