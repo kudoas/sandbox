@@ -69,3 +69,6 @@ yarn run dev
 
 `DELETE /post/:id`
 
+### References
+
+- [How to Build a REST API with Express and Mongoose](https://rahmanfadhil.com/express-rest-api/)
