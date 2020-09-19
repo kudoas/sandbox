@@ -16,6 +16,7 @@ cd express-api-sample
 Before setting up the server, you need to register with MongoDB and enter the URL in the `.env`file.
 
 ```
+yarn install
 yarn run dev
 ```
 
