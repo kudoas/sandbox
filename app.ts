@@ -14,7 +14,7 @@ const app: express.Express = express();
 // body parsing middleware
 app.use(bodyParser.json());
 
-// cors
+// cors config
 const corsOption = {
   origin: "*",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -22,19 +22,19 @@ const corsOption = {
   optionsSuccessStatus: 204,
 };
 app.use(cors(corsOption));
-// app.use((req: Request, res: Response, next: NextFunction): void => {
-//   // CORS: development localhost
-//   res.setHeader("Access-Control-Allow-Origin", "*");
-//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
-//   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-//   next();
-// });
+app.use((_, res: Response, next: NextFunction): void => {
+  // CORS: development localhost
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
 
 // routes
-app.get("/posts", (req: Request, res: Response, next: NextFunction): void => {
+app.get("/post", (req: Request, res: Response, next: NextFunction): void => {
   Post.find()
     .then((posts) => {
-      res.status(200).json({ message: "Post fetched", posts: posts });
+      res.status(200).json({ posts: posts });
     })
     .catch((err) => {
       if (!err.statusCode) {
