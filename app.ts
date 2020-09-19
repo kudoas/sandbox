@@ -14,7 +14,7 @@ const app: express.Express = express();
 // body parsing middleware
 app.use(bodyParser.json());
 
-// cors
+// cors config
 const corsOption = {
   origin: "*",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -31,10 +31,10 @@ app.use((_, res: Response, next: NextFunction): void => {
 });
 
 // routes
-app.get("/posts", (req: Request, res: Response, next: NextFunction): void => {
+app.get("/post", (req: Request, res: Response, next: NextFunction): void => {
   Post.find()
     .then((posts) => {
-      res.status(200).json({ message: "Post fetched", posts: posts });
+      res.status(200).json({ posts: posts });
     })
     .catch((err) => {
       if (!err.statusCode) {
