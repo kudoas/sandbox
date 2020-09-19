@@ -22,13 +22,13 @@ const corsOption = {
   optionsSuccessStatus: 204,
 };
 app.use(cors(corsOption));
-// app.use((req: Request, res: Response, next: NextFunction): void => {
-//   // CORS: development localhost
-//   res.setHeader("Access-Control-Allow-Origin", "*");
-//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
-//   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-//   next();
-// });
+app.use((_, res: Response, next: NextFunction): void => {
+  // CORS: development localhost
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
 
 // routes
 app.get("/posts", (req: Request, res: Response, next: NextFunction): void => {
