@@ -31,16 +31,6 @@ app.get("/post", async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-// get post
-app.get("/post/:id", async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const post = await Post.findOne({ _id: req.params.id });
-    res.status(200).json({ post: post });
-  } catch {
-    res.status(404).send({ message: res.statusMessage });
-  }
-});
-
 // create post
 app.post("/post", async (req: Request, res: Response, next: NextFunction) => {
   const title = req.body.title;
@@ -59,6 +49,16 @@ app.post("/post", async (req: Request, res: Response, next: NextFunction) => {
     });
   } catch {
     res.status(500).send({ message: "Internal Server Error" });
+  }
+});
+
+// get post
+app.get("/post/:id", async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const post = await Post.findOne({ _id: req.params.id });
+    res.status(200).json({ post: post });
+  } catch {
+    res.status(404).send({ message: res.statusMessage });
   }
 });
 
@@ -94,7 +94,7 @@ app.patch("/post/:id", async (req: Request, res: Response, next: NextFunction) =
 });
 
 // delete post
-app.delete("/posts/:id", async (req: Request, res: Response, next: NextFunction) => {
+app.delete("/post/:id", async (req: Request, res: Response, next: NextFunction) => {
   try {
     await Post.deleteOne({ _id: req.params.id });
     res.status(204).send();
