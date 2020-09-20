@@ -5,7 +5,6 @@ import * as morgan from "morgan";
 import { NextFunction, Request, Response } from "express";
 import * as mongoose from "mongoose";
 
-import endpointTable from "./utils/endpointTable";
 import Post from "./models/post";
 
 dotenv.config();
@@ -113,6 +112,3 @@ mongoose
     console.log("Connected MongoDB!");
   })
   .catch((err) => console.log(err));
-
-const list = endpointTable("", app._router.stack);
-console.log(list.toString());

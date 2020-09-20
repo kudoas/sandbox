@@ -1,6 +1,6 @@
 import * as Table from "cli-table3";
 
-const endpointList = (baseUrl: string, routes: any): Table.Table => {
+export const endpointList = (baseUrl: string, routes: any): Table.Table => {
   const table = new Table({ head: ["method", "path"], style: { head: ["blue"] } });
   for (const key in routes) {
     if (routes.hasOwnProperty(key)) {
@@ -15,5 +15,3 @@ const endpointList = (baseUrl: string, routes: any): Table.Table => {
   }
   return table;
 };
-
-export default endpointList;
