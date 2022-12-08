@@ -17,6 +17,7 @@ File.open 'README.md' do |file|
   puts file.read
 end
 
+
 line = 'oneline'; puts(line)
 
 # global変数は$
