@@ -71,3 +71,26 @@ my_object = MyClass.new
 
 my_object.cvar_in_method
 MyClass.cvar_in_class_method
+
+class Parent 
+  def hello
+    puts "Hello, Parent class!"
+  end
+end
+
+class Child < Parent
+  def hi
+    puts "Hello, Child class!"
+  end
+
+  def hello
+    super # お案じ名前のメソッドを呼び出せる
+    puts 'Hello, Child class!'
+  end
+  
+end
+
+child = Child.new()
+child.hi
+child.hello
+Child.superclass # Parent
