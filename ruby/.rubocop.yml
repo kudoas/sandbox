@@ -9,6 +9,12 @@ Style/StringLiterals:
 Style/Documentation:
   Enabled: false
 
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/WordArray:
+  Enabled: false
+
 Lint/UselessAssignment:
   Enabled: false
 
