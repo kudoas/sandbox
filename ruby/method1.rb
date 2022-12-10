@@ -44,3 +44,14 @@ for name in ["Alice", "Bob", "Carol"]
   p name
 end
 p name # => Carol
+
+
+# 直接実行された時だけ実行する
+return unless $PROGRAM_NAME == __FILE__
+
+puts "このファイルは直接実行されたぜ！"
+
+__END__
+
+ここには何を書いていても問題ないぜ〜！
+俺がついてるぜ〜！
