@@ -1,17 +1,16 @@
 class MyClass
   def hello
-    puts 'Hello, My Object'
+    puts "Hello, My Object"
   end
 end
 
 my_object = MyClass.new
 my_object.hello
 
-
 class Ruler
   attr_accessor :length # length=とlength
 
-  def initialize(length=nil)
+  def initialize(length = nil)
     @length = length
   end
 
@@ -19,7 +18,7 @@ class Ruler
   def self.pair
     [Ruler.new(250), Ruler.new]
   end
-  
+
   def display_length
     puts length # 参照は省略できる
   end
@@ -27,7 +26,7 @@ class Ruler
   def set_length
     self.length = 30 # 代入は省略できない
   end
-  
+
   # インスタンス変数の代入するときに使うメソッド
   # def length=(val)
   #   @length = val
@@ -39,7 +38,7 @@ class Ruler
   # end
 end
 
-ruler = Ruler.new()
+ruler = Ruler.new
 puts ruler.length
 
 ruler.length = 10 # length= が呼ばれる
@@ -56,7 +55,7 @@ p Ruler.pair
 
 class MyClass
   # クラス変数：クラスとインスタンスがスコープ
-  @@cvar = 'Hello, My class variable'
+  @@cvar = "Hello, My class variable"
 
   def cvar_in_method
     p @@cvar
@@ -72,7 +71,7 @@ my_object = MyClass.new
 my_object.cvar_in_method
 MyClass.cvar_in_class_method
 
-class Parent 
+class Parent
   def hello
     puts "Hello, Parent class!"
   end
@@ -85,12 +84,11 @@ class Child < Parent
 
   def hello
     super # お案じ名前のメソッドを呼び出せる
-    puts 'Hello, Child class!'
+    puts "Hello, Child class!"
   end
-  
 end
 
-child = Child.new()
+child = Child.new
 child.hi
 child.hello
 Child.superclass # Parent
