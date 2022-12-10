@@ -1,0 +1,22 @@
+AllCops:
+  TargetRubyVersion: 3.1
+
+# テンプレートリテラルを使いたいので""に統一されてる方が楽できる
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+# 実装コードではないので必要ないルール
+Style/Documentation:
+  Enabled: false
+
+Lint/UselessAssignment:
+  Enabled: false
+
+Lint/InterpolationCheck:
+  Enabled: false
+
+Lint/PercentSymbolArray:
+  Enabled: false
+
+Lint/Void:
+  Enabled: false
