@@ -26,3 +26,6 @@ Lint/PercentSymbolArray:
 
 Lint/Void:
   Enabled: false
+
+Lint/UnreachableCode:
+  Enabled: false
