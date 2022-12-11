@@ -34,3 +34,21 @@ end
 
 p greet("alice")
 p greet(nil)
+
+def greeting(name, *messages)
+  messages.each do |message|
+    puts "#{message}, #{name}"
+  end
+end
+
+# nilでもデフォルト値は使われない！
+greeting("Mario", nil)
+greeting("Mario", "Hi", "Hello")
+
+def greet_twice(name, first_message, second_message)
+  puts "#{first_message}, #{name}"
+  puts "#{second_message}, #{name}"
+end
+
+greeting_messages = ["Hi", "Hello"]
+greet_twice("Lugi", *greeting_messages)
