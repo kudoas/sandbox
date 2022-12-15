@@ -52,16 +52,3 @@ end
 
 greeting_messages = ["Hi", "Hello"]
 greet_twice("Lugi", *greeting_messages)
-
-# yield: 受け取ったブロックを実行する
-def block_sample
-  puts "stand up"
-  yield if block_given?
-  puts "sit down"
-end
-
-block_sample do
-  puts "walk"
-end
-
-block_sample
