@@ -82,3 +82,48 @@ end
 dummy_block_sample do
   puts "walk"
 end
+
+people = ["Alice", "Bob", "Chalie"]
+block = proc { |name| puts name } # Proc.new
+
+people.each(&block)
+
+p1 = proc { |val| val.upcase }
+p2 = :upcase.to_proc
+
+p1.call("h1")
+p2.call("h1")
+
+people.map { |person| person.upcase }
+people.map(&:upcase)
+
+def write_with_lock
+  File.open "time.txt", "w" do |f|
+    f.flock File::LOCK_EX
+
+    yield f
+
+    f.flock File::LOCK_UN
+  end
+end
+
+write_with_lock do |f|
+  f.puts Time.now
+end
+
+# method1 arg, method2 {...} blockはmethod2に渡される
+# method1(arg, method2) {...} blockはmethod1に渡される
+# method1 arg, method2 do
+# ...
+# end
+
+# blockローカル変数
+["Alice", "Bob", "Chalie"].each do |_person|
+  someone = "block local"
+end
+
+other_people = []
+["Alice", "Bob", "Chalie"].each do |person|
+  other_people << person
+end
+# personは受け取れない！
