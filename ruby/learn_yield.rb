@@ -70,3 +70,15 @@ end
 flexible_argument_for_block do |*params|
   puts params.inspect
 end
+
+def dummy_block_sample(&block)
+  puts "stand up"
+
+  block.call if block
+
+  puts "sit down"
+end
+
+dummy_block_sample do
+  puts "walk"
+end
