@@ -15,7 +15,7 @@ file = File.open("without_block.txt", "w")
 file.puts "without block"
 file.close
 
-File.open "with_block.txt", "w" do |file1|
+p File.open "with_block.txt", "w" do |file1|
   file1.puts "with block"
 end
 
@@ -23,18 +23,23 @@ def display_value
   puts yield
 end
 
+# blockの返り値、最後に評価した式の値を返す
+# => 1111
 display_value do
   1111
-end # => 1111
+end
 
+# => 42
 display_value do
   next 42
 end
 
+# display_valueを中断しているため何も返さない
 display_value do
-  break 42 # display_valueを中断しているため何も返さない
+  break 42
 end
 
+# yieldの引数はブロックの引数として渡される
 def with_current_time
   yield Time.now
 end
@@ -48,7 +53,7 @@ with_current_time do
   puts "Hi"
 end
 
-# 引数が多くてもエラーにはならないがnil
+# 引数が多くてもエラーにはならないが、nilになる
 with_current_time do |now, something|
   puts now
   puts something # nil
@@ -82,6 +87,9 @@ end
 dummy_block_sample do
   puts "walk"
 end
+
+# wrong number of arguments (given 1, expected 0) (ArgumentError)
+# dummy_block_sample "hi"
 
 people = ["Alice", "Bob", "Chalie"]
 block = proc { |name| puts name } # Proc.new
