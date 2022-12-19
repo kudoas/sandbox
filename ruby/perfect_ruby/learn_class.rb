@@ -8,15 +8,25 @@ my_object = MyClass.new
 my_object.hello
 
 class Ruler
-  attr_accessor :length # length=とlength
+  # 代入と取得両方使える
+  attr_accessor :length
+
+  # 使用用途が限定的ならこっちを使う
+  # attr_reader
+  # attr_writer
+
+  # 代入用メソッド
+  # def length=(val)
+  #   @length = val
+  # end
+
+  # 取得用メソッド
+  # def length
+  #   @length
+  # end
 
   def initialize(length = nil)
     @length = length
-  end
-
-  # instance method
-  def self.pair
-    [Ruler.new(250), Ruler.new]
   end
 
   def display_length
@@ -27,15 +37,16 @@ class Ruler
     self.length = 30 # 代入は省略できない
   end
 
-  # インスタンス変数の代入するときに使うメソッド
-  # def length=(val)
-  #   @length = val
-  # end
+  # class method
+  class << self
+    def pair
+      [Ruler.new(250), Ruler.new]
+    end
 
-  # 取得用のメソッド
-  # def length
-  #   @length
-  # end
+    def trio
+      [Ruler.new, Ruler.new, Ruler.new]
+    end
+  end
 end
 
 ruler = Ruler.new
