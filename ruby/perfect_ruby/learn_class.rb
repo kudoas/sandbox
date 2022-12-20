@@ -103,3 +103,26 @@ child = Child.new
 child.hi
 child.hello
 Child.superclass # Parent
+
+class Processor
+  def process
+    protected_process
+  end
+
+  def protected_process
+    private_process
+  end
+  # classかsubclassからしか呼べない(ほぼ使わない)
+  protected :protected_process
+
+  def private_process
+    puts "Done!"
+  end
+  private :private_process
+end
+
+processor = Processor.new
+processor.process
+
+# processor.protected_process
+# processor.private_process
