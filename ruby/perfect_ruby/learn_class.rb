@@ -126,3 +126,60 @@ processor.process
 
 # processor.protected_process
 # processor.private_process
+
+class Parent
+  def greet
+    puts "Hi"
+  end
+end
+
+class Child < Parent
+end
+
+Child.superclass
+child = Child.new
+child.greet
+
+class Parent
+  PARENT = "constant in parent"
+end
+
+class Child < Parent
+end
+
+Child::PARENT
+
+class GrandChild < Child
+  def greet
+    super
+
+    puts "HIHI"
+  end
+end
+
+grand_child = GrandChild.new
+grand_child.greet
+
+# 特異メソッド
+class Foo
+  def override_me
+    puts "in Foo class"
+  end
+end
+
+bar = Foo.new
+def bar.override_me
+  super
+
+  puts "in singleton method"
+end
+
+bar.override_me
+
+class My
+  class SweetClass
+  end
+end
+
+My.new
+My::SweetClass.new
