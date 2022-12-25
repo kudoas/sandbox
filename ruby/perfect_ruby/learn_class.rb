@@ -183,3 +183,21 @@ end
 
 My.new
 My::SweetClass.new
+
+class Client
+  class << self
+    def get
+      return unless connection == "get"
+
+      p "got"
+    end
+
+    private
+
+    def connection
+      "get"
+    end
+  end
+end
+
+Client.get
