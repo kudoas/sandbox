@@ -212,3 +212,13 @@ end
 o = Object.new
 o.extend Greetable
 o.greet_to "world"
+
+# module関数
+module MyFunctions
+  def my_module_function
+    puts "Called!"
+  end
+  module_function :my_module_function
+end
+
+MyFunctions.my_module_function
