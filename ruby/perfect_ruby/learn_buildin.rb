@@ -1,7 +1,7 @@
 # 宇宙船演算子
 p 1 <=> 2
 p 2 <=> 1
-p 1 <=> 1
+# p 1 <=> 1
 
 ["Alice", "Bob", "Charlie"].sort do |a, b|
   a.length <=> b.length
@@ -59,3 +59,16 @@ spliter.rstrip
 
 "Abc".swapcase # => aBC
 "title".capitalize # => Title
+
+spliter.strip! # breaking change
+spliter.strip! # => nil
+
+"abcde".reverse # => "edcba"
+
+arr_str = "Alice, Bob, Chalie"
+arr_str.split(", ")
+arr_str.split(/,\s+/)
+arr_str.split(/,\s+/, 2) # => ["Alice", "Bob, Chalie"]
+
+"bbb".each_char { |s| p "#{s}a" }
+"Alice\nBob".each_line { |line| p line }
