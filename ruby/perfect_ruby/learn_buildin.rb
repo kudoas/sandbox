@@ -72,3 +72,17 @@ arr_str.split(/,\s+/, 2) # => ["Alice", "Bob, Chalie"]
 
 "bbb".each_char { |s| p "#{s}a" }
 "Alice\nBob".each_line { |line| p line }
+
+"てにをは".encoding # => #<Encoding:UTF-8>
+"てにをは".encode(Encoding::EUC_JP).encoding # => #<Encoding:EUC-JP>
+
+# => incompatible character encodings: UTF-8 and EUC-JP (Encoding::CompatibilityError)
+# "てにをは" + "てにをは".encode(Encoding::EUC_JP)
+
+# ASCII互換だと連結や比較ができる
+
+# 末尾の1バイトが削れてしまった文字列
+broken = "尾崎翠".bytes[0..-2].pack("c*").force_encoding(Encoding::UTF_8)
+p broken
+p broken.scrub
+p broken.scrub("*")
