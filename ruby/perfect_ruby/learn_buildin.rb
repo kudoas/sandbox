@@ -86,3 +86,20 @@ broken = "尾崎翠".bytes[0..-2].pack("c*").force_encoding(Encoding::UTF_8)
 p broken
 p broken.scrub
 p broken.scrub("*")
+
+s = String.new(capacity: 10_000)
+2_000.times do
+  s << "hello"
+end
+
+/[0-9]/ === "ruby"
+/[0-9]/ === "ruby4" # => true
+
+/[0-9]/ =~ "ruby"
+/[0-9]/ =~ "ruby4"
+
+str = "ruby5"
+matched = /[0-9]/.match(str)
+p matched[0]
+p matched.pre_match
+p matched.captures
