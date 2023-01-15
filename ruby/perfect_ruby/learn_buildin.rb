@@ -103,3 +103,29 @@ matched = /[0-9]/.match(str)
 p matched[0]
 p matched.pre_match
 p matched.captures
+
+Regexp.last_match
+
+/ruby/.match("ruby")
+Regexp.last_match # => ruby
+
+/\d/.match?("ruby5")
+"ruby5".match?(/\d/)
+:ruby5.match?(/\d/)
+Regexp.last_match # => ruby5
+
+names = "Yamazaki Tanizaki"
+names.scan(/\w+zaki/) { |s| puts s.upcase }
+names.scan(/(\w+)zaki/) { |s| puts s[0].upcase }
+
+part = Regexp.escape("(incomplete)") # => "\\(incomplete\\)"
+
+# 文字クラス
+# \w = [0-9A-Za-z]
+
+# 量指定子
+# + 直前パターン1回以上の繰り返し
+
+# xxx-xxx-xxxx
+phone_number_pattern = /\d{3}-\d{4}-\d{4}/
+phone_number_pattern === "080-2222-3333" # => true
