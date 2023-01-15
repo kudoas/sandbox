@@ -1,7 +1,7 @@
-# 色々触って遊ぶための砂場
+# Sandbox for touching and playing with various services and libraries
 
-## 置いてあるもの
+## Things you can find in this repository
 
-- ライブラリのサンプル実装
-- 言語仕様を学ぶための雑コード
-- 設定ファイル
+- Sample implementations of libraries
+- Miscellaneous code to learn the language specification
+- Configuration file
