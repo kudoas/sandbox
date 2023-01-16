@@ -92,8 +92,8 @@ limted_str = String.new(capacity: 10_000)
   limted_str << "hello"
 end
 
-/[0-9]/ === "ruby"
-/[0-9]/ === "ruby4" # => true
+# /[0-9]/ === "ruby"
+# /[0-9]/ === "ruby4" # => true
 
 /[0-9]/ =~ "ruby"
 /[0-9]/ =~ "ruby4"
@@ -127,5 +127,7 @@ part = Regexp.escape("(incomplete)") # => "\\(incomplete\\)"
 # + 直前パターン1回以上の繰り返し
 
 # xxx-xxx-xxxx
-phone_number_pattern = /\d{3}-\d{4}-\d{4}/
-phone_number_pattern === "080-2222-3333" # => true
+phone_number_pattern = /\A\d{3}-\d{4}-\d{4}\z/
+# phone_number_pattern === "080-2222-3333" # => true
+phone_number_pattern.match?("080-2222-3333")
+phone_number_pattern.match?("phone: 080-2222-3333 (mobile)") # => false
