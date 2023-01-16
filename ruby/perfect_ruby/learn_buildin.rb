@@ -87,9 +87,9 @@ p broken
 p broken.scrub
 p broken.scrub("*")
 
-s = String.new(capacity: 10_000)
+limted_str = String.new(capacity: 10_000)
 2_000.times do
-  s << "hello"
+  limted_str << "hello"
 end
 
 /[0-9]/ === "ruby"
