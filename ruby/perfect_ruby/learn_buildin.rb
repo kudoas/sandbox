@@ -122,6 +122,7 @@ part = Regexp.escape("(incomplete)") # => "\\(incomplete\\)"
 
 # 文字クラス
 # \w = [0-9A-Za-z]
+# \d = [0-9]
 
 # 量指定子
 # + 直前パターン1回以上の繰り返し
@@ -131,3 +132,7 @@ phone_number_pattern = /\A\d{3}-\d{4}-\d{4}\z/
 # phone_number_pattern === "080-2222-3333" # => true
 phone_number_pattern.match?("080-2222-3333")
 phone_number_pattern.match?("phone: 080-2222-3333 (mobile)") # => false
+
+lines = "1234\nabcd"
+/\A\d+\z/.match?(lines) # => false 文字列全体なのでマッチしない
+/^\d+$/.match?(lines) # => true 行頭と行末がマッチする
