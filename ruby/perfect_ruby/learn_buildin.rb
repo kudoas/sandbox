@@ -136,3 +136,21 @@ phone_number_pattern.match?("phone: 080-2222-3333 (mobile)") # => false
 lines = "1234\nabcd"
 /\A\d+\z/.match?(lines) # => false 文字列全体なのでマッチしない
 /^\d+$/.match?(lines) # => true 行頭と行末がマッチする
+
+# グルーピングと後方参照
+/(B) to \1/.match?("B to B")
+/(?<number>[0-9]+)/.match("abc-123")
+Regexp.last_match[:number] # => 123
+
+# \1はマッチした文字そのものを指すためマッチしない
+/([0-9]+)-\g<1>-\g<1>/.match?("000-111-2222") # => true
+/([0-9]+)-\1-\1/.match?("000-111-2222") # => false
+/(?<num>[0-9]+)-\g<num>-\g<num>/.match?("000-111-2222") # => true
+
+# 先読みと後読み
+pattern = /(?<=丁目)(\d+)(?=番地)/
+pattern = /(?<!2012)-(?<month_and_day>\d{2}-\d{2})/ # 否定先読みと否定後読み
+
+# バックトラック（マッチが成功するように頭良く認識する）
+/(\w+)[0-9]/.match("ruby5") # => true
+/(?>\w+)[0-9]/.match("ruby5") # => false
