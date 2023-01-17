@@ -154,3 +154,22 @@ pattern = /(?<!2012)-(?<month_and_day>\d{2}-\d{2})/ # 否定先読みと否定�
 # バックトラック（マッチが成功するように頭良く認識する）
 /(\w+)[0-9]/.match("ruby5") # => true
 /(?>\w+)[0-9]/.match("ruby5") # => false
+
+class Ruler
+  include Comparable # Objectクラスの比較ができるようになる
+
+  attr_accessor :length
+
+  def initialize(len)
+    self.length = len
+  end
+
+  def <=>(other)
+    length <=> other.length
+  end
+end
+
+short = Ruler.new(10)
+long = Ruler.new(100)
+
+short < long # => true
