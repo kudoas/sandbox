@@ -179,3 +179,7 @@ max = Ruler.new(50)
 Ruler.new(20).clamp(min, max) # => #<Ruler:0x000000010197b1a0 @length=30>
 Ruler.new(35).clamp(min, max) # => #<Ruler:0x000000010197ad68 @length=35>
 Ruler.new(55).clamp(min, max) # => #<Ruler:0x000000010197b150 @length=50>
+
+["Alice", "Bob", "Chalie"].each_with_index do |name, index|
+  puts "#{index}: #{name}"
+end
