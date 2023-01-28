@@ -6,9 +6,10 @@ import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { counterReducer } from './counter.reducer';
 import { MyCounterComponent } from './my-counter/my-counter.component';
+import { LoginPageComponent } from './login-page/login-page.component';
 
 @NgModule({
-  declarations: [AppComponent, MyCounterComponent],
+  declarations: [AppComponent, MyCounterComponent, LoginPageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
