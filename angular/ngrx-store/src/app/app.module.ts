@@ -7,8 +7,8 @@ import { AppComponent } from './app.component';
 import { MyCounterComponent } from './my-counter/my-counter.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 
-import { counterReducer } from './reducer/counter.reducer';
-import { scoreboardReducer } from './reducer/scoreboard.reducer';
+import { counterReducer } from '../reducer/counter.reducer';
+import { scoreboardReducer } from '../reducer/scoreboard.reducer';
 
 @NgModule({
   declarations: [AppComponent, MyCounterComponent, LoginPageComponent],
