@@ -1,8 +1,8 @@
 import { createAction, props } from '@ngrx/store';
 
 type Game = {
-  title: string;
-  date: string;
+  home: number;
+  away: number;
 };
 
 export const homeScore = createAction('[Scoreboard Page] Home Score');
