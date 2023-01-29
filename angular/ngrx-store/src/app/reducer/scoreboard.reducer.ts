@@ -14,6 +14,11 @@ export const initialState: State = {
 export const scoreboardReducer = createReducer(
   initialState,
   on(ScoreboardPageActions.homeScore, (state) => ({
+    /**
+     * Note: The spread operator only does shallow copying and does not handle deeply nested objects.
+     * You need to copy each level in the object to ensure immutability.
+     * There are libraries that handle deep copying including lodash and immer.
+     */
     ...state,
     home: state.home + 1,
   })),
