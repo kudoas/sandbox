@@ -23,6 +23,11 @@ func split(sum int) (x, y int) {
 	return
 }
 
+func needInt(x int) int { return x*10 + 1 }
+func needFloat(x float64) float64 {
+	return x * 0.1
+}
+
 func main() {
 	// 最初の文字が大文字で始まる名前は、外部のパッケージから参照できるエクスポート（公開）された名前( exported name )
 	fmt.Println(math.Pi)
@@ -55,4 +60,12 @@ func main() {
 	const world = 2.2
 	fmt.Println(world)
 
+	const (
+		Big   = 1 << 10
+		Small = Big >> 99
+	)
+
+	fmt.Println(needInt(Small))
+	fmt.Println(needFloat(Small))
+	fmt.Println(needInt(Big))
 }
