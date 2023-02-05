@@ -1,11 +1,13 @@
 package main
 
-import (
-	// "fmt"
+import "example.com/basic"
 
-	"./basic"
-	// "./exercise"
-)
+// import (
+// 	// "fmt"
+
+// 	"./basic"
+// 	// "./exercise"
+// )
 
 func main() {
 	// basic
