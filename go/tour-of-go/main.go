@@ -1,11 +1,13 @@
 package main
 
-import (
-	// "fmt"
+import "example.com/basic"
 
-	"./basic"
-	// "./exercise"
-)
+// import (
+// 	// "fmt"
+
+// 	"./basic"
+// 	// "./exercise"
+// )
 
 func main() {
 	// basic
@@ -32,11 +34,11 @@ func main() {
 	basic.CloseCh()
 	basic.Select()
 
-	// exersizse
+	// exercise
 	// exercise.WordCountTest(exercise.WordCount)
 	// fmt.Println(exercise.Pic(10, 10))
 	// exercise.DrawGraph()
-	// fmt.Println(exercise.WordCount("hoge ghoe"))
+	// fmt.Println(exercise.WordCount("foo bar"))
 	// f := exercise.Fibonacci()
 	// for i := 0; i < 10; i++ {
 	// 	fmt.Println(f())
