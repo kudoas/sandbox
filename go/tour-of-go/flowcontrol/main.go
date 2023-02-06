@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"runtime"
 )
 
 func sqrt(x float64) string {
@@ -59,4 +60,15 @@ func main() {
 	)
 
 	fmt.Println(Sqrt(4))
+
+	// 選択された case だけを実行してそれに続く全ての case は実行されません
+	// break ステートメントが Go では自動的に提供されます。
+	switch os := runtime.GOOS; os {
+	case "darwin":
+		fmt.Println("OS X.")
+	case "linux":
+		fmt.Println("Linux.")
+	default:
+		fmt.Printf("%s. \n", os)
+	}
 }
