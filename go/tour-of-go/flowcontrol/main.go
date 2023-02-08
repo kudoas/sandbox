@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math"
 	"runtime"
+	"time"
 )
 
 func sqrt(x float64) string {
@@ -35,6 +36,12 @@ func Sqrt(x float64) float64 {
 	}
 
 	return z
+}
+
+func say_hello() {
+	defer fmt.Println("World")
+
+	fmt.Println("Hello")
 }
 
 func main() {
@@ -71,4 +78,35 @@ func main() {
 	default:
 		fmt.Printf("%s. \n", os)
 	}
+
+	today := time.Now().Weekday()
+	switch time.Saturday {
+	case today + 0:
+		fmt.Println("Today.")
+	case today + 1:
+		fmt.Println("Tomorrow.")
+	case today + 2:
+		fmt.Println("In two days.")
+	default:
+		fmt.Println("Too far away.")
+	}
+
+	t := time.Now()
+	switch {
+	case t.Hour() < 12:
+		fmt.Println("Good morning!")
+	case t.Hour() < 17:
+		fmt.Println("Good afternoon.")
+	default:
+		fmt.Println("Good evening.")
+	}
+
+	say_hello()
+
+	// LIFO: https://ja.wikipedia.org/wiki/LIFO
+	fmt.Println("counting")
+	for i := 0; i < 10; i++ {
+		defer fmt.Println(i)
+	}
+	fmt.Println("done")
 }
