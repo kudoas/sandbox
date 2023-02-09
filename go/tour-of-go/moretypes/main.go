@@ -31,4 +31,23 @@ func main() {
 	pv := &vv
 	pv.X = 1e9 // (*pv).X は 描くのだるいから省略できる
 	fmt.Println(vv)
+
+	// struct の初期値を割り当てられる
+	var (
+		v1 = Vertex{1, 2}  // has type Vertex
+		v2 = Vertex{X: 1}  // Y:0 is implicit
+		v3 = Vertex{}      // X:0 and Y:0
+		vp = &Vertex{1, 2} // has type *Vertex
+	)
+
+	fmt.Println(v1, vp, v2, v3)
+
+	var a [2]string
+	a[0] = "Hello"
+	a[1] = "World"
+	fmt.Println(a[0], a[1])
+	fmt.Println(a)
+
+	primes := [6]int{2, 3, 5, 7, 11, 13}
+	fmt.Println(primes)
 }
