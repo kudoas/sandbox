@@ -1,10 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 type Vertex struct {
 	X int
 	Y int
+}
+
+func printSlice(s []int) {
+	fmt.Printf("len=%d cap=%d %v\n", len(s), cap(s), s)
 }
 
 func main() {
@@ -50,4 +57,80 @@ func main() {
 
 	primes := [6]int{2, 3, 5, 7, 11, 13}
 	fmt.Println(primes)
+
+	var s []int = primes[1:4]
+	fmt.Println(s)
+
+	names := [4]string{
+		"John",
+		"Paul",
+		"George",
+		"Ringo",
+	}
+
+	e := names[1:3]
+	e[0] = "XXX" // 参照渡し
+	fmt.Println(names)
+
+	// 長さのもたない配列リテラル
+	q := []int{2, 3, 5, 7, 11, 13}
+	r := []bool{true, false, true, true, false, true}
+	sl := []struct {
+		i int
+		b bool
+	}{
+		{2, true},
+		{3, false},
+		{5, true},
+		{7, true},
+		{11, false},
+		{13, true},
+	}
+	fmt.Println(q, r, sl)
+
+	// スライスの容量は、スライスの最初の要素から数えて、元となる配列の要素数
+	// 途中から数えるとその分減る
+	printSlice(s)
+	printSlice(q)
+
+	// Nil slices
+	var ns []int
+	fmt.Println(s, len(ns), cap(ns))
+	if ns == nil {
+		fmt.Println("nil")
+	}
+
+	// 0 が 5つ入る
+	a1 := make([]int, 5)
+	printSlice(a1)
+
+	// 容量が 5 の slice
+	b := make([]int, 0, 5)
+	printSlice(b)
+
+	// 容量は 5　のまま
+	c := b[:2]
+	printSlice(c)
+
+	// 容量が 3　になる
+	d := c[2:5]
+	printSlice(d)
+
+	// 2次元スライス string string
+	board := [][]string{
+		{"_", "_", "_"},
+		{"_", "_", "_"},
+		{"_", "_", "_"},
+	}
+
+	// The players take turns.
+	board[0][0] = "X"
+	board[2][2] = "O"
+	board[1][2] = "X"
+	board[1][0] = "O"
+	board[0][2] = "X"
+
+	for i := 0; i < len(board); i++ {
+		fmt.Printf("%s\n", strings.Join(board[i], " "))
+	}
 }
