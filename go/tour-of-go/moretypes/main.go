@@ -133,4 +133,10 @@ func main() {
 	for i := 0; i < len(board); i++ {
 		fmt.Printf("%s\n", strings.Join(board[i], " "))
 	}
+
+	// https://pkg.go.dev/builtin#append
+	s = append(s, 1)
+	printSlice(s)
+	s = append(s, 1, 2, 2)
+	printSlice(s)
 }
