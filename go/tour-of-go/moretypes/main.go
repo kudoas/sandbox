@@ -14,6 +14,18 @@ func printSlice(s []int) {
 	fmt.Printf("len=%d cap=%d %v\n", len(s), cap(s), s)
 }
 
+// moretypes 18
+func Pic(dx, dy int) [][]uint8 {
+	board := make([][]uint8, dy)
+	for i := range board {
+		board[i] = make([]uint8, dx)
+		for j := range board[i] {
+			board[i][j] = uint8(i) * uint8(j) * 100 // ここのロジックを外に切り出してもいいかも？
+		}
+	}
+	return board
+}
+
 func main() {
 	i, j := 25, 28
 
