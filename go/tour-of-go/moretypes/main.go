@@ -139,4 +139,20 @@ func main() {
 	printSlice(s)
 	s = append(s, 1, 2, 2)
 	printSlice(s)
+
+	var pow = []int{1, 2, 4, 8, 16, 32, 64, 128}
+	for i, v := range pow {
+		fmt.Printf("2**%d = %d\n", i, v)
+	}
+
+	var pow2 = make([]int, 10)
+	// 省略可能
+	for i := range pow2 {
+		pow2[i] = 1 << uint(i) // == 2**i
+		fmt.Println(pow2, uint(i))
+	}
+	// いらない変数は _
+	for _, value := range pow2 {
+		fmt.Printf("%d\n", value)
+	}
 }
