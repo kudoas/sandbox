@@ -1,0 +1,29 @@
+Fetching gem metadata from https://rubygems.org/...........
+Resolving dependencies....
+
+Gem                 Current  Latest   Requested             Groups
+actioncable         7.0.4.1  7.0.4.2
+actionmailbox       7.0.4.1  7.0.4.2
+actionmailer        7.0.4.1  7.0.4.2
+actionpack          7.0.4.1  7.0.4.2
+actiontext          7.0.4.1  7.0.4.2
+actionview          7.0.4.1  7.0.4.2
+activejob           7.0.4.1  7.0.4.2
+activemodel         7.0.4.1  7.0.4.2
+activerecord        7.0.4.1  7.0.4.2
+activestorage       7.0.4.1  7.0.4.2
+activesupport       7.0.4.1  7.0.4.2
+bootsnap            1.15.0   1.16.0   >= 0                  default
+concurrent-ruby     1.1.10   1.2.0
+globalid            1.0.1    1.1.0
+mail                2.8.0.1  2.8.1
+nokogiri            1.14.0   1.14.1
+puma                5.6.5    6.1.0    ~> 5.0                default
+rack                2.2.6.2  3.0.4.1
+rails               7.0.4.1  7.0.4.2  ~> 7.0.4, >= 7.0.4.1  default
+railties            7.0.4.1  7.0.4.2
+regexp_parser       2.6.2    2.7.0
+selenium-webdriver  4.7.1    4.8.0    >= 0                  test
+turbo-rails         1.3.2    1.3.3    >= 0                  default
+tzinfo              2.0.5    2.0.6
+zeitwerk            2.6.6    2.6.7
