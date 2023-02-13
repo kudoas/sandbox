@@ -167,4 +167,31 @@ func main() {
 	for _, value := range pow2 {
 		fmt.Printf("%d\n", value)
 	}
+
+	m := make(map[string]Vertex)
+	m["Bel"] = Vertex{
+		11, 2,
+	}
+	fmt.Println(m)
+
+	m2 := map[string]Vertex{
+		"Bell Labs": {
+			1, 2,
+		},
+		"Google": {
+			2, 3,
+		},
+	}
+	fmt.Println(m2)
+
+	m3 := make(map[string]int)
+	m3["Answer"] = 42
+	fmt.Println(m3)
+	m3["Answer"] = 48
+	fmt.Println(m3)
+
+	delete(m, "Answer")
+	delete(m, "Answer")
+	v, ok := m["Answer"]
+	fmt.Println("The value:", v, "Present?", ok)
 }
