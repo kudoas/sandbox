@@ -4,7 +4,6 @@ on:
   pull_request:
     types:
       - opened
-      - reopend
       - labeled
 
 permissions:
@@ -16,7 +15,6 @@ permissions:
 jobs:
   dependabot-automation:
     runs-on: ubuntu-latest
-    if: ${{ github.actor == 'dependabot[bot]' }}
     timeout-minutes: 5
     steps:
       - name: Dependabot metadata
@@ -29,7 +27,6 @@ jobs:
         run: |
           gh pr review --approve "$PR_URL"
           gh pr edit "$PR_URL" -t "(auto merged) $PR_TITLE"
-          gh pr edit --add-label "auto merged"
           gh pr merge --auto --merge "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
