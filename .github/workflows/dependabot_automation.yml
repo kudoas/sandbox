@@ -16,7 +16,6 @@ permissions:
 jobs:
   dependabot-automation:
     runs-on: ubuntu-latest
-    if: ${{ github.actor == 'dependabot[bot]' }}
     timeout-minutes: 5
     steps:
       - name: Dependabot metadata
