@@ -1,2 +1,5 @@
 * @kudoas
-!README.md @kudoas
+*/**/package.json
+*/**/package-lock.json
+*/**/Gemfile
+*/**/Gemfile.lock
