@@ -4,6 +4,7 @@ on:
   pull_request:
     types:
       - opened
+      - reopend
 
 permissions:
   pull-requests: write
