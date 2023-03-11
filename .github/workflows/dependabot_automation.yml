@@ -4,6 +4,7 @@ on:
   pull_request:
     types:
       - opened
+      - reopened
       - labeled
 
 permissions:
@@ -15,6 +16,7 @@ permissions:
 jobs:
   dependabot-automation:
     runs-on: ubuntu-latest
+    if: contains(github.head_ref, 'dependabot')
     timeout-minutes: 5
     steps:
       - name: Dependabot metadata
