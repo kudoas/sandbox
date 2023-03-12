@@ -1,0 +1,50 @@
+name: Build diff check for renovate bot
+
+on:
+  pull_request:
+    types: [opened, ready_for_review, reopened, labeled]
+
+jobs:
+  compare-static-assets-job:
+    timeout-minutes: 3
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+      - name: Checkout current branch
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: touch current file
+        run: |
+          touch diff/current.txt
+          echo current > diff/current.txt
+      - name: Checkout main branch
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+      - name: touch main file
+        run: |
+          touch diff/main.txt
+          echo main > diff/main.txt
+      - name: Compare static assets
+        run: |
+          git diff --compact-summary diff/current diff/main > /diff/result.txt || true
+      - name: Comment to PR
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const fs = require('fs')
+            const result = fs.readFileSync('/diff/result.txt', 'utf8')
+            const commentBody = result ?
+              `静的アセットのビルド結果に差分があります！<details><summary>詳細</summary><pre>${result}</pre></details>`
+              : '静的アセットのビルド結果に差分はありません'
+            await github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: commentBody
+            })
