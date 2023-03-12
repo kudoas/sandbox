@@ -19,6 +19,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: touch current file
         run: |
+          mkdir diff
           touch diff/current.txt
           echo current > diff/current.txt
       - name: Checkout main branch
@@ -27,6 +28,7 @@ jobs:
           ref: ${{ github.event.pull_request.base.sha }}
       - name: touch main file
         run: |
+          mkdir diff
           touch diff/main.txt
           echo main > diff/main.txt
       - name: Compare static assets
