@@ -1,4 +1,5 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const RemoveEmptyScriptsPlugin = require("webpack-remove-empty-scripts");
 
 module.exports = {
   mode: 'development',
@@ -18,5 +19,6 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "css/styles.css",
     }),
+    new RemoveEmptyScriptsPlugin(),
   ],
 }
