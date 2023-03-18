@@ -4,7 +4,7 @@ const RemoveEmptyScriptsPlugin = require("webpack-remove-empty-scripts");
 module.exports = {
   mode: 'development',
   entry: {
-    css: './index.css'
+    css: './assets/index.css'
   },
   output: {},
   module: {
