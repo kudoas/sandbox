@@ -1,5 +1,6 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const RemoveEmptyScriptsPlugin = require("webpack-remove-empty-scripts");
+const CopyPlugin = require("copy-webpack-plugin");
 const path = require('path');
 
 module.exports = {
@@ -26,5 +27,10 @@ module.exports = {
       filename: "css/styles.css",
     }),
     new RemoveEmptyScriptsPlugin(),
+    new CopyPlugin({
+      patterns: [
+        { from: 'assets/img', to: 'img' }
+      ]
+    })
   ],
 }
