@@ -16,17 +16,17 @@
   \*************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.css */ \"./assets/index.css\");\n\n\nconsole.log('hello world')\n\n\n//# sourceURL=webpack://webpack-sample/./assets/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.scss */ \"./assets/index.scss\");\n\n\nconsole.log('hello world')\n\n\n//# sourceURL=webpack://webpack-sample/./assets/index.js?");
 
 /***/ }),
 
-/***/ "./assets/index.css":
-/*!**************************!*\
-  !*** ./assets/index.css ***!
-  \**************************/
+/***/ "./assets/index.scss":
+/*!***************************!*\
+  !*** ./assets/index.scss ***!
+  \***************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://webpack-sample/./assets/index.css?");
+eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://webpack-sample/./assets/index.scss?");
 
 /***/ })
 
