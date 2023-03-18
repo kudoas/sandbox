@@ -2,6 +2,9 @@
   "name": "webpack-sample",
   "version": "1.0.0",
   "main": "index.js",
+  "scripts": {
+    "build": "webpack"
+  },
   "license": "MIT",
   "devDependencies": {
     "mini-css-extract-plugin": "^2.7.5",
