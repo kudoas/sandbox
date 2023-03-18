@@ -2,8 +2,7 @@ name: Dependabot automation
 
 on:
   pull_request:
-    types:
-      - opened
+    types: [opened, reopened, synchronize]
 
 permissions:
   pull-requests: write
@@ -15,6 +14,7 @@ jobs:
   dependabot-automation:
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    if: contains(github.head_ref, 'dependabot')
     steps:
       - name: Dependabot metadata
         id: metadata
