@@ -4,11 +4,10 @@ const path = require('path');
 
 module.exports = {
   mode: 'development',
-  entry: {
-    css: './assets/index.css'
-  },
+  entry: './assets/index.js',
   output: {
-    path: path.resolve(__dirname, 'public')
+    path: path.resolve(__dirname, 'public'),
+    filename: 'js/bundle.js'
   },
   module: {
     rules: [
