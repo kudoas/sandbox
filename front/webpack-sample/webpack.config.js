@@ -29,7 +29,8 @@ module.exports = {
     new RemoveEmptyScriptsPlugin(),
     new CopyPlugin({
       patterns: [
-        { from: 'assets/img', to: 'img' }
+        { from: 'assets/img', to: 'img' },
+        { from: 'assets/fonts', to: 'fonts' }
       ]
     })
   ],
