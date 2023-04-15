@@ -21,6 +21,11 @@ module.exports = {
           "sass-loader",
         ],
       },
+      {
+        test: /test\.js$/,
+        use: 'mocha-loader',
+        exclude: /node_modules/,
+      },
     ]
   },
   plugins: [
