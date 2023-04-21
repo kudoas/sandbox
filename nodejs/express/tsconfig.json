@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "outDir": "../dist/",
+    "declaration": true, // 型定義のmapファイルが作成される
+    "strict": false
+  },
+  "lib": ["dom", "es2016"]
+}
