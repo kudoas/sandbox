@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  get '/client/*other', to: 'angular#index'
+  # Angular で設定しているルーティングと一致させればAngular Router のURLを保持できる
+  # 設定しない場合 (eg. '*path') とかだと、/ にリダイレクトされる
+  get '/hero', to: 'angular#index'
 end
