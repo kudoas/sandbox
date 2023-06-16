@@ -43,6 +43,15 @@ const _tokenizeText = (
         break;
       }
 
+      if (matchArray.index! > 0) {
+        const text = processingText.slice(0, matchArray.index!);
+        id += 1;
+        const textElm = genTextElement(id, text, parent);
+        elements.push(textElm);
+        processingText = processingText.replace(text, "");
+        continue;
+      }
+
       const elm = genStrongElement(id, parent);
       parent = elm;
       elements.push(elm);

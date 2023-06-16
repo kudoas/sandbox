@@ -6,4 +6,4 @@ const convertToHTMLString = (markdown: string) => {
   return asts;
 };
 
-console.log(convertToHTMLString("**aaa**"));
+console.log(convertToHTMLString("bbb**aaa**"));
