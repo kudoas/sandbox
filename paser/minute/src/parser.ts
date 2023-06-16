@@ -1,4 +1,8 @@
-import { genStrongElement, matchWithStrongRegxp } from "./lexer";
+import {
+  genStrongElement,
+  genTextElement,
+  matchWithStrongRegxp,
+} from "./lexer";
 import { Token } from "./models/token";
 
 const rootToken: Token = {
@@ -31,6 +35,14 @@ const _tokenizeText = (
       ) as RegExpMatchArray;
 
       id += 1;
+
+      if (!matchArray) {
+        const onlyText = genTextElement(id, processingText, parent);
+        processingText = "";
+        elements.push(onlyText);
+        break;
+      }
+
       const elm = genStrongElement(id, parent);
       parent = elm;
       elements.push(elm);

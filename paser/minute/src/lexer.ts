@@ -10,7 +10,7 @@ const STRONG = "strong";
 // 非貪欲マッチは、可能な限り短い範囲にマッチさせることを意味します。つまり、最初にマッチする部分から検索を終了します。
 const STRONG_ELM_REGXP = /\*\*(.*?)\*\*/;
 
-const getTextElement = (id: number, text: string, parent: Token): Token => ({
+const genTextElement = (id: number, text: string, parent: Token): Token => ({
   id,
   elmType: TEXT,
   content: text,
@@ -26,4 +26,4 @@ const genStrongElement = (id: number, parent: Token): Token => ({
 
 const matchWithStrongRegxp = (text: string) => text.match(STRONG_ELM_REGXP);
 
-export { getTextElement, genStrongElement, matchWithStrongRegxp };
+export { genTextElement, genStrongElement, matchWithStrongRegxp };
