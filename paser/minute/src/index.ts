@@ -5,3 +5,5 @@ const convertToHTMLString = (markdown: string) => {
   const asts = mdArray.map((md) => parse(md));
   return asts;
 };
+
+console.log(convertToHTMLString("****"));
