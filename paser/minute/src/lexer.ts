@@ -8,7 +8,9 @@ const STRONG = "strong";
 // ドット (.) は任意の1文字にマッチし、アスタリスク (*) は直前のパターンが0回以上の繰り返しにマッチすることを表します。
 // クエスチョンマーク (?) の存在により、このパターンは非貪欲マッチ（non-greedy match）を表します。
 // 非貪欲マッチは、可能な限り短い範囲にマッチさせることを意味します。つまり、最初にマッチする部分から検索を終了します。
-const STRONG_ELM_REGXP = /\*\*(.*?)\*\*/;
+const STRONG_ELM_REGEXP = /\*\*(.*?)\*\*/;
+
+const LIST_REGEXP = /^( *)([-|\*|\+] (.+))$/m;
 
 const genTextElement = (id: number, text: string, parent: Token): Token => ({
   id,
@@ -24,6 +26,13 @@ const genStrongElement = (id: number, parent: Token): Token => ({
   parent,
 });
 
-const matchWithStrongRegxp = (text: string) => text.match(STRONG_ELM_REGXP);
+const matchWithStrongRegxp = (text: string) => text.match(STRONG_ELM_REGEXP);
 
-export { genTextElement, genStrongElement, matchWithStrongRegxp };
+const matchWithListRegxp = (text: string) => text.match(LIST_REGEXP);
+
+export {
+  genTextElement,
+  genStrongElement,
+  matchWithStrongRegxp,
+  matchWithListRegxp,
+};
