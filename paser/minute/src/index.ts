@@ -8,4 +8,4 @@ const convertToHTMLString = (markdown: string) => {
   return htmlStrings;
 };
 
-console.log(convertToHTMLString("abc"));
+console.log(convertToHTMLString("normal**bold**"));
