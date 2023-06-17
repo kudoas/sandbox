@@ -29,13 +29,15 @@ const _tokenizeText = (
     parent = p;
 
     while (processingText.length !== 0) {
-      // matchArray [ '****', '', index: 0, input: '****', groups: undefined ]
+      id += 1;
+      // 正規表現で markdown を検知する処理
+      // example. matchArray [ '****', '', index: 0, input: '****', groups: undefined ]
       const matchArray = matchWithStrongRegxp(
         processingText
       ) as RegExpMatchArray;
 
-      id += 1;
-
+      // 正規表現にマッチしない場合、確定でTEXT
+      // example. "normal"
       if (!matchArray) {
         const onlyText = genTextElement(id, processingText, parent);
         processingText = "";
@@ -43,9 +45,11 @@ const _tokenizeText = (
         break;
       }
 
+      // 正規表現にマッチするがマッチした最初の文字が文頭ではない場合、マッチするまでの文字はTEXT
+      // example. "normal**bold**"
       if (matchArray.index! > 0) {
-        const text = processingText.slice(0, matchArray.index!);
         id += 1;
+        const text = processingText.slice(0, matchArray.index!);
         const textElm = genTextElement(id, text, parent);
         elements.push(textElm);
         processingText = processingText.replace(text, "");
