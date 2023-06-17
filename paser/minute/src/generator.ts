@@ -33,6 +33,12 @@ const _createMergedContent = (
 ) => {
   let content = "";
   switch (parentToken.elmType) {
+    case "ul":
+      content = `<ul>${currentToken.content}<ul>`;
+      break;
+    case "li":
+      content = `<li>${currentToken.content}</li>`;
+      break;
     case "strong":
       content = `<strong>${currentToken.content}</strong>`;
       break;
