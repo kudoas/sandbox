@@ -8,4 +8,4 @@ const convertToHTMLString = (markdown: string) => {
   return htmlStrings;
 };
 
-console.log(convertToHTMLString("* aaaa"));
+console.log(convertToHTMLString("* aaa**b**"));

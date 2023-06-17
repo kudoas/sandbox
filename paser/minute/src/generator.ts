@@ -10,22 +10,27 @@ const _generateHtmlString = (tokens: Array<Token | MergedToken>) =>
 const isAllElmParentRoot = (tokens: Array<Token | MergedToken>) =>
   tokens.map((t) => t.parent.elmType).every((v) => v === "root");
 
-// const _getInsertPosition = (content: string) => {
-//   let state = 0;
-//   const closeTagParentheses = ["<", ">"];
-//   let position = 0;
-//   console.log(content);
-//   content.split("").some((c, i) => {
-//     if (state === 1 && c === closeTagParentheses[state]) {
-//       position = i;
-//       return;
-//     }
-//     if (state === 0 && c === closeTagParentheses[state]) {
-//       state++;
-//     }
-//   });
-//   return position++;
-// };
+/**
+ * contentを左から検索してタグが終わった時点の位置を返す
+ * <li>... なら > の次の位置を返す
+ */
+const _getInsertPosition = (content: string) => {
+  let closeTagState = 0;
+  let position = 0;
+  const closeTagParentheses = ["<", ">"];
+  content.split("").some((c, i) => {
+    if (closeTagState === 0 && c === closeTagParentheses[closeTagState]) {
+      closeTagState++;
+    } else if (
+      closeTagState === 1 &&
+      c === closeTagParentheses[closeTagState]
+    ) {
+      position = i;
+      return true;
+    }
+  });
+  return position + 1;
+};
 
 const _createMergedContent = (
   currentToken: Token | MergedToken,
@@ -43,10 +48,10 @@ const _createMergedContent = (
       content = `<strong>${currentToken.content}</strong>`;
       break;
     case "merged":
-    // const position = _getInsertPosition(parentToken.content);
-    // content = `${parentToken.content.slice(0, position)}${
-    //   currentToken.content
-    // }${parentToken.content.slice(position)}`;
+      const position = _getInsertPosition(parentToken.content);
+      content = `${parentToken.content.slice(0, position)}${
+        currentToken.content
+      }${parentToken.content.slice(position)}`;
   }
   return content;
 };
