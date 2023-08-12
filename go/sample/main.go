@@ -15,7 +15,7 @@ func main() {
 	flag.Parse()
 
 	cliOptions := &CLIOptions{ByteCount: *bytePtr, LineCount: *linePtr, ChunkCount: *chunkPtr}
-	err := cliOptions.Parse(flag.Args())
+	err := cliOptions.Parse(os.Args[1:])
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -28,51 +28,60 @@ type CLIOptions struct {
 }
 
 func (opts *CLIOptions) Parse(args []string) error {
-	// opts.ByteCount
-
 	// option の仕様
 	// -b, -n, -l は同時に指定できない、どれか1つだけ
 	// -b, -n, -l はいずれも0やマイナスを指定できない
-
 	// option の validation をする層が必要そう
 
-	file, err := os.Open(args[0])
-	if err != nil {
-		return err
-	}
-	defer file.Close()
+	switch args[0] {
+	case "-b":
+		file, err := os.Open(args[2])
+		if err != nil {
+			return err
+		}
+		splitByBytes(file, opts.ByteCount)
+	case "-l":
+		if args[1] == "0" {
+			return fmt.Errorf("split: 0: illegal line count")
+		}
 
-	// usage: split [-l line_count] [-a suffix_length] [file [prefix]]
-	//      split -b byte_count[K|k|M|m|G|g] [-a suffix_length] [file [prefix]]
-	//      split -n chunk_count [-a suffix_length] [file [prefix]]
-	//      split -p pattern [-a suffix_length] [file [prefix]]
-	switch {
-	// これだと -b 0 を指定された時に、デフォルトの0なのか、標準入力から設定された0なのかが判定できない
-	case opts.LineCount != 0 && opts.ByteCount == 0 && opts.ChunkCount == 0:
-		err := splitByLines(file, opts.LineCount)
+		file, err := os.Open(args[2])
 		if err != nil {
 			return err
 		}
-	case opts.ByteCount != 0 && opts.LineCount == 0 && opts.ChunkCount == 0:
-		err := splitByBytes(file, opts.ByteCount)
+		splitByLines(file, opts.LineCount)
+	case "-n":
+		if args[1] == "0" {
+			return fmt.Errorf("split: 0: illegal number of chunks")
+		}
+		file, err := os.Open(args[2])
 		if err != nil {
 			return err
 		}
-	case opts.ChunkCount != 0 && opts.ByteCount == 0 && opts.LineCount == 0:
-		err := splitByChunks(file, opts.ChunkCount)
-		if err != nil {
-			return err
-		}
+		splitByChunks(file, opts.ChunkCount)
 	default:
-		err := splitByLines(file, 1000)
+		file, err := os.Open(args[0])
 		if err != nil {
 			return err
 		}
+		splitByLines(file, 1000)
 	}
 	return nil
 }
 
 func splitByBytes(file *os.File, bytesPerFile int) error {
+	if bytesPerFile == 0 {
+		outputFile, err := os.Create("1")
+		if err != nil {
+			return err
+		}
+		_, err = io.Copy(outputFile, file)
+		if err != nil {
+			return err
+		}
+		return nil
+	}
+
 	buffer := make([]byte, bytesPerFile)
 	for i := 1; ; i++ {
 		n, err := file.Read(buffer)
