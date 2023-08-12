@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"strconv"
 )
 
 func main() {
@@ -49,8 +50,12 @@ split -n chunk_count [file [prefix]]`
 		}
 		splitByBytes(file, opts.ByteCount)
 	case "-l":
-		if args[1] == "0" {
-			return fmt.Errorf("split: 0: illegal line count")
+		arg, err := strconv.Atoi(args[1])
+		if err != nil {
+			return err
+		}
+		if arg <= 0 {
+			return fmt.Errorf("split: %d: illegal line count", arg)
 		}
 
 		file, err := os.Open(args[2])
@@ -59,8 +64,12 @@ split -n chunk_count [file [prefix]]`
 		}
 		splitByLines(file, opts.LineCount)
 	case "-n":
-		if args[1] == "0" {
-			return fmt.Errorf("split: 0: illegal number of chunks")
+		arg, err := strconv.Atoi(args[1])
+		if err != nil {
+			return err
+		}
+		if arg <= 0 {
+			return fmt.Errorf("split: %d: illegal line count", arg)
 		}
 		file, err := os.Open(args[2])
 		if err != nil {
