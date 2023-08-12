@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"strconv"
 )
 
@@ -17,7 +16,8 @@ func (opts *CLIOptions) Handle(args []string, tailArgs []string) error {
 		usage := `usage:
 split [-l line_count] [file [prefix]]
 split -b byte_count [file [prefix]]
-split -n chunk_count [file [prefix]]`
+split -n chunk_count [file [prefix]]
+`
 		fmt.Print(usage)
 		return nil
 	}
@@ -33,12 +33,7 @@ split -n chunk_count [file [prefix]]`
 		if arg <= 0 {
 			return fmt.Errorf("split: %d: illegal line count", arg)
 		}
-
-		file, err := os.Open(tailArgs[0])
-		if err != nil {
-			return err
-		}
-		splitByLines(file, opts.LineCount)
+		splitByLines(tailArgs[0], opts.LineCount)
 	case "-n":
 		arg, err := strconv.Atoi(args[1])
 		if err != nil {
@@ -47,17 +42,9 @@ split -n chunk_count [file [prefix]]`
 		if arg <= 0 {
 			return fmt.Errorf("split: %d: illegal line count", arg)
 		}
-		file, err := os.Open(tailArgs[0])
-		if err != nil {
-			return err
-		}
-		splitByChunks(file, opts.ChunkCount)
+		splitByChunks(tailArgs[0], opts.ChunkCount)
 	default:
-		file, err := os.Open(tailArgs[0])
-		if err != nil {
-			return err
-		}
-		splitByLines(file, 1000)
+		splitByLines(tailArgs[0], 1000)
 	}
 	return nil
 }

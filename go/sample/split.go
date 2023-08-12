@@ -51,7 +51,12 @@ func splitByBytes(path string, bytesPerFile int) error {
 	return nil
 }
 
-func splitByLines(file *os.File, linesPerFile int) error {
+func splitByLines(path string, linesPerFile int) error {
+	file, err := os.Open(path)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
 	scanner := bufio.NewScanner(file)
 	var lines []string
 
@@ -94,7 +99,12 @@ func splitByLines(file *os.File, linesPerFile int) error {
 	return nil
 }
 
-func splitByChunks(file *os.File, chunksPerFile int) error {
+func splitByChunks(path string, chunksPerFile int) error {
+	file, err := os.Open(path)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
 	chunkSize := fileSize(file) / int64(chunksPerFile)
 	buffer := make([]byte, chunkSize)
 	r := bufio.NewReader(file)
