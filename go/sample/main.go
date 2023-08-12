@@ -17,7 +17,7 @@ func main() {
 
 	cliOptions := &CLIOptions{ByteCount: *bytePtr, LineCount: *linePtr, ChunkCount: *chunkPtr}
 	tailArgs := flag.Args()
-	err := cliOptions.Parse(os.Args[1:], tailArgs)
+	err := cliOptions.Handle(os.Args[1:], tailArgs)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -29,7 +29,7 @@ type CLIOptions struct {
 	ChunkCount int
 }
 
-func (opts *CLIOptions) Parse(args []string, tailArgs []string) error {
+func (opts *CLIOptions) Handle(args []string, tailArgs []string) error {
 	if len(args) == 0 || len(tailArgs) != 1 || len(args) > 0 && args[0] == "help" {
 		usage := `usage:
 split [-l line_count] [file [prefix]]
