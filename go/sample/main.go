@@ -31,8 +31,7 @@ type CLIOptions struct {
 func (opts *CLIOptions) Parse(args []string) error {
 	// option の仕様
 	// -b, -n, -l は同時に指定できない、どれか1つだけ
-	// -b, -n, -l はいずれも0やマイナスを指定できない
-	// option の validation をする層が必要そう
+
 	if len(args) == 0 || len(args) > 0 && args[0] == "help" {
 		usage := `usage:
 split [-l line_count] [file [prefix]]
@@ -44,11 +43,8 @@ split -n chunk_count [file [prefix]]`
 
 	switch args[0] {
 	case "-b":
-		file, err := os.Open(args[2])
-		if err != nil {
-			return err
-		}
-		splitByBytes(file, opts.ByteCount)
+		// これだとファイルを全部読み込んで、分割することになるので効率が悪そう（上からちょっとずつ読んで書き込めるようにしたい
+		splitByBytes(args[2], opts.ByteCount)
 	case "-l":
 		arg, err := strconv.Atoi(args[1])
 		if err != nil {
@@ -86,7 +82,13 @@ split -n chunk_count [file [prefix]]`
 	return nil
 }
 
-func splitByBytes(file *os.File, bytesPerFile int) error {
+func splitByBytes(path string, bytesPerFile int) error {
+	file, err := os.Open(path)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
 	if bytesPerFile == 0 {
 		outputFile, err := os.Create("1")
 		if err != nil {
@@ -100,8 +102,10 @@ func splitByBytes(file *os.File, bytesPerFile int) error {
 	}
 
 	buffer := make([]byte, bytesPerFile)
+	r := bufio.NewReader(file)
+
 	for i := 1; ; i++ {
-		n, err := file.Read(buffer)
+		n, err := r.Read(buffer)
 		if err != nil {
 			if err == io.EOF {
 				break
