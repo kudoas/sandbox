@@ -16,23 +16,24 @@ func main() {
 	flag.Parse()
 
 	cliOptions := &CLIOptions{ByteCount: *bytePtr, LineCount: *linePtr, ChunkCount: *chunkPtr}
-	err := cliOptions.Parse(os.Args[1:])
+	tailArgs := flag.Args()
+	err := cliOptions.Parse(os.Args[1:], tailArgs)
 	if err != nil {
 		fmt.Println(err)
 	}
 }
 
 type CLIOptions struct {
-	ByteCount  int ``
-	LineCount  int ``
-	ChunkCount int ``
+	ByteCount  int
+	LineCount  int
+	ChunkCount int
 }
 
-func (opts *CLIOptions) Parse(args []string) error {
+func (opts *CLIOptions) Parse(args []string, tailArgs []string) error {
 	// option の仕様
 	// -b, -n, -l は同時に指定できない、どれか1つだけ
 
-	if len(args) == 0 || len(args) > 0 && args[0] == "help" {
+	if len(args) == 0 || len(tailArgs) != 1 || len(args) > 0 && args[0] == "help" {
 		usage := `usage:
 split [-l line_count] [file [prefix]]
 split -b byte_count [file [prefix]]
@@ -158,7 +159,6 @@ func splitByLines(file *os.File, linesPerFile int) error {
 		if err != nil {
 			return err
 		}
-
 		for _, line := range lines {
 			outputFile.WriteString(line + "\n")
 		}
@@ -173,6 +173,7 @@ func splitByLines(file *os.File, linesPerFile int) error {
 func splitByChunks(file *os.File, chunksPerFile int) error {
 	chunkSize := fileSize(file) / int64(chunksPerFile)
 	buffer := make([]byte, chunkSize)
+	r := bufio.NewReader(file)
 
 	for i := 1; i <= chunksPerFile; i++ {
 		outputFileName := fmt.Sprintf("%d", i)
@@ -180,7 +181,7 @@ func splitByChunks(file *os.File, chunksPerFile int) error {
 		if err != nil {
 			return err
 		}
-		_, err = io.ReadFull(file, buffer)
+		_, err = r.Read(buffer)
 		if err != nil {
 			if err == io.EOF {
 				break
