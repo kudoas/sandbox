@@ -118,7 +118,10 @@ func splitByBytes(path string, bytesPerFile int) error {
 			return err
 		}
 		outputFile.Write(buffer[:n])
-		outputFile.Close()
+		err = outputFile.Close()
+		if err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -137,11 +140,13 @@ func splitByLines(file *os.File, linesPerFile int) error {
 			if err != nil {
 				return err
 			}
-
 			for _, line := range lines {
 				outputFile.WriteString(line + "\n")
 			}
-			outputFile.Close()
+			err = outputFile.Close()
+			if err != nil {
+				return err
+			}
 			lines = nil
 			index++
 		}
@@ -157,9 +162,11 @@ func splitByLines(file *os.File, linesPerFile int) error {
 		for _, line := range lines {
 			outputFile.WriteString(line + "\n")
 		}
-		outputFile.Close()
+		err = outputFile.Close()
+		if err != nil {
+			return err
+		}
 	}
-
 	return nil
 }
 
@@ -173,8 +180,6 @@ func splitByChunks(file *os.File, chunksPerFile int) error {
 		if err != nil {
 			return err
 		}
-		defer outputFile.Close()
-
 		_, err = io.ReadFull(file, buffer)
 		if err != nil {
 			if err == io.EOF {
@@ -182,8 +187,11 @@ func splitByChunks(file *os.File, chunksPerFile int) error {
 			}
 			return err
 		}
-
 		_, err = outputFile.Write(buffer)
+		if err != nil {
+			return err
+		}
+		err = outputFile.Close()
 		if err != nil {
 			return err
 		}
