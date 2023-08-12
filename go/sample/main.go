@@ -30,9 +30,6 @@ type CLIOptions struct {
 }
 
 func (opts *CLIOptions) Parse(args []string, tailArgs []string) error {
-	// option の仕様
-	// -b, -n, -l は同時に指定できない、どれか1つだけ
-
 	if len(args) == 0 || len(tailArgs) != 1 || len(args) > 0 && args[0] == "help" {
 		usage := `usage:
 split [-l line_count] [file [prefix]]
@@ -44,8 +41,7 @@ split -n chunk_count [file [prefix]]`
 
 	switch args[0] {
 	case "-b":
-		// これだとファイルを全部読み込んで、分割することになるので効率が悪そう（上からちょっとずつ読んで書き込めるようにしたい
-		splitByBytes(args[2], opts.ByteCount)
+		splitByBytes(tailArgs[0], opts.ByteCount)
 	case "-l":
 		arg, err := strconv.Atoi(args[1])
 		if err != nil {
@@ -55,7 +51,7 @@ split -n chunk_count [file [prefix]]`
 			return fmt.Errorf("split: %d: illegal line count", arg)
 		}
 
-		file, err := os.Open(args[2])
+		file, err := os.Open(tailArgs[0])
 		if err != nil {
 			return err
 		}
@@ -68,13 +64,13 @@ split -n chunk_count [file [prefix]]`
 		if arg <= 0 {
 			return fmt.Errorf("split: %d: illegal line count", arg)
 		}
-		file, err := os.Open(args[2])
+		file, err := os.Open(tailArgs[0])
 		if err != nil {
 			return err
 		}
 		splitByChunks(file, opts.ChunkCount)
 	default:
-		file, err := os.Open(args[0])
+		file, err := os.Open(tailArgs[0])
 		if err != nil {
 			return err
 		}
