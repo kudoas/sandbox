@@ -32,6 +32,14 @@ func (opts *CLIOptions) Parse(args []string) error {
 	// -b, -n, -l は同時に指定できない、どれか1つだけ
 	// -b, -n, -l はいずれも0やマイナスを指定できない
 	// option の validation をする層が必要そう
+	if len(args) == 0 || len(args) > 0 && args[0] == "help" {
+		usage := `usage:
+split [-l line_count] [file [prefix]]
+split -b byte_count [file [prefix]]
+split -n chunk_count [file [prefix]]`
+		fmt.Print(usage)
+		return nil
+	}
 
 	switch args[0] {
 	case "-b":
