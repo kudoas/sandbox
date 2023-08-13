@@ -55,12 +55,12 @@ func splitByLines(path string, linesPerFile int) error {
 	scanner := bufio.NewScanner(file)
 	var lines []string
 
-	index := 1
+	i := 1
 	for scanner.Scan() {
 		lines = append(lines, scanner.Text())
 
 		if len(lines) >= linesPerFile {
-			outputFileName := fmt.Sprintf("%d", index)
+			outputFileName := fmt.Sprintf("%d", i)
 			outputFile, err := os.Create(outputFileName)
 			if err != nil {
 				return err
@@ -73,12 +73,12 @@ func splitByLines(path string, linesPerFile int) error {
 				return err
 			}
 			lines = nil
-			index++
+			i++
 		}
 	}
 
 	if len(lines) > 0 {
-		outputFileName := fmt.Sprintf("%d", index)
+		outputFileName := fmt.Sprintf("%d", i)
 		outputFile, err := os.Create(outputFileName)
 		if err != nil {
 			return err
@@ -112,7 +112,6 @@ func splitByChunks(path string, chunksPerFile int) error {
 
 	buffer := make([]byte, chunkSize)
 	r := bufio.NewReader(file)
-
 	for i := 1; i <= chunksPerFile; i++ {
 		outputFileName := fmt.Sprintf("%d", i)
 		_, err = r.Read(buffer)
@@ -127,6 +126,5 @@ func splitByChunks(path string, chunksPerFile int) error {
 			return err
 		}
 	}
-
 	return nil
 }

@@ -206,7 +206,7 @@ func verifyFileLine(t *testing.T, expectedLineCount int, fileNames []string) {
 			t.Errorf("Error reading file %s: %v", fileName, err)
 		}
 		if int(lineCount) > expectedLineCount {
-			t.Errorf("File %s size mismatch, Expected: %d, but got: %d", fileName, expectedLineCount, lineCount)
+			t.Errorf("File %s line mismatch, Expected: %d, but got: %d", fileName, expectedLineCount, lineCount)
 		}
 	}
 }
