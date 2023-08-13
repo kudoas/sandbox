@@ -105,9 +105,12 @@ func splitByChunks(path string, chunksPerFile int) error {
 	if err != nil {
 		return err
 	}
-
-	// TODO: split: can't split into more than 2 files を入れる
 	chunkSize := fileInfo.Size() / int64(chunksPerFile)
+	if chunkSize == 0 {
+		fmt.Printf("can't split into more than %d files", fileInfo.Size())
+		return fmt.Errorf("can't split into more than %d files", fileInfo.Size())
+	}
+
 	buffer := make([]byte, chunkSize)
 	r := bufio.NewReader(file)
 

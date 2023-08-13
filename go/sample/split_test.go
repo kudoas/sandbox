@@ -108,6 +108,54 @@ func TestSplitByLines(t *testing.T) {
 	}
 }
 
+func TestSplitByChunks(t *testing.T) {
+	cases := []struct {
+		content       string
+		chunksPerFile int
+		expectedFiles []string
+		expectedError bool
+	}{
+		{
+			content:       "split by chunk",
+			chunksPerFile: 3,
+			expectedFiles: []string{"1", "2", "3"},
+			expectedError: false,
+		},
+		{
+			content:       "...",
+			chunksPerFile: 100,
+			expectedFiles: []string{},
+			expectedError: true,
+		},
+	}
+
+	for _, c := range cases {
+		t.Run(c.content, func(t *testing.T) {
+			inputPath := "test_input.txt"
+			err := createTestFile(t, inputPath, c.content)
+			if err != nil {
+				t.Fatalf("Failed to create test input file: %v", err)
+			}
+			defer os.Remove(inputPath)
+
+			err = splitByChunks(inputPath, c.chunksPerFile)
+			if err != nil && !c.expectedError {
+				t.Fatalf("splitByChunks returned an unexpected error: %v", err)
+			} else if err == nil && c.expectedError {
+				t.Fatalf("Expected error, but got none")
+			}
+			for _, expectedFile := range c.expectedFiles {
+				_, err := os.Stat(expectedFile)
+				if err != nil {
+					t.Errorf("File %s was not created as expected: %v", expectedFile, err)
+				}
+			}
+			verifyFileCount(t, c.expectedFiles)
+			cleanTestFile(t, c.expectedFiles)
+		})
+	}
+}
+
 func createTestFile(t *testing.T, filePath, content string) error {
 	t.Helper()
 	file, err := os.Create(filePath)
@@ -160,6 +208,17 @@ func verifyFileLine(t *testing.T, expectedLineCount int, fileNames []string) {
 		if int(lineCount) > expectedLineCount {
 			t.Errorf("File %s size mismatch, Expected: %d, but got: %d", fileName, expectedLineCount, lineCount)
 		}
+	}
+}
+
+func verifyFileCount(t *testing.T, fileNames []string) {
+	t.Helper()
+	for _, fileName := range fileNames {
+		file, err := os.Open(fileName)
+		if err != nil {
+			t.Errorf("File %s count mismatch", fileName)
+		}
+		defer file.Close()
 	}
 }
 
