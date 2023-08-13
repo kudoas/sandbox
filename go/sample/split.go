@@ -107,7 +107,6 @@ func splitByChunks(path string, chunksPerFile int) error {
 	}
 	chunkSize := fileInfo.Size() / int64(chunksPerFile)
 	if chunkSize == 0 {
-		fmt.Printf("can't split into more than %d files", fileInfo.Size())
 		return fmt.Errorf("can't split into more than %d files", fileInfo.Size())
 	}
 

@@ -14,9 +14,9 @@ type CLIOptions struct {
 func (opts *CLIOptions) Handle(args []string, tailArgs []string) error {
 	if len(args) == 0 || len(tailArgs) != 1 || len(args) > 0 && args[0] == "help" {
 		usage := `usage:
-split -l line_count [file]
-split -b byte_count [file]
-split -n chunk_count [file]
+-l line_count [file]
+-b byte_count [file]
+-n chunk_count [file]
 `
 		fmt.Print(usage)
 		return nil

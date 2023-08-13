@@ -38,15 +38,15 @@ func TestSplitByBytes(t *testing.T) {
 			inputPath := "test_input.txt"
 			err := createTestFile(t, inputPath, c.content)
 			if err != nil {
-				t.Fatalf("Failed to create test input file: %v", err)
+				t.Errorf("Failed to create test input file: %v", err)
 			}
 			defer os.Remove(inputPath)
 
 			err = splitByBytes(inputPath, c.bytesPerFile)
 			if err != nil && !c.expectedError {
-				t.Fatalf("splitByBytes returned an unexpected error: %v", err)
+				t.Errorf("splitByBytes returned an unexpected error: %v", err)
 			} else if err == nil && c.expectedError {
-				t.Fatalf("Expected error, but got none")
+				t.Errorf("Expected error, but got none")
 			}
 			for _, expectedFile := range c.expectedFiles {
 				_, err := os.Stat(expectedFile)
@@ -86,15 +86,15 @@ func TestSplitByLines(t *testing.T) {
 			inputPath := "test_input.txt"
 			err := createTestFile(t, inputPath, c.content)
 			if err != nil {
-				t.Fatalf("Failed to create test input file: %v", err)
+				t.Errorf("Failed to create test input file: %v", err)
 			}
 			defer os.Remove(inputPath)
 
 			err = splitByLines(inputPath, c.linesPerFile)
 			if err != nil && !c.expectedError {
-				t.Fatalf("splitByLines returned an unexpected error: %v", err)
+				t.Errorf("splitByLines returned an unexpected error: %v", err)
 			} else if err == nil && c.expectedError {
-				t.Fatalf("Expected error, but got none")
+				t.Errorf("Expected error, but got none")
 			}
 			for _, expectedFile := range c.expectedFiles {
 				_, err := os.Stat(expectedFile)
@@ -134,15 +134,15 @@ func TestSplitByChunks(t *testing.T) {
 			inputPath := "test_input.txt"
 			err := createTestFile(t, inputPath, c.content)
 			if err != nil {
-				t.Fatalf("Failed to create test input file: %v", err)
+				t.Errorf("Failed to create test input file: %v", err)
 			}
 			defer os.Remove(inputPath)
 
 			err = splitByChunks(inputPath, c.chunksPerFile)
 			if err != nil && !c.expectedError {
-				t.Fatalf("splitByChunks returned an unexpected error: %v", err)
+				t.Errorf("splitByChunks returned an unexpected error: %v", err)
 			} else if err == nil && c.expectedError {
-				t.Fatalf("Expected error, but got none")
+				t.Errorf("Expected error, but got none")
 			}
 			for _, expectedFile := range c.expectedFiles {
 				_, err := os.Stat(expectedFile)
@@ -203,7 +203,7 @@ func verifyFileLine(t *testing.T, expectedLineCount int, fileNames []string) {
 			lineCount++
 		}
 		if err := scanner.Err(); err != nil {
-			t.Fatalf("Error reading file %s: %v", fileName, err)
+			t.Errorf("Error reading file %s: %v", fileName, err)
 		}
 		if int(lineCount) > expectedLineCount {
 			t.Errorf("File %s size mismatch, Expected: %d, but got: %d", fileName, expectedLineCount, lineCount)
