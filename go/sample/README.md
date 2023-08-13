@@ -5,6 +5,8 @@
 `go run main.go handle.go split.go [file]` で実行してください
 分割されるファイルは 1 からの連番として実行したディレクトで作成されます
 
+`go run main.go handle.go split.go help` でオプションの使用方法が確認できます
+
 ### 使用できるオプション
 
 - `-l line_count` 指定されたファイルの line_count ごとの行数で分割する
