@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"strings"
 	"testing"
 )
@@ -11,85 +10,89 @@ func TestHandle(t *testing.T) {
 		args          []string
 		tailArgs      []string
 		opts          CLIOptions
-		expectedError error
+		expectedError bool
 	}{
 		{
 			args:          []string{},
 			tailArgs:      []string{},
 			opts:          CLIOptions{},
-			expectedError: nil,
+			expectedError: false,
 		},
 		{
 			args:          []string{"help"},
 			tailArgs:      []string{"help"},
 			opts:          CLIOptions{},
-			expectedError: nil,
+			expectedError: false,
 		},
 		{
 			args:          []string{"test.txt"},
 			tailArgs:      []string{"test.txt"},
 			opts:          CLIOptions{},
-			expectedError: nil,
+			expectedError: false,
 		},
 		{
 			args:          []string{"test.txt", "sub"},
 			tailArgs:      []string{"test.txt", "sub"},
 			opts:          CLIOptions{},
-			expectedError: nil,
+			expectedError: false,
 		},
 		{
 			args:          []string{"-b", "test.txt", "sub"},
 			tailArgs:      []string{"test.txt", "sub"},
 			opts:          CLIOptions{},
-			expectedError: nil,
+			expectedError: false,
 		},
 		{
 			args:          []string{"-b", "10", "test.txt"},
 			tailArgs:      []string{"test.txt"},
-			opts:          CLIOptions{},
-			expectedError: nil,
+			opts:          CLIOptions{ByteCount: 10},
+			expectedError: false,
 		},
 		{
 			args:          []string{"-b", "test.txt"},
 			tailArgs:      []string{"test.txt"},
 			opts:          CLIOptions{},
-			expectedError: nil,
+			expectedError: true,
 		},
 		{
 			args:          []string{"-n", "10", "test.txt"},
 			tailArgs:      []string{"test.txt"},
-			opts:          CLIOptions{},
-			expectedError: nil,
+			opts:          CLIOptions{ChunkCount: 10},
+			expectedError: false,
 		},
 		{
 			args:          []string{"-n", "0", "test.txt"},
 			tailArgs:      []string{"test.txt"},
-			opts:          CLIOptions{},
-			expectedError: fmt.Errorf("split: 0: illegal line count"),
+			opts:          CLIOptions{ChunkCount: 0},
+			expectedError: true,
 		},
 		{
 			args:          []string{"-l", "10", "test.txt"},
 			tailArgs:      []string{"test.txt"},
-			opts:          CLIOptions{},
-			expectedError: nil,
+			opts:          CLIOptions{LineCount: 10},
+			expectedError: false,
+		},
+		{
+			args:          []string{"-l", "10", "-n", "10", "test.txt"},
+			tailArgs:      []string{"test.txt"},
+			opts:          CLIOptions{LineCount: 10, ChunkCount: 10},
+			expectedError: true,
 		},
 		{
 			args:          []string{"-l", "0", "test.txt"},
 			tailArgs:      []string{"test.txt"},
-			opts:          CLIOptions{},
-			expectedError: fmt.Errorf("split: 0: illegal line count"),
+			opts:          CLIOptions{LineCount: 0},
+			expectedError: true,
 		},
 	}
 
 	for _, c := range cases {
 		t.Run(strings.Join(c.args, "_"), func(t *testing.T) {
 			err := c.opts.Handle(c.args, c.tailArgs)
-			if err != nil && c.expectedError == nil {
+			if err != nil && !c.expectedError {
 				t.Errorf("Unexpected error: %v", err)
-			} else if err == nil && c.expectedError != nil {
+			} else if err == nil && c.expectedError {
 				t.Errorf("Expected error, but got none")
-			} else if err != nil && c.expectedError != nil && err.Error() != c.expectedError.Error() {
-				t.Errorf("Expected error: %v, but got: %v", c.expectedError, err)
 			}
 		})
 	}

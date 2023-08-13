@@ -14,16 +14,18 @@ type CLIOptions struct {
 func (opts *CLIOptions) Handle(args []string, tailArgs []string) error {
 	if len(args) == 0 || len(tailArgs) != 1 || len(args) > 0 && args[0] == "help" {
 		usage := `usage:
-split [-l line_count] [file [prefix]]
-split -b byte_count [file [prefix]]
-split -n chunk_count [file [prefix]]
+split -l line_count [file]
+split -b byte_count [file]
+split -n chunk_count [file]
 `
 		fmt.Print(usage)
 		return nil
 	}
-
 	switch args[0] {
 	case "-b":
+		if len(args) != 3 {
+			return fmt.Errorf("illegal option, Please check with `help` cmd.")
+		}
 		splitByBytes(tailArgs[0], opts.ByteCount)
 	case "-l":
 		arg, err := strconv.Atoi(args[1])
@@ -31,7 +33,10 @@ split -n chunk_count [file [prefix]]
 			return err
 		}
 		if arg <= 0 {
-			return fmt.Errorf("split: %d: illegal line count", arg)
+			return fmt.Errorf("%d: illegal line count", arg)
+		}
+		if len(args) != 3 {
+			return fmt.Errorf("illegal option, Please check with `help` cmd.")
 		}
 		splitByLines(tailArgs[0], opts.LineCount)
 	case "-n":
@@ -40,7 +45,10 @@ split -n chunk_count [file [prefix]]
 			return err
 		}
 		if arg <= 0 {
-			return fmt.Errorf("split: %d: illegal line count", arg)
+			return fmt.Errorf("%d: illegal line count", arg)
+		}
+		if len(args) != 3 {
+			return fmt.Errorf("illegal option, Please check with `help` cmd.")
 		}
 		splitByChunks(tailArgs[0], opts.ChunkCount)
 	default:
