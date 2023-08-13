@@ -38,12 +38,7 @@ func splitByBytes(path string, bytesPerFile int) error {
 			return err
 		}
 		outputFileName := fmt.Sprintf("%d", i)
-		outputFile, err := os.Create(outputFileName)
-		if err != nil {
-			return err
-		}
-		outputFile.Write(buffer[:n])
-		err = outputFile.Close()
+		err = os.WriteFile(outputFileName, buffer[:n], 0666)
 		if err != nil {
 			return err
 		}
@@ -111,10 +106,6 @@ func splitByChunks(path string, chunksPerFile int) error {
 
 	for i := 1; i <= chunksPerFile; i++ {
 		outputFileName := fmt.Sprintf("%d", i)
-		outputFile, err := os.Create(outputFileName)
-		if err != nil {
-			return err
-		}
 		_, err = r.Read(buffer)
 		if err != nil {
 			if err == io.EOF {
@@ -122,11 +113,7 @@ func splitByChunks(path string, chunksPerFile int) error {
 			}
 			return err
 		}
-		_, err = outputFile.Write(buffer)
-		if err != nil {
-			return err
-		}
-		err = outputFile.Close()
+		err = os.WriteFile(outputFileName, buffer, 0666)
 		if err != nil {
 			return err
 		}
