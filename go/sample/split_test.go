@@ -1,58 +1,60 @@
 package main
 
 import (
-	"bytes"
-	"io"
 	"os"
 	"testing"
 )
 
 func TestSplitByBytes(t *testing.T) {
-	testCases := []struct {
-		name           string
-		inputContent   string
-		bytesPerFile   int
-		expectedFiles  []string
-		expectedErrors bool
+	cases := []struct {
+		content       string
+		bytesPerFile  int
+		expectedFiles []string
+		expectedError bool
 	}{
 		{
-			name:           "SplitByBytes with non-zero bytesPerFile",
-			bytesPerFile:   10,
-			expectedFiles:  []string{"1", "2", "3"},
-			expectedErrors: false,
+			content:       "file: larger than bytesPerFile",
+			bytesPerFile:  10,
+			expectedFiles: []string{"1", "2", "3"},
+			expectedError: false,
 		},
 		{
-			name:           "SplitByBytes with zero bytesPerFile",
-			bytesPerFile:   0,
-			expectedFiles:  []string{"1"},
-			expectedErrors: false,
+			content:       "file: smaller than bytesPerFile",
+			bytesPerFile:  100000,
+			expectedFiles: []string{"1"},
+			expectedError: false,
+		},
+		{
+			content:       "0 byte",
+			bytesPerFile:  0,
+			expectedFiles: []string{"1"},
+			expectedError: false,
 		},
 	}
 
-	for _, tc := range testCases {
-		t.Run(tc.name, func(t *testing.T) {
+	for _, c := range cases {
+		t.Run(c.content, func(t *testing.T) {
 			inputPath := "test_input.txt"
-			err := createTestFile(inputPath, "This is a test input.")
+			err := createTestFile(t, inputPath, c.content)
 			if err != nil {
 				t.Fatalf("Failed to create test input file: %v", err)
 			}
 			defer os.Remove(inputPath)
 
-			err = splitByBytes(inputPath, tc.bytesPerFile)
-			if err != nil && !tc.expectedErrors {
+			err = splitByBytes(inputPath, c.bytesPerFile)
+			if err != nil && !c.expectedError {
 				t.Fatalf("splitByBytes returned an unexpected error: %v", err)
-			} else if err == nil && tc.expectedErrors {
+			} else if err == nil && c.expectedError {
 				t.Fatalf("Expected error, but got none")
 			}
-
-			for _, expectedFile := range tc.expectedFiles {
+			for _, expectedFile := range c.expectedFiles {
 				_, err := os.Stat(expectedFile)
 				if err != nil {
 					t.Errorf("File %s was not created as expected: %v", expectedFile, err)
 				}
 			}
-
-			verifyFileContent(t, tc.inputContent, tc.expectedFiles)
+			verifyFileSize(t, c.bytesPerFile, c.expectedFiles)
+			cleanTestFile(t, c.expectedFiles)
 		})
 	}
 }
@@ -69,11 +71,10 @@ func createTestFile(t *testing.T, filePath, content string) error {
 	if err != nil {
 		return err
 	}
-
 	return nil
 }
 
-func verifyFileContent(t *testing.T, expectedContent string, fileNames []string) {
+func verifyFileSize(t *testing.T, expectedFileSize int, fileNames []string) {
 	t.Helper()
 	for _, fileName := range fileNames {
 		file, err := os.Open(fileName)
@@ -83,15 +84,21 @@ func verifyFileContent(t *testing.T, expectedContent string, fileNames []string)
 		}
 		defer file.Close()
 
-		var contentBuffer bytes.Buffer
-		_, err = io.Copy(&contentBuffer, file)
+		info, err := file.Stat()
 		if err != nil {
-			t.Errorf("Error reading file %s: %v", fileName, err)
-			continue
+			t.Error(err)
 		}
+		if expectedFileSize != 0 && int(info.Size()) > expectedFileSize {
+			t.Errorf("File %s size mismatch, Expected: %d, but got: %d", fileName, expectedFileSize, info.Size())
+		}
+	}
+}
 
-		if contentBuffer.String() != expectedContent {
-			t.Errorf("File %s content mismatch. Expected: %s, Got: %s", fileName, expectedContent, contentBuffer.String())
+func cleanTestFile(t *testing.T, fileNames []string) {
+	t.Helper()
+	for _, fileName := range fileNames {
+		if err := os.Remove(fileName); err != nil {
+			t.Error(err)
 		}
 	}
 }

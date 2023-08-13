@@ -100,7 +100,14 @@ func splitByChunks(path string, chunksPerFile int) error {
 		return err
 	}
 	defer file.Close()
-	chunkSize := fileSize(file) / int64(chunksPerFile)
+
+	fileInfo, err := file.Stat()
+	if err != nil {
+		return err
+	}
+
+	// TODO: split: can't split into more than 2 files を入れる
+	chunkSize := fileInfo.Size() / int64(chunksPerFile)
 	buffer := make([]byte, chunkSize)
 	r := bufio.NewReader(file)
 
@@ -120,9 +127,4 @@ func splitByChunks(path string, chunksPerFile int) error {
 	}
 
 	return nil
-}
-
-func fileSize(file *os.File) int64 {
-	fileInfo, _ := file.Stat()
-	return fileInfo.Size()
 }
