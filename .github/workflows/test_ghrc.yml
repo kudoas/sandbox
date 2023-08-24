@@ -10,7 +10,7 @@ jobs:
       golang:
         image: ghcr.io/kudoas/golang:latest
         credentials:
-          username: ${{ github.actor }}
+          username: user
           password: ${{ secrets.CR_PAT }}
     steps:
       - name: Checkout code
