@@ -10,8 +10,8 @@ jobs:
       golang:
         image: ghcr.io/kudoas/golang:latest
         credentials:
-          username: user
-          password: ${{ secrets.CR_PAT }}
+          username: sandbox-auto-merge-bot[bot]
+          password: ${{ secrets.AUTO_MERGE_BOT_PRIVATE_KEY }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
