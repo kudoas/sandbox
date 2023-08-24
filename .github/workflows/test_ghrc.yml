@@ -2,6 +2,9 @@ name: Pull from GitHub Container Registory
 on: push
 jobs:
   container-job:
+    permissions:
+      contents: read
+      packages: read
     runs-on: ubuntu-latest
     services:
       golang:
