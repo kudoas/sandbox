@@ -1,0 +1,14 @@
+name: Pull from GitHub Container Registory
+on: push
+jobs:
+  container-job:
+    runs-on: ubuntu-latest
+    services:
+      golang:
+        image: ghcr.io/kudoas/golang:latest
+        credentials:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
