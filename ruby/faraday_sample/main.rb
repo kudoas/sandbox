@@ -9,5 +9,8 @@ class User
 end
 
 User.new('test', 10)
-CSV.new
+c = CSV.new
 client = Faraday.new
+
+arr = []
+arr.flatten
