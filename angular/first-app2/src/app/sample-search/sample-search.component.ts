@@ -27,9 +27,9 @@ import { HousingLocation } from '../housinglocation';
   `,
   styleUrls: ['./sample-search.component.scss'],
 })
-export class SampleSearchComponent {
+export default class SampleSearchComponent {
   url = 'http://localhost:3000/locations';
-  http = inject(HttpClient);
+  private readonly http = inject(HttpClient);
   HousingLocations: HousingLocation[] = [];
   keyword = '';
 
