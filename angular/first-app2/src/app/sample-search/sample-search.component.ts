@@ -2,16 +2,23 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Observable, lastValueFrom } from 'rxjs';
+import { FormsModule } from '@angular/forms';
+
 import { HousingLocation } from '../housinglocation';
 
 @Component({
   selector: 'app-sample-search',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, FormsModule],
   template: `
-    <form action="">
-      <input type="text" placeholder="Search" #search />
-      <button type="button" (click)="onSearch(search.value)">Search</button>
+    <form>
+      <input
+        type="text"
+        placeholder="Search"
+        [(ngModel)]="keyword"
+        [ngModelOptions]="{ standalone: true }"
+      />
+      <button type="button" (click)="onSearch(keyword)">Search</button>
     </form>
 
     <ul *ngFor="let housingLocation of HousingLocations">
@@ -24,6 +31,7 @@ export class SampleSearchComponent {
   url = 'http://localhost:3000/locations';
   http = inject(HttpClient);
   HousingLocations: HousingLocation[] = [];
+  keyword = '';
 
   constructor() {
     lastValueFrom(this.getAllHousingLocations(''))
