@@ -2,14 +2,19 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Observable, lastValueFrom } from 'rxjs';
-import { FormsModule } from '@angular/forms';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  FormGroup,
+  FormControl,
+} from '@angular/forms';
 
 import { HousingLocation } from '../housinglocation';
 
 @Component({
   selector: 'app-sample-search',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, FormsModule],
+  imports: [CommonModule, HttpClientModule, FormsModule, ReactiveFormsModule],
   template: `
     <form>
       <input
@@ -19,6 +24,10 @@ import { HousingLocation } from '../housinglocation';
         [ngModelOptions]="{ standalone: true }"
       />
       <button type="button" (click)="onSearch(keyword)">Search</button>
+    </form>
+    <form [formGroup]="searchFormGroup">
+      <input type="text" placeholder="Search" formControlName="keyword" />
+      <button type="button" (click)="onSubmit()">Search</button>
     </form>
 
     <ul *ngFor="let housingLocation of HousingLocations">
@@ -32,6 +41,9 @@ export default class SampleSearchComponent {
   private readonly http = inject(HttpClient);
   HousingLocations: HousingLocation[] = [];
   keyword = '';
+  searchFormGroup = new FormGroup({
+    keyword: new FormControl(''),
+  });
 
   constructor() {
     lastValueFrom(this.getAllHousingLocations(''))
@@ -46,6 +58,13 @@ export default class SampleSearchComponent {
   async onSearch(keyword: string) {
     this.HousingLocations = await lastValueFrom(
       this.getAllHousingLocations(keyword)
+    );
+  }
+
+  async onSubmit() {
+    this.HousingLocations = [];
+    this.HousingLocations = await lastValueFrom(
+      this.getAllHousingLocations(this.searchFormGroup.value.keyword!)
     );
   }
 
