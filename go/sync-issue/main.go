@@ -74,6 +74,36 @@ func main() {
 
 	fmt.Println("issues", query2.Node.Issue)
 
+	variables3 := map[string]interface{}{
+		"issueID": githubv4.ID(query.Repository.Issue.TrackedInIssues.Nodes[0].ID),
+	}
+
+	// GraphQLクエリを実行
+	var query3 struct {
+		Node struct {
+			Issue struct {
+				ProjectItems struct {
+					Nodes []struct {
+						FieldValues struct {
+							Nodes []struct {
+								OnProjectV2ItemFieldSingleSelectValue struct {
+									Name     githubv4.String
+									ID       githubv4.ID
+									OptionID githubv4.ID
+								} `graphql:"... on ProjectV2ItemFieldSingleSelectValue"`
+								OnProjectV2ItemFieldDateValue struct {
+									ID githubv4.ID
+								} `graphql:"... on ProjectV2ItemFieldDateValue"`
+							}
+						} `graphql:"fieldValues(last: 10)"`
+					}
+				} `graphql:"projectItems(first: 5)"`
+			} `graphql:"... on Issue"`
+		} `graphql:"node(id: $issueID)"`
+	}
+	err = client.Query(context.Background(), &query3, variables3)
+	fmt.Println(query3.Node.Issue.ProjectItems)
+
 	var mutation struct {
 		UpdateIssue struct {
 			Issue struct {
