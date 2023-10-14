@@ -1,0 +1,21 @@
+name: Sync issue
+on:
+  issues:
+
+permissions:
+  issues: write
+  repository-projects: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - name: Self test
+        id: selftest
+        uses: kudoas/gis@main
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_owner: ${{ github.repository_owner }}
+          github_repo: ${{ github.repository }}
+          github_issue: ${{ github.event.issue.number }}
