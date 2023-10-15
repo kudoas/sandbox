@@ -1,6 +1,7 @@
 name: Sync issue
 on:
   issues:
+    types: [opened]
 
 permissions:
   issues: write
@@ -11,11 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main
-      - name: Self test
-        id: selftest
-        uses: kudoas/gis@main
+      - name: Sync issue
+        uses: kudoas/sync-issue@main
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          github_owner: ${{ github.repository_owner }}
-          github_repo: ${{ github.repository }}
-          github_issue: ${{ github.event.issue.number }}
+          token: ${{ secrets.GITHUB_TOKEN }}
