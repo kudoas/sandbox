@@ -12,7 +12,6 @@ jobs:
         with:
           app-id: 379658
           private-key: ${{ secrets.PRIMARY_KEY }}
-      - uses: actions/checkout@main
       - name: Sync issue
         uses: kudoas/sync-issue@main
         with:
