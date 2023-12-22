@@ -4,13 +4,7 @@ import { Component } from '@angular/core';
   selector: 'lib-sand-lib',
   standalone: true,
   imports: [],
-  template: `
-    <p>
-      sand-lib works!
-    </p>
-  `,
+  template: ` <p>sand-lib works!</p> `,
   styles: ``
 })
-export class SandLibComponent {
-
-}
+export class SandLibComponent {}

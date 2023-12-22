@@ -7,6 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "format": "prettier --write **.ts",
     "prestart": "ng build sand-lib"
   },
   "private": true,
@@ -35,6 +36,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "ng-packagr": "^17.0.0",
+    "prettier": "^3.1.1",
     "typescript": "~5.2.2"
   }
 }

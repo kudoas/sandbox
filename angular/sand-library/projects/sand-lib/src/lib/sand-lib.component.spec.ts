@@ -9,9 +9,8 @@ describe('SandLibComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [SandLibComponent]
-    })
-    .compileComponents();
-    
+    }).compileComponents();
+
     fixture = TestBed.createComponent(SandLibComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
