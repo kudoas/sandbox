@@ -4,3 +4,4 @@
 
 export * from './lib/sand-lib.service';
 export * from './lib/sand-lib.component';
+export { provideEndpointService } from './lib/endpoint.service';
