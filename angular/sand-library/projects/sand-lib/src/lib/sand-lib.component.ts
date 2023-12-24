@@ -6,14 +6,13 @@ import { CommonModule } from '@angular/common';
   selector: 'lib-sand-lib',
   standalone: true,
   imports: [CommonModule],
-  template: ` <p>{{ apiUrl }}sand-lib works!</p> `,
-  styles: ``
+  template: `<p>URL: {{ apiUrl }}</p> `
 })
 export class SandLibComponent implements OnInit {
-  private endpoint = inject(EndpointService);
+  private endpointService = inject(EndpointService);
   apiUrl: string = '';
 
   ngOnInit() {
-    this.apiUrl = this.endpoint.apiUrl();
+    this.apiUrl = this.endpointService.getApiUrl();
   }
 }

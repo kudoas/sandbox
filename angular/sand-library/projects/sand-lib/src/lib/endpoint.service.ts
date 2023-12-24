@@ -1,21 +1,26 @@
-import { Injectable, Inject, Provider } from '@angular/core';
+import { Injectable, Inject, Provider, Optional } from '@angular/core';
 import { InjectionToken } from '@angular/core';
 
 export interface EndpointServiceParams {
-  apiUrl: string;
+  isProduction: boolean;
 }
 
-export const HERO_SERVICE_PARAMS = new InjectionToken<EndpointServiceParams>('endpoint');
+export const APP_ENVIRONMENT = new InjectionToken<EndpointServiceParams>('environmentConfig');
 
 @Injectable()
 export class EndpointService {
-  constructor(@Inject(HERO_SERVICE_PARAMS) private params: EndpointServiceParams) {}
+  private apiUrl: string;
 
-  apiUrl(): string {
-    return this.params.apiUrl;
+  constructor(@Inject(APP_ENVIRONMENT) private params: EndpointServiceParams) {
+    const isProduction = this.params?.isProduction ?? false;
+    this.apiUrl = isProduction ? 'https://production.api.endpoint' : 'https://development.api.endpoint';
+  }
+
+  getApiUrl(): string {
+    return this.apiUrl;
   }
 }
 
 export function provideEndpointService(params: EndpointServiceParams): Provider[] {
-  return [EndpointService, { provide: HERO_SERVICE_PARAMS, useValue: params }];
+  return [EndpointService, { provide: APP_ENVIRONMENT, useValue: params }];
 }
