@@ -18,7 +18,7 @@ func HelloHandler(w http.ResponseWriter, r *http.Request) {
 
 func CurrentTimeHandler(w http.ResponseWriter, r *http.Request) {
 	curTime := time.Now().Format(time.Kitchen)
-	msg := fmt.Sprintf(`{"message": "the current time is %v"`, curTime)
+	msg := fmt.Sprintf(`{"message": "the current time is %v"}`, curTime)
 	b, _ := json.Marshal(msg)
 	w.Write(b)
 }
