@@ -61,8 +61,6 @@ func setupTestHandler(t *testing.T) http.Handler {
 	t.Helper()
 	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		body, _ := json.Marshal(`{"message": "success"}`)
-		w.Write(body)
 	})
 
 	return middleware.Authentication(handler)
