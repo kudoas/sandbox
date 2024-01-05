@@ -15,7 +15,7 @@ func Logger(next http.Handler) http.Handler {
 		if err != nil {
 			log.Fatalf("can't initialize zap logger: %v", err)
 		}
-		defer logger.Sync()
+		// defer logger.Sync() Probably not needed
 		logger.Info("fetch URL",
 			zap.Duration("time", time.Since(start)),
 		)
