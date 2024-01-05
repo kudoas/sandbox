@@ -30,5 +30,7 @@ func main() {
 	http.Handle("/v1/time", chain.Then(http.HandlerFunc(CurrentTimeHandler)))
 
 	log.Printf("server is listening at %s", ":8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	if err := http.ListenAndServe(":8080", nil); err != nil {
+		log.Fatalln(err)
+	}
 }
