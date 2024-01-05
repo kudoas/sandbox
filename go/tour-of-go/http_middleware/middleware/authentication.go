@@ -5,6 +5,10 @@ import (
 	"net/http"
 )
 
+type ErrorResponse struct {
+	Message string `json:"message"`
+}
+
 func Authentication(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if isPublicHost(r.Host) {
@@ -22,7 +26,9 @@ func isPublicHost(host string) bool {
 
 func writeForbiddenResponse(w http.ResponseWriter) {
 	w.WriteHeader(http.StatusForbidden)
-	errorMessage := `{"message": "forbidden"}`
+	errorMessage := ErrorResponse{
+		Message: "forbidden",
+	}
 	b, _ := json.Marshal(errorMessage)
 	w.Write(b)
 }

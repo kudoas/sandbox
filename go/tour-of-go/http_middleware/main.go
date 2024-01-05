@@ -11,15 +11,24 @@ import (
 	"github.com/kudoas/enjoy-middleware/middleware"
 )
 
+type Response struct {
+	Message string `json:"message"`
+}
+
 func HelloHandler(w http.ResponseWriter, r *http.Request) {
-	b, _ := json.Marshal(`{"message": "Hello, World!"}`)
+	res := Response{
+		Message: "hello world",
+	}
+	b, _ := json.Marshal(res)
 	w.Write(b)
 }
 
 func CurrentTimeHandler(w http.ResponseWriter, r *http.Request) {
 	curTime := time.Now().Format(time.Kitchen)
-	msg := fmt.Sprintf(`{"message": "the current time is %v"}`, curTime)
-	b, _ := json.Marshal(msg)
+	res := Response{
+		Message: fmt.Sprintf("the current time is %v", curTime),
+	}
+	b, _ := json.Marshal(res)
 	w.Write(b)
 }
 

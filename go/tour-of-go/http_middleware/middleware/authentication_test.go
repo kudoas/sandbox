@@ -43,9 +43,10 @@ func TestAuthentication(t *testing.T) {
 				if rec.Code == http.StatusOK {
 					t.Errorf("Expected status code %d, got %d", http.StatusOK, rec.Code)
 				}
-				body, _ := json.Marshal(`{"message": "forbidden"}`)
-				if expectedBody := body; !bytes.Equal(rec.Body.Bytes(), expectedBody) {
-					t.Errorf("Expected body %s, got %s", expectedBody, rec.Body.String())
+				var resBody middleware.ErrorResponse
+				json.NewDecoder(bytes.NewReader(rec.Body.Bytes())).Decode(&resBody)
+				if resBody.Message != "forbidden" {
+					t.Errorf("Expected response body %s, got %s", "forbidden", resBody.Message)
 				}
 			case "admin.internal":
 				if rec.Code == http.StatusForbidden {
