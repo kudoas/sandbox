@@ -33,7 +33,11 @@ func CurrentTimeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	chain := alice.New(middleware.Authentication, middleware.Logger, middleware.Header)
+	logger, err := middleware.NewLogger()
+	if err != nil {
+		log.Fatalln(err)
+	}
+	chain := alice.New(middleware.Authentication, middleware.Logger(logger), middleware.Header)
 
 	http.Handle("/v1/hello", chain.Then(http.HandlerFunc(HelloHandler)))
 	http.Handle("/v1/time", chain.Then(http.HandlerFunc(CurrentTimeHandler)))
