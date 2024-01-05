@@ -19,7 +19,7 @@ func CurrentTimeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func middlewareWrapper(f http.HandlerFunc) http.HandlerFunc {
-	return middleware.Logger(middleware.Header(f))
+	return middleware.Authentication(middleware.Logger(middleware.Header(f)))
 }
 
 func main() {

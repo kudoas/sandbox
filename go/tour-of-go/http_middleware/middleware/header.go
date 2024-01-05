@@ -1,10 +1,14 @@
 package middleware
 
-import "net/http"
+import (
+	"log"
+	"net/http"
+)
 
-func Header(next http.Handler) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
+func Header(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		log.Println("middleware header")
 		w.Header().Add("X-custom-header", "my-value")
 		next.ServeHTTP(w, r)
-	}
+	})
 }
