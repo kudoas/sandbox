@@ -1,6 +1,8 @@
 package middleware_test
 
 import (
+	"bytes"
+	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -41,7 +43,8 @@ func TestAuthentication(t *testing.T) {
 				if rec.Code == http.StatusOK {
 					t.Errorf("Expected status code %d, got %d", http.StatusOK, rec.Code)
 				}
-				if expectedBody := `{"message": "forbidden"}`; rec.Body.String() != expectedBody {
+				body, _ := json.Marshal(`{"message": "forbidden"}`)
+				if expectedBody := body; !bytes.Equal(rec.Body.Bytes(), expectedBody) {
 					t.Errorf("Expected body %s, got %s", expectedBody, rec.Body.String())
 				}
 			case "admin.internal":
@@ -57,7 +60,8 @@ func setupTestHandler(t *testing.T) http.Handler {
 	t.Helper()
 	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte(`{"message": "success"}`))
+		body, _ := json.Marshal(`{"message": "success"}`)
+		w.Write(body)
 	})
 
 	return middleware.Authentication(handler)
