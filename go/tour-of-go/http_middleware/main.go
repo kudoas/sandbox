@@ -1,30 +1,33 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 	"time"
 
+	"github.com/justinas/alice"
 	"github.com/kudoas/enjoy-middleware/middleware"
 )
 
 func HelloHandler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Hello, World!"))
+	b, _ := json.Marshal(`{"message": "Hello, World!"}`)
+	w.Write(b)
 }
 
 func CurrentTimeHandler(w http.ResponseWriter, r *http.Request) {
 	curTime := time.Now().Format(time.Kitchen)
-	w.Write([]byte(fmt.Sprintf("the current time is %v", curTime)))
-}
-
-func middlewareWrapper(f http.HandlerFunc) http.HandlerFunc {
-	return middleware.Authentication(middleware.Logger(middleware.Header(f)))
+	msg := fmt.Sprintf(`{"message": "the current time is %v"`, curTime)
+	b, _ := json.Marshal(msg)
+	w.Write(b)
 }
 
 func main() {
-	http.HandleFunc("/v1/hello", middlewareWrapper(HelloHandler))
-	http.HandleFunc("/v1/time", middlewareWrapper(CurrentTimeHandler))
+	chain := alice.New(middleware.Authentication, middleware.Logger, middleware.Header)
+
+	http.Handle("/v1/hello", chain.Then(http.HandlerFunc(HelloHandler)))
+	http.Handle("/v1/time", chain.Then(http.HandlerFunc(CurrentTimeHandler)))
 
 	log.Printf("server is listening at %s", ":8080")
 	log.Fatal(http.ListenAndServe(":8080", nil))
