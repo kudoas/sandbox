@@ -20,7 +20,7 @@ func HelloHandler(w http.ResponseWriter, r *http.Request) {
 		Message: "hello world",
 	}
 	b, _ := json.Marshal(res)
-	w.Write(b)
+	_, _ = w.Write(b)
 }
 
 func CurrentTimeHandler(w http.ResponseWriter, r *http.Request) {
@@ -29,7 +29,7 @@ func CurrentTimeHandler(w http.ResponseWriter, r *http.Request) {
 		Message: fmt.Sprintf("the current time is %v", curTime),
 	}
 	b, _ := json.Marshal(res)
-	w.Write(b)
+	_, _ = w.Write(b)
 }
 
 func main() {

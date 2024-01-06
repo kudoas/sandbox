@@ -30,5 +30,5 @@ func writeForbiddenResponse(w http.ResponseWriter) {
 		Message: "forbidden",
 	}
 	b, _ := json.Marshal(errorMessage)
-	w.Write(b)
+	_, _ = w.Write(b)
 }
