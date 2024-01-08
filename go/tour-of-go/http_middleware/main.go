@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -9,6 +10,7 @@ import (
 
 	"github.com/justinas/alice"
 	"github.com/kudoas/enjoy-middleware/middleware"
+	_ "github.com/lib/pq"
 )
 
 type Response struct {
@@ -33,6 +35,12 @@ func CurrentTimeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	db, err := sql.Open("postgres", "host=localhost port=5432 dbname=default_db user=postgres password=default_pass sslmode=disable")
+	if err != nil {
+		log.Fatalf("データベースへの接続に失敗しました: %v", err)
+	}
+	defer db.Close()
+
 	logger, err := middleware.NewLogger()
 	if err != nil {
 		log.Fatalln(err)
