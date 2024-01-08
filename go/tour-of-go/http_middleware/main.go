@@ -9,6 +9,7 @@ import (
 	"github.com/justinas/alice"
 	"github.com/kudoas/enjoy-middleware/middleware"
 	"github.com/kudoas/enjoy-middleware/model"
+	"github.com/kudoas/enjoy-middleware/response"
 	_ "github.com/lib/pq"
 )
 
@@ -29,10 +30,22 @@ func GetUserHandler(db *sql.DB) http.HandlerFunc {
 		users, err := model.FetchUser(db)
 		if err != nil {
 			log.Fatalf("failed to fetch user: %v", err)
+			response.InternalServerError(w)
+			return
 		}
 
-		b, _ := json.Marshal(users)
-		_, _ = w.Write(b)
+		b, err := json.Marshal(users)
+		if err != nil {
+			log.Fatalf("failed to marshal user: %v", err)
+			response.InternalServerError(w)
+			return
+		}
+		_, err = w.Write(b)
+		if err != nil {
+			log.Fatalf("failed to write response: %v", err)
+			response.InternalServerError(w)
+			return
+		}
 
 		return
 	}
