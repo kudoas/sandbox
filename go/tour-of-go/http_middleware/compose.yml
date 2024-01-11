@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: default_db
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./testdata/init.sql:/docker-entrypoint-initdb.d/init.sql
