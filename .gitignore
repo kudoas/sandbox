@@ -1,3 +1,4 @@
 *.splite3
 .env
 *.tfstate
+.terraform
