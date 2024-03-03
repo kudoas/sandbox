@@ -13,6 +13,7 @@ resource "aws_instance" "example" {
               EOF
 
   user_data_replace_on_change = true
+  security_groups             = [aws_security_group.instance.name]
 
   tags = {
     Name = "terraform-example"
@@ -28,6 +29,6 @@ resource "aws_security_group_rule" "instance" {
   from_port         = 8080
   to_port           = 8080
   protocol          = "tcp"
-  cidr_blocks       = ["0.0.0.0/0"]
+  cidr_blocks       = [var.my_ip_address]
   security_group_id = aws_security_group.instance.id
 }
