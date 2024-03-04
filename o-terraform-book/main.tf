@@ -34,7 +34,7 @@ resource "aws_autoscaling_group" "example" {
 
 resource "aws_launch_configuration" "example" {
   image_id        = "ami-0fb653ca2d3203ac1"
-  security_groups = [aws_security_group.instance.name]
+  security_groups = [aws_security_group.instance.id]
   instance_type   = "t2.micro"
 
   user_data = <<-EOF
