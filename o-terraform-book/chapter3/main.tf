@@ -45,6 +45,6 @@ terraform {
 
 resource "aws_instance" "example" {
   ami           = "ami-052c9ea013e6e3567"
-  instance_type = "t2.micro"
+  instance_type = terraform.workspace == "default" ? "t2.micro" : "t2.medium"
 }
 
