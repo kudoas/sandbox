@@ -8,31 +8,40 @@ variable "user_names" {
 }
 
 resource "aws_iam_user" "example" {
-  count = length(var.user_names)
-  name  = var.user_names[count.index]
+  for_each = toset(var.user_names)
+  name     = each.value
+}
+resource "aws_iam_policy" "cloudwatch_read_only" {
+  name   = "cloudwatch-read-only"
+  policy = data.aws_iam_policy_document.cloudwatch_read_only.json
 }
 
-
-variable "hero_thousand_faces" {
-  description = "map"
-  type        = map(string)
-  default = {
-    "neo"      = "hero"
-    "trinity"  = "love interest"
-    "morpheus" = "mentor"
+data "aws_iam_policy_document" "cloudwatch_read_only" {
+  statement {
+    effect = "Allow"
+    actions = [
+      "cloudwatch:Describe*",
+      "cloudwatch:Get*",
+      "cloudwatch:List*"
+    ]
+    resources = ["*"]
   }
 }
 
-output "bios" {
-  value = [for name, role in var.hero_thousand_faces : "${name} is the ${role}"]
+resource "aws_iam_policy" "cloudwatch_full_access" {
+  name   = "cloudwatch-full-access"
+  policy = data.aws_iam_policy_document.cloudwatch_full_access.json
 }
 
-resource "aws_autoscaling_schedule" "scale_out_during_business_hours" {
-  count                  = var.enable_autoscaling ? 1 : 0
-  scheduled_action_name  = "${var.cluster_name}-scale-out-during-business-hours"
-  min_size               = 2
-  max_size               = 10
-  desired_capacity       = 10
-  recurrence             = "0 9 * * *"
-  autoscaling_group_name = aws_autoscaling_group.example.name
+data "aws_iam_policy_document" "cloudwatch_full_access" {
+  statement {
+    effect    = "Allow"
+    actions   = ["cloudwatch:*"]
+    resources = ["*"]
+  }
+}
+
+variable "give_neo_cloudwatch_full_access" {
+  description = "If true, neo gets full access to CloudWatch"
+  type        = bool
 }
