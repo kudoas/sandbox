@@ -5,7 +5,7 @@ package main
 
 import "github.com/google/wire"
 
-func BuildEvent() Event {
+func BuildEvent() (Event, error) {
 	wire.Build(NewEvent, NewGreeter, NewMessage)
-	return Event{}
+	return Event{}, nil
 }
