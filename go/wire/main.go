@@ -36,9 +36,7 @@ func (e Event) Start() {
 }
 
 func main() {
-	m := NewMessage()
-	g := NewGreeter(m)
-	e := NewEvent(g)
+	e := BuildEvent()
 
 	e.Start()
 }
