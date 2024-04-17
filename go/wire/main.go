@@ -4,6 +4,8 @@ import (
 	"errors"
 	"log"
 	"time"
+
+	"github.com/google/wire"
 )
 
 type Message string
@@ -49,6 +51,8 @@ func (e Event) Start() {
 	msg := e.Greeter.Greet()
 	log.Println(msg)
 }
+
+var Set = wire.NewSet(ProvideMessage, ProvideGreeter, ProvideEvent)
 
 func main() {
 	// m := NewMessage()
