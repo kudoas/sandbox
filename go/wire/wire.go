@@ -6,6 +6,6 @@ package main
 import "github.com/google/wire"
 
 func BuildEvent() (Event, error) {
-	wire.Build(NewEvent, NewGreeter, NewMessage)
+	wire.Build(ProvideEvent, ProvideGreeter, ProvideMessage)
 	return Event{}, nil
 }

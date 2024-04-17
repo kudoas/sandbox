@@ -9,9 +9,9 @@ package main
 // Injectors from wire.go:
 
 func BuildEvent() (Event, error) {
-	message := NewMessage()
-	greeter := NewGreeter(message)
-	event, err := NewEvent(greeter)
+	message := ProvideMessage()
+	greeter := ProvideGreeter(message)
+	event, err := ProvideEvent(greeter)
 	if err != nil {
 		return Event{}, err
 	}

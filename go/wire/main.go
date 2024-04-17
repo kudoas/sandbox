@@ -8,7 +8,7 @@ import (
 
 type Message string
 
-func NewMessage() Message {
+func ProvideMessage() Message {
 	return Message("Hello")
 }
 
@@ -18,7 +18,7 @@ type Greeter struct {
 	Grumpy  bool
 }
 
-func NewGreeter(m Message) Greeter {
+func ProvideGreeter(m Message) Greeter {
 	var grumpy bool
 	if time.Now().Unix()%2 == 0 {
 		grumpy = true
@@ -38,7 +38,7 @@ type Event struct {
 	Greeter Greeter
 }
 
-func NewEvent(g Greeter) (Event, error) {
+func ProvideEvent(g Greeter) (Event, error) {
 	if g.Grumpy {
 		return Event{}, errors.New("could not create event: greeter is grumpy")
 	}
