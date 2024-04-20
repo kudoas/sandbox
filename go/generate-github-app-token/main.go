@@ -10,25 +10,42 @@ import (
 	"golang.org/x/oauth2"
 )
 
+type ProjectV2QueryResponse struct {
+	Node struct {
+		ProjectV2 struct {
+			Fields struct {
+				Nodes []struct {
+					ProjectV2Field struct {
+						ID   githubv4.ID
+						Name githubv4.String
+					} `graphql:"... on ProjectV2Field"`
+				}
+			} `graphql:"fields(first: 1)"`
+		} `graphql:"... on ProjectV2"`
+	} `graphql:"node(id: $projectNodeID)"`
+}
+
+func NewProjectV2QueryResponse() *ProjectV2QueryResponse {
+	return &ProjectV2QueryResponse{}
+}
+
+var githubToken = os.Getenv("GITHUB_TOKEN")
+var projectNodeID = os.Getenv("PROJECT_NODE_ID")
+
 func main() {
 	src := oauth2.StaticTokenSource(
-		&oauth2.Token{AccessToken: os.Getenv("GITHUB_TOKEN")},
+		&oauth2.Token{AccessToken: githubToken},
 	)
 	httpClient := oauth2.NewClient(context.Background(), src)
 	client := githubv4.NewClient(httpClient)
 
-	var query struct {
-		Viewer struct {
-			Login     githubv4.String
-			CreatedAt githubv4.DateTime
-		}
-	}
-
-	err := client.Query(context.Background(), &query, nil)
-	if err != nil {
+	p := NewProjectV2QueryResponse()
+	if err := client.Query(context.Background(), &p, map[string]interface{}{
+		"projectNodeID": githubv4.ID(projectNodeID),
+	}); err != nil {
 		log.Println(err)
 	}
 
-	fmt.Println("Login:", query.Viewer.Login)
-	fmt.Println("CreatedAt:", query.Viewer.CreatedAt)
+	fmt.Println("Project Name:", p.Node.ProjectV2.Fields.Nodes[0].ProjectV2Field.Name)
+	fmt.Println("Project ID:", p.Node.ProjectV2.Fields.Nodes[0].ProjectV2Field.ID)
 }
