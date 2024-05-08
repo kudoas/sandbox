@@ -5,8 +5,10 @@ go 1.21.2
 require (
 	github.com/99designs/gqlgen v0.17.45
 	github.com/friendsofgo/errors v0.9.2
+	github.com/mattn/go-sqlite3 v1.14.14
 	github.com/vektah/gqlparser/v2 v2.5.11
 	github.com/volatiletech/null/v8 v8.1.2
+	github.com/volatiletech/sqlboiler v3.7.1+incompatible
 	github.com/volatiletech/sqlboiler/v4 v4.16.2
 	github.com/volatiletech/strmangle v0.0.6
 )
