@@ -1574,9 +1574,9 @@ func (ec *executionContext) _Issue_url(ctx context.Context, field graphql.Collec
 		}
 		return graphql.Null
 	}
-	res := resTmp.(string)
+	res := resTmp.(model.URL)
 	fc.Result = res
-	return ec.marshalNURI2string(ctx, field.Selections, res)
+	return ec.marshalNURI2githubᚗcomᚋkudoasᚋgraphqlᚑsampleᚋgraphᚋmodelᚐURL(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Issue_url(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2552,9 +2552,9 @@ func (ec *executionContext) _ProjectV2_url(ctx context.Context, field graphql.Co
 		}
 		return graphql.Null
 	}
-	res := resTmp.(string)
+	res := resTmp.(model.URL)
 	fc.Result = res
-	return ec.marshalNURI2string(ctx, field.Selections, res)
+	return ec.marshalNURI2githubᚗcomᚋkudoasᚋgraphqlᚑsampleᚋgraphᚋmodelᚐURL(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_ProjectV2_url(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -3664,9 +3664,9 @@ func (ec *executionContext) _PullRequest_url(ctx context.Context, field graphql.
 		}
 		return graphql.Null
 	}
-	res := resTmp.(string)
+	res := resTmp.(model.URL)
 	fc.Result = res
-	return ec.marshalNURI2string(ctx, field.Selections, res)
+	return ec.marshalNURI2githubᚗcomᚋkudoasᚋgraphqlᚑsampleᚋgraphᚋmodelᚐURL(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_PullRequest_url(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -8483,19 +8483,14 @@ func (ec *executionContext) marshalNString2string(ctx context.Context, sel ast.S
 	return res
 }
 
-func (ec *executionContext) unmarshalNURI2string(ctx context.Context, v interface{}) (string, error) {
-	res, err := graphql.UnmarshalString(v)
+func (ec *executionContext) unmarshalNURI2githubᚗcomᚋkudoasᚋgraphqlᚑsampleᚋgraphᚋmodelᚐURL(ctx context.Context, v interface{}) (model.URL, error) {
+	var res model.URL
+	err := res.UnmarshalGQL(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNURI2string(ctx context.Context, sel ast.SelectionSet, v string) graphql.Marshaler {
-	res := graphql.MarshalString(v)
-	if res == graphql.Null {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
-		}
-	}
-	return res
+func (ec *executionContext) marshalNURI2githubᚗcomᚋkudoasᚋgraphqlᚑsampleᚋgraphᚋmodelᚐURL(ctx context.Context, sel ast.SelectionSet, v model.URL) graphql.Marshaler {
+	return v
 }
 
 func (ec *executionContext) marshalNUser2ᚖgithubᚗcomᚋkudoasᚋgraphqlᚑsampleᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v *model.User) graphql.Marshaler {
