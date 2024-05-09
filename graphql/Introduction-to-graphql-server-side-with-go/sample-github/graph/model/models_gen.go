@@ -2,6 +2,10 @@
 
 package model
 
+import (
+	"time"
+)
+
 type Node interface {
 	IsNode()
 	GetID() string
@@ -138,7 +142,7 @@ type Repository struct {
 	ID           string                 `json:"id"`
 	Owner        *User                  `json:"owner"`
 	Name         string                 `json:"name"`
-	CreatedAt    string                 `json:"createdAt"`
+	CreatedAt    time.Time              `json:"createdAt"`
 	Issue        *Issue                 `json:"issue,omitempty"`
 	Issues       *IssueConnection       `json:"issues"`
 	PullRequest  *PullRequest           `json:"pullRequest,omitempty"`
