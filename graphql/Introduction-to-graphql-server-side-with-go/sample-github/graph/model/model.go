@@ -4,11 +4,18 @@ import (
 	"fmt"
 	"io"
 	"net/url"
+
+	"github.com/99designs/gqlgen/graphql"
 )
 
 type URL struct {
 	url.URL
 }
+
+var (
+	_ graphql.Marshaler   = (*URL)(nil)
+	_ graphql.Unmarshaler = (*URL)(nil)
+)
 
 // MarshalGQL implements the graphql.Marshaler interface
 func (u URL) MarshalGQL(w io.Writer) {
