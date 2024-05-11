@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS repositories(\
 	id TEXT PRIMARY KEY NOT NULL,\
 	owner TEXT NOT NULL,\
 	name TEXT NOT NULL,\
-	created_at TIMESTAMP NOT NULL DEFAULT (DATETIME('now','localtime')),\
+	created_at TEXT NOT NULL DEFAULT (DATETIME('now','localtime')),\
 	FOREIGN KEY (owner) REFERENCES users(id)\
 );
 
