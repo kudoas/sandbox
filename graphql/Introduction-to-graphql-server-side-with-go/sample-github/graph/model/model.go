@@ -12,25 +12,20 @@ type URL struct {
 	url.URL
 }
 
-var (
-	_ graphql.Marshaler   = (*URL)(nil)
-	_ graphql.Unmarshaler = (*URL)(nil)
-)
+var _ graphql.Marshaler = (*URL)(nil)
 
-// MarshalGQL implements the graphql.Marshaler interface
-func (u URL) MarshalGQL(w io.Writer) {
-	io.WriteString(w, fmt.Sprintf(`"%s"`, u.URL.String()))
-}
+func (u URL) MarshalGQL(w io.Writer) { io.WriteString(w, fmt.Sprintf(`"%s"`, u.URL.String())) }
 
-// UnmarshalGQL implements the graphql.Unmarshaler interface
+var _ graphql.Unmarshaler = (*URL)(nil)
+
 func (u *URL) UnmarshalGQL(v interface{}) error {
 	switch v := v.(type) {
 	case string:
-		if result, err := url.Parse(v); err != nil {
+		result, err := url.Parse(v)
+		if err != nil {
 			return err
-		} else {
-			u = &URL{*result}
 		}
+		u = &URL{*result}
 		return nil
 	case []byte:
 		result := &url.URL{}
