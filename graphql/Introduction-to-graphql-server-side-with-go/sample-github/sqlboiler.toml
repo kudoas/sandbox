@@ -6,8 +6,3 @@ no-tests = true
 
 [sqlite3]
 dbname = "./mygraphql.db"
-[[types]]
-[types.match]
-name = "created_at"
-[types.replace]
-type = "time.Time"
