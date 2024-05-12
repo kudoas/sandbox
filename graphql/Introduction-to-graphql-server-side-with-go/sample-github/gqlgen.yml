@@ -91,3 +91,15 @@ models:
   URI:
     model:
       - github.com/kudoas/graphql-sample/graph/model.URL
+  Repository:
+    fields:
+      owner:
+        resolver: true
+      issue:
+        resolver: true
+      issues:
+        resolver: true
+      pullRequest:
+        resolver: true
+      pullRequests:
+        resolver: true
