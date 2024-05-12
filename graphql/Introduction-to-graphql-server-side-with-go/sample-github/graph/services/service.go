@@ -27,11 +27,7 @@ type services struct {
 
 func New(exec boil.ContextExecutor) Services {
 	return &services{
-		userService: &userService{
-			exec: exec,
-		},
-		repositoryService: &repositoryService{
-			exec: exec,
-		},
+		userService:       &userService{exec: exec},
+		repositoryService: &repositoryService{exec: exec},
 	}
 }
