@@ -15,7 +15,7 @@ type repositoryService struct {
 	exec boil.ContextExecutor
 }
 
-func (r *repositoryService) GetRepositoryByName(ctx context.Context, name, owner string) (*model.Repository, error) {
+func (r *repositoryService) GetRepoByName(ctx context.Context, name, owner string) (*model.Repository, error) {
 	boil.DebugMode = true
 	defer func() { boil.DebugMode = false }()
 	repo, err := db.Repositories(
@@ -26,10 +26,10 @@ func (r *repositoryService) GetRepositoryByName(ctx context.Context, name, owner
 	if err != nil {
 		return nil, err
 	}
-	return convertRepository(repo), nil
+	return convertRepo(repo), nil
 }
 
-func convertRepository(repo *db.Repository) *model.Repository {
+func convertRepo(repo *db.Repository) *model.Repository {
 	c, err := time.Parse(time.DateTime, repo.CreatedAt)
 	if err != nil {
 		log.Printf("failed to parse time: %v", err)
