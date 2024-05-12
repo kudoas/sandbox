@@ -39,7 +39,7 @@ func (r *repositoryResolver) Owner(ctx context.Context, obj *model.Repository) (
 
 // Issue is the resolver for the issue field.
 func (r *repositoryResolver) Issue(ctx context.Context, obj *model.Repository, number int) (*model.Issue, error) {
-	panic(fmt.Errorf("not implemented: Issue - issue"))
+	return r.Srv.GetIssueByRepoAndNumber(ctx, obj.ID, number)
 }
 
 // Issues is the resolver for the issues field.
