@@ -1052,10 +1052,6 @@ func (o *Issue) Update(ctx context.Context, exec boil.ContextExecutor, columns b
 			issueAllColumns,
 			issuePrimaryKeyColumns,
 		)
-
-		if !columns.IsWhitelist() {
-			wl = strmangle.SetComplement(wl, []string{"created_at"})
-		}
 		if len(wl) == 0 {
 			return 0, errors.New("db: unable to update issues, could not build whitelist")
 		}

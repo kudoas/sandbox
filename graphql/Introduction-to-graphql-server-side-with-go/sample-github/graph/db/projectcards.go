@@ -1221,10 +1221,6 @@ func (o *Projectcard) Update(ctx context.Context, exec boil.ContextExecutor, col
 			projectcardAllColumns,
 			projectcardPrimaryKeyColumns,
 		)
-
-		if !columns.IsWhitelist() {
-			wl = strmangle.SetComplement(wl, []string{"created_at"})
-		}
 		if len(wl) == 0 {
 			return 0, errors.New("db: unable to update projectcards, could not build whitelist")
 		}

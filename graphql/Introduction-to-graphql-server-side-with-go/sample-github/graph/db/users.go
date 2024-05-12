@@ -912,10 +912,6 @@ func (o *User) Update(ctx context.Context, exec boil.ContextExecutor, columns bo
 			userAllColumns,
 			userPrimaryKeyColumns,
 		)
-
-		if !columns.IsWhitelist() {
-			wl = strmangle.SetComplement(wl, []string{"created_at"})
-		}
 		if len(wl) == 0 {
 			return 0, errors.New("db: unable to update users, could not build whitelist")
 		}
