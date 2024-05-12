@@ -2,6 +2,8 @@ package services
 
 import (
 	"context"
+	"log"
+	"time"
 
 	"github.com/kudoas/graphql-sample/graph/db"
 	"github.com/kudoas/graphql-sample/graph/model"
@@ -28,9 +30,13 @@ func (r *repositoryService) GetRepositoryByName(ctx context.Context, name, owner
 }
 
 func convertRepository(repo *db.Repository) *model.Repository {
+	c, err := time.Parse(time.DateTime, repo.CreatedAt)
+	if err != nil {
+		log.Printf("failed to parse time: %v", err)
+	}
 	return &model.Repository{
 		ID:        repo.ID,
 		Name:      repo.Name,
-		CreatedAt: repo.CreatedAt,
+		CreatedAt: c,
 	}
 }
