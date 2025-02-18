@@ -1,4 +1,4 @@
-module my_gql_server
+module github.com/kudoas/graphql-sample
 
 go 1.24.0
 
