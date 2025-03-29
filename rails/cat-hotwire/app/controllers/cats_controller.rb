@@ -1,9 +1,11 @@
 class CatsController < ApplicationController
   before_action :set_cat, only: %i[ show edit update destroy ]
 
+  include Pagy::Backend
+
   # GET /cats
   def index
-    @cats = Cat.all
+    @pagy, @cats = pagy(Cat.all)
   end
 
   # GET /cats/1

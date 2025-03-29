@@ -6,11 +6,14 @@
 
 <div id="cats">
   <% @cats.each do |cat| %>
+    <%# _cat.html.erb is a partial that renders a single cat %>
     <%= render cat %>
     <p>
       <%= link_to "Show this cat", cat %>
     </p>
   <% end %>
 </div>
+
+<%== pagy_nav(@pagy) %>
 
 <%= link_to "New cat", new_cat_path %>
