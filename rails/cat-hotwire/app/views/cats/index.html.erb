@@ -4,6 +4,22 @@
 
 <h1>Cats</h1>
 
+<%# ransackを利用した検索フォームでは、form_withの代わりにsearch_form_forを使う %>
+<%= search_form_for @search do |f| %>
+
+  <%# `カラム名_cont`とすることで、カラムに対してLIKEを使った曖昧一致検索ができる %>
+  <%= f.label :name_cont, "名前" %>
+  <%= f.search_field :name_cont %>
+
+  <%# `カラム名_eq`とすることで、カラムに対して完全一致検索ができる %>
+  <%= f.label :age_eq, "年齢" %>
+  <%= f.search_field :age_eq %>
+  <%= f.submit %>
+
+  <%# 検索結果と検索フォームをクリアする %>
+  <%= link_to "クリア", cats_path %>
+<% end %>
+
 <div id="cats">
   <% @cats.each do |cat| %>
     <%# _cat.html.erb is a partial that renders a single cat %>

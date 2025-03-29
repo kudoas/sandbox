@@ -5,7 +5,9 @@ class CatsController < ApplicationController
 
   # GET /cats
   def index
-    @pagy, @cats = pagy(Cat.all)
+   @search = Cat.ransack(params[:q])
+   @search.sorts = "id desc" if @search.sorts.empty?
+   @pagy, @cats = pagy(@search.result, limit: 10)
   end
 
   # GET /cats/1
