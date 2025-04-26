@@ -45,8 +45,13 @@ class CatsController < ApplicationController
 
   # DELETE /cats/1
   def destroy
-    @cat.destroy!
-    redirect_to cats_path, notice: "Cat was successfully destroyed.", status: :see_other
+    @cat = Cat.find(params[:id])
+    @cat.destroy
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to cats_path, notice: "Cat was successfully destroyed.", status: :see_other }
+    end
   end
 
   private

@@ -7,6 +7,6 @@
   </ul>
   <div class="d-flex">
     <%= link_to "編集", edit_cat_path(cat), class: "btn btn-sm btn-primary" %>
-    <%= button_to "削除", cat, method: :delete, class: "btn btn-sm btn-danger" %>
+    <%= button_to "削除", cat, method: :delete, class: "btn btn-sm btn-danger", data: { turbo_confirm: '本当に削除しますか？' } %>
   </div>
 <% end %>
