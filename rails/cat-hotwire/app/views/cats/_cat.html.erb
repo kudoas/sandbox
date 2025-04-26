@@ -1,15 +1,11 @@
-<div id="<%= dom_id cat %>">
-  <p>
-    <strong>Name:</strong>
-    <%= cat.name %>
-  </p>
-
-  <p>
-    <strong>Age:</strong>
-    <%= cat.age %>
-  </p>
-
-  <p>
-    <strong>Created:</strong>
-    <%= cat.created_at %>
+<%# 全体を`turbo_frame_tag`で囲う %>
+<%= turbo_frame_tag dom_id(cat) do %>
+  <ul>
+    <li>Cat: <%= cat.name %></li>
+    <li>Age: <%= cat.age %></li>
+  </ul>
+  <div>
+    <%= link_to "編集", edit_cat_path(cat) %>
+    <%= button_to "削除", cat, method: :delete%>
   </div>
+<% end %>
