@@ -1,6 +1,7 @@
-<%# 全体を`turbo_frame_tag`で囲う %>
+<%# dom_id(cat) が一致した要素が turbo frame で置き換えられる %>
 <%= turbo_frame_tag dom_id(cat) do %>
   <ul>
+    <li>Id: <%= cat.id %></li>
     <li>Cat: <%= cat.name %></li>
     <li>Age: <%= cat.age %></li>
   </ul>
