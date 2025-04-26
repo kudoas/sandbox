@@ -23,7 +23,8 @@
     </div>
 
     <div>
-      <%= form.submit %>
+      <%= form.submit cat.persisted? ? "更新" : "作成", class: "btn btn-sm btn-primary" %>
+      <%= link_to "キャンセル", cat, class: "btn btn-sm btn-outline-secondary" %>
     </div>
   <% end %>
 <% end %>

@@ -5,8 +5,8 @@
     <li>Cat: <%= cat.name %></li>
     <li>Age: <%= cat.age %></li>
   </ul>
-  <div>
-    <%= link_to "編集", edit_cat_path(cat) %>
-    <%= button_to "削除", cat, method: :delete%>
+  <div class="d-flex">
+    <%= link_to "編集", edit_cat_path(cat), class: "btn btn-sm btn-primary" %>
+    <%= button_to "削除", cat, method: :delete, class: "btn btn-sm btn-danger" %>
   </div>
 <% end %>
