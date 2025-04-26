@@ -37,7 +37,7 @@ class CatsController < ApplicationController
   # PATCH/PUT /cats/1
   def update
     if @cat.update(cat_params)
-      redirect_to @cat, notice: "Cat was successfully updated.", status: :see_other
+      redirect_to @cat, notice: "Cat was successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end
