@@ -4,7 +4,7 @@
 
 <h1>Cats</h1>
 
-<%= search_form_for @search do |f| %>
+<%= search_form_for @search, html: { data: { turbo_frame: "cats-list" } } do |f| %>
   <%= f.label :name_cont, "名前" %>
   <%= f.search_field :name_cont %>
 
