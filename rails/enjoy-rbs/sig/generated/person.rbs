@@ -1,0 +1,22 @@
+# Generated from person.rb with RBS::Inline
+
+class Person
+  attr_reader name: String
+
+  attr_reader addresses: Array[String]
+
+  # You can write the type of parameters and return types.
+  #
+  # @rbs name: String
+  # @rbs addresses: Array[String]
+  # @rbs return: void
+  def initialize: (name: String, addresses: Array[String]) -> void
+
+  # Or write the type of the method just after `@rbs` keyword.
+  #
+  # @rbs () -> String
+  def to_s: () -> String
+
+  # @rbs &block: (String) -> void
+  def each_address: () { (String) -> void } -> void
+end
