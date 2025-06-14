@@ -1,0 +1,68 @@
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold text-gray-800 mb-8">🚀 Sidekiq サンプル</h1>
+
+  <% if flash[:notice] %>
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+
+  <div class="bg-white shadow-md rounded-lg p-6 mb-8">
+    <h2 class="text-xl font-semibold text-gray-700 mb-4">📝 新しいジョブを実行</h2>
+
+    <%= form_with url: jobs_path, method: :post, local: true, class: "space-y-4" do |form| %>
+      <div>
+        <%= form.label :name, "名前:", class: "block text-sm font-medium text-gray-700" %>
+        <%= form.text_field :name, placeholder: "あなたの名前", class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
+      </div>
+
+      <div>
+        <%= form.label :message, "メッセージ:", class: "block text-sm font-medium text-gray-700" %>
+        <%= form.text_area :message, placeholder: "処理したいメッセージを入力してください", rows: 3, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
+      </div>
+
+      <div>
+        <%= form.submit "🚀 ジョブを実行", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="bg-white shadow-md rounded-lg p-6">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-semibold text-gray-700">📊 ジョブ実行結果</h2>
+      <% if @job_results.any? %>
+        <%= link_to "🗑️ クリア", clear_results_jobs_path, method: :delete, 
+            class: "bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded text-sm",
+            confirm: "結果をクリアしますか？" %>
+      <% end %>
+    </div>
+
+    <% if @job_results.any? %>
+      <div class="bg-gray-50 rounded-lg p-4">
+        <% @job_results.each do |result| %>
+          <div class="border-b border-gray-200 py-2 last:border-b-0">
+            <code class="text-sm text-gray-800"><%= result.strip %></code>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-gray-500 italic">まだジョブが実行されていません。上のフォームからジョブを実行してみてください！</p>
+    <% end %>
+  </div>
+
+  <div class="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-4">
+    <h3 class="text-lg font-semibold text-blue-800 mb-2">💡 使い方</h3>
+    <ul class="text-blue-700 space-y-1">
+      <li>• 上のフォームに名前とメッセージを入力してジョブを実行</li>
+      <li>• ジョブは5秒間の処理をシミュレートします</li>
+      <li>• 処理完了後、結果がこのページに表示されます</li>
+      <li>• ページを更新すると最新の結果が確認できます</li>
+    </ul>
+  </div>
+</div>
+
+<style>
+  .container {
+    max-width: 800px;
+  }
+</style>
