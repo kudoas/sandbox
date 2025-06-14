@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :jobs, only: [ :index, :create ] do
     collection do
       delete :clear_results
+      post :send_email
     end
   end
 

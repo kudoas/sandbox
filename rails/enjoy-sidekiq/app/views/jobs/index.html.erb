@@ -1,5 +1,5 @@
 <div class="container mx-auto px-4 py-8">
-  <h1 class="text-3xl font-bold text-gray-800 mb-8">🚀 Sidekiq サンプル</h1>
+  <h1 class="text-3xl font-bold text-gray-800 mb-8">🚀 Sidekiq サンプル（直接利用版）</h1>
 
   <% if flash[:notice] %>
     <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
@@ -7,8 +7,9 @@
     </div>
   <% end %>
 
+  <!-- サンプルジョブフォーム -->
   <div class="bg-white shadow-md rounded-lg p-6 mb-8">
-    <h2 class="text-xl font-semibold text-gray-700 mb-4">📝 新しいジョブを実行</h2>
+    <h2 class="text-xl font-semibold text-gray-700 mb-4">📝 サンプルジョブを実行</h2>
 
     <%= form_with url: jobs_path, method: :post, local: true, class: "space-y-4" do |form| %>
       <div>
@@ -22,7 +23,33 @@
       </div>
 
       <div>
-        <%= form.submit "🚀 ジョブを実行", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+        <%= form.submit "🚀 サンプルジョブを実行", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- メールジョブフォーム -->
+  <div class="bg-white shadow-md rounded-lg p-6 mb-8">
+    <h2 class="text-xl font-semibold text-gray-700 mb-4">📧 メールジョブを実行（高優先度キュー）</h2>
+
+    <%= form_with url: send_email_jobs_path, method: :post, local: true, class: "space-y-4" do |form| %>
+      <div>
+        <%= form.label :email, "メールアドレス:", class: "block text-sm font-medium text-gray-700" %>
+        <%= form.email_field :email, placeholder: "test@example.com", class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
+      </div>
+
+      <div>
+        <%= form.label :subject, "件名:", class: "block text-sm font-medium text-gray-700" %>
+        <%= form.text_field :subject, placeholder: "メールの件名", class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
+      </div>
+
+      <div>
+        <%= form.label :body, "本文:", class: "block text-sm font-medium text-gray-700" %>
+        <%= form.text_area :body, placeholder: "メールの本文を入力してください", rows: 3, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
+      </div>
+
+      <div>
+        <%= form.submit "📧 メールジョブを実行", class: "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
       </div>
     <% end %>
   </div>
@@ -51,18 +78,19 @@
   </div>
 
   <div class="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-4">
-    <h3 class="text-lg font-semibold text-blue-800 mb-2">💡 使い方</h3>
+    <h3 class="text-lg font-semibold text-blue-800 mb-2">💡 Sidekiq直接利用の特徴</h3>
     <ul class="text-blue-700 space-y-1">
-      <li>• 上のフォームに名前とメッセージを入力してジョブを実行</li>
-      <li>• ジョブは5秒間の処理をシミュレートします</li>
-      <li>• 処理完了後、結果がこのページに表示されます</li>
-      <li>• ページを更新すると最新の結果が確認できます</li>
+      <li>• <strong>SampleJob</strong>: デフォルトキュー、リトライ3回、5秒処理</li>
+      <li>• <strong>EmailJob</strong>: 高優先度キュー、リトライ5回、3秒処理</li>
+      <li>• <code>perform_async</code>でジョブを非同期実行</li>
+      <li>• <code>sidekiq_options</code>でキューやリトライ設定をカスタマイズ</li>
+      <li>• Sidekiq Web UI (http://localhost:3000/sidekiq) でリアルタイム監視</li>
     </ul>
   </div>
 </div>
 
 <style>
   .container {
-    max-width: 800px;
+    max-width: 900px;
   }
 </style>

@@ -1,5 +1,8 @@
-class SampleJob < ApplicationJob
-  queue_as :default
+class SampleJob
+  include Sidekiq::Job
+
+  # Sidekiqのオプション設定
+  sidekiq_options queue: :default, retry: 3
 
   def perform(name, message)
     # 実際の処理をシミュレート（5秒待機）

@@ -7,10 +7,22 @@ class JobsController < ApplicationController
     name = params[:name].presence || "Anonymous"
     message = params[:message].presence || "Hello from Sidekiq!"
 
-    # 非同期ジョブをキューに追加
-    SampleJob.perform_later(name, message)
+    # Sidekiqを直接使用してジョブをキューに追加
+    SampleJob.perform_async(name, message)
 
     flash[:notice] = "🚀 ジョブがキューに追加されました！ 5秒後に完了予定です。"
+    redirect_to jobs_path
+  end
+
+  def send_email
+    email = params[:email].presence || "test@example.com"
+    subject = params[:subject].presence || "Test Email from Sidekiq"
+    body = params[:body].presence || "This is a test email sent via Sidekiq!"
+
+    # 高優先度キューでメールジョブを実行
+    EmailJob.perform_async(email, subject, body)
+
+    flash[:notice] = "📧 メールジョブがキューに追加されました！ 3秒後に完了予定です。"
     redirect_to jobs_path
   end
 

@@ -25,7 +25,7 @@ Things you may want to cover:
 
 # Enjoy Sidekiq 🚀
 
-Rails 8 + Sidekiq を使った非同期処理のサンプルアプリケーションです。
+Rails 8 + Sidekiq を直接利用した非同期処理のサンプルアプリケーションです。
 
 ## 🛠️ セットアップ
 
@@ -43,7 +43,7 @@ cd enjoy-sidekiq
 
 2. Docker Composeでサービスを起動
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
 
 3. ブラウザでアクセス
@@ -52,61 +52,92 @@ docker-compose up --build
 
 ## 🎯 機能
 
-### サンプルジョブ
+### SampleJob（デフォルトキュー）
 - 名前とメッセージを入力してジョブを実行
 - 5秒間の処理をシミュレート
-- 結果をファイルに保存してWebページに表示
+- デフォルトキュー、リトライ3回
+
+### EmailJob（高優先度キュー）
+- メール送信をシミュレート
+- 3秒間の処理時間
+- 高優先度キュー、リトライ5回、バックトレース有効
 
 ### Sidekiq Web UI
-- ジョブの実行状況を監視
+- ジョブの実行状況をリアルタイム監視
 - キューの状態を確認
 - 失敗したジョブの再実行
+- パフォーマンス統計
 
 ## 🏗️ アーキテクチャ
 
 - **Rails**: Webアプリケーション
-- **Sidekiq**: バックグラウンドジョブ処理
+- **Sidekiq**: バックグラウンドジョブ処理（直接利用）
 - **Redis**: ジョブキューのストレージ
 - **Docker**: コンテナ化された開発環境
 
-## 📝 使い方
+## 📝 Sidekiq直接利用の特徴
 
-1. http://localhost:3000 にアクセス
-2. フォームに名前とメッセージを入力
-3. 「ジョブを実行」ボタンをクリック
-4. 5秒後にページを更新して結果を確認
-5. Sidekiq Web UI (http://localhost:3000/sidekiq) でジョブの状況を監視
+### ApplicationJobとの違い
+- `include Sidekiq::Job` でSidekiqを直接継承
+- `perform_async` でジョブを非同期実行
+- `sidekiq_options` で詳細な設定が可能
+
+### 設定例
+```ruby
+class SampleJob
+  include Sidekiq::Job
+  
+  sidekiq_options queue: :default, retry: 3
+  
+  def perform(name, message)
+    # ジョブの処理
+  end
+end
+
+# ジョブの実行
+SampleJob.perform_async("名前", "メッセージ")
+```
 
 ## 🔧 開発
 
 ### ログの確認
 ```bash
 # Railsアプリのログ
-docker-compose logs web
+docker compose logs web
 
 # Sidekiqのログ
-docker-compose logs sidekiq
+docker compose logs sidekiq
 
 # Redisのログ
-docker-compose logs redis
+docker compose logs redis
 ```
 
 ### コンテナに入る
 ```bash
 # Railsコンテナ
-docker-compose exec web bash
+docker compose exec web bash
 
 # Sidekiqコンテナ
-docker-compose exec sidekiq bash
+docker compose exec sidekiq bash
 ```
 
 ### ジョブの手動実行
 ```bash
 # Railsコンソールでジョブを実行
-docker-compose exec web rails console
-> SampleJob.perform_later("Test User", "Manual job execution")
+docker compose exec web rails console
+> SampleJob.perform_async("Test User", "Manual job execution")
+> EmailJob.perform_async("test@example.com", "Test Subject", "Test Body")
+```
+
+### キューの確認
+```bash
+# Sidekiqの統計情報
+docker compose exec web rails console
+> Sidekiq::Stats.new.queues
+> Sidekiq::Queue.new("default").size
+> Sidekiq::Queue.new("high_priority").size
 ```
 
 ## 🎉 楽しんでください！
 
-このサンプルを参考に、あなたのアプリケーションに非同期処理を導入してみてください！
+このサンプルを参考に、あなたのアプリケーションにSidekiqを直接導入してみてください！
