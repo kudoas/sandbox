@@ -1,12 +1,27 @@
 class SampleJob
   include Sidekiq::Job
+  include ProgressTrackable
 
   # Sidekiqのオプション設定
   sidekiq_options queue: :default, retry: 3
 
   def perform(name, message)
-    # 実際の処理をシミュレート（5秒待機）
-    sleep(5)
+    total_steps = 5
+
+    # ステップ1: 初期化
+    update_progress(1, total_steps, "ジョブを初期化しています...")
+    sleep(1)
+
+    # ステップ2: データ準備
+    update_progress(2, total_steps, "データを準備しています...")
+    sleep(1)
+
+    # ステップ3: メイン処理
+    update_progress(3, total_steps, "メイン処理を実行中...")
+    sleep(2)
+
+    # ステップ4: 結果保存
+    update_progress(4, total_steps, "結果を保存しています...")
 
     # ログに出力
     Rails.logger.info "🎉 SampleJob completed!"
@@ -19,8 +34,12 @@ class SampleJob
     File.open(result_file, "a") do |file|
       file.puts "#{Time.current}: Job completed for #{name} - #{message}"
     end
+    sleep(1)
 
-    # Turbo Streamsで完了通知を送信
+    # ステップ5: 完了
+    complete_progress("#{name} さんのジョブが完了しました！")
+
+    # 完了通知を送信
     broadcast_job_completion("SampleJob", name, message)
   end
 

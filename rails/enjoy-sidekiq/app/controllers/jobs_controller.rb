@@ -8,9 +8,12 @@ class JobsController < ApplicationController
     message = params[:message].presence || "Hello from Sidekiq!"
 
     # Sidekiqを直接使用してジョブをキューに追加
-    SampleJob.perform_async(name, message)
+    job_id = SampleJob.perform_async(name, message)
 
-    flash[:notice] = "🚀 ジョブがキューに追加されました！ 5秒後に完了予定です。"
+    # プログレスバーを即座に表示
+    show_initial_progress("SampleJob", job_id)
+
+    flash[:notice] = "🚀 ジョブがキューに追加されました！進行状況をリアルタイムで確認できます。"
     redirect_to jobs_path
   end
 
@@ -20,9 +23,12 @@ class JobsController < ApplicationController
     body = params[:body].presence || "This is a test email sent via Sidekiq!"
 
     # 高優先度キューでメールジョブを実行
-    EmailJob.perform_async(email, subject, body)
+    job_id = EmailJob.perform_async(email, subject, body)
 
-    flash[:notice] = "📧 メールジョブがキューに追加されました！ 3秒後に完了予定です。"
+    # プログレスバーを即座に表示
+    show_initial_progress("EmailJob", job_id)
+
+    flash[:notice] = "📧 メールジョブがキューに追加されました！進行状況をリアルタイムで確認できます。"
     redirect_to jobs_path
   end
 
@@ -48,6 +54,23 @@ class JobsController < ApplicationController
   end
 
   private
+
+  def show_initial_progress(job_type, job_id)
+    # 初期プログレスバーを表示
+    Turbo::StreamsChannel.broadcast_prepend_to(
+      "job_notifications",
+      target: "progress_area",
+      partial: "shared/progress_bar",
+      locals: {
+        job_id: job_id,
+        job_type: job_type,
+        percentage: 0,
+        current_step: 0,
+        total_steps: job_type == "SampleJob" ? 5 : 4,
+        message: "ジョブをキューに追加しました..."
+      }
+    )
+  end
 
   def read_job_results
     result_file = Rails.root.join("tmp", "job_results.txt")

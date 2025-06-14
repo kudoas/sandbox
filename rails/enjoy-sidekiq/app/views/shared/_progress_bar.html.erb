@@ -1,0 +1,35 @@
+<div id="progress_<%= job_type %>_<%= job_id %>" class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4 progress-container">
+  <div class="flex items-center justify-between mb-2">
+    <div class="flex items-center">
+      <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600 mr-2"></div>
+      <span class="font-semibold text-blue-800">
+        <%= job_type %> 実行中...
+      </span>
+    </div>
+    <span class="text-sm text-blue-600 font-mono">
+      <%= current_step %>/<%= total_steps %> (<%= percentage %>%)
+    </span>
+  </div>
+
+  <div class="mb-2">
+    <div class="flex justify-between text-xs text-blue-600 mb-1">
+      <span><%= message %></span>
+      <span><%= percentage %>%</span>
+    </div>
+    <div class="w-full bg-blue-200 rounded-full h-3 overflow-hidden">
+      <div class="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-500 ease-out progress-bar-fill" 
+           style="width: <%= percentage %>%">
+        <div class="h-full bg-gradient-to-r from-transparent via-white to-transparent opacity-30 animate-pulse"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-xs text-blue-500">
+    <% if percentage < 100 %>
+      処理を実行しています。しばらくお待ちください...
+    <% else %>
+      処理が完了しました！
+    <% end %>
+  </div>
+</div>
+ 
