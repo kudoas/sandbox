@@ -1,3 +1,6 @@
-import { parseArith } from "./tiny-ts-parser.ts";
+import { typecheck } from "./arith.ts";
+import { parse, parseArith } from "./tiny-ts-parser.ts";
 
-console.log(parseArith("100"));
+const ast = parseArith("false ? true : false")
+console.log(ast)
+console.log(typecheck(ast));
