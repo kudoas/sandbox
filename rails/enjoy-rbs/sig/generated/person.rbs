@@ -17,6 +17,9 @@ class Person
   # @rbs () -> String
   def to_s: () -> String
 
+  # @rbs () -> Integer
+  def hash: () -> Integer
+
   # @rbs &block: (String) -> void
   def each_address: () { (String) -> void } -> void
 end

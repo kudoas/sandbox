@@ -22,6 +22,11 @@ class Person
     "Person(name = #{name}, addresses = #{addresses.join(", ")})"
   end
 
+  # @rbs () -> Integer
+  def hash
+    [name, addresses].hash
+  end
+
   # @rbs &block: (String) -> void
   def each_address(&block) #: void
     addresses.each(&block)
