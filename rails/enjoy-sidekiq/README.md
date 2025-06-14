@@ -25,7 +25,7 @@ Things you may want to cover:
 
 # Enjoy Sidekiq 🚀
 
-Rails 8 + Sidekiq を直接利用した非同期処理のサンプルアプリケーションです。
+Rails 8 + Sidekiq + Turbo Streams を使ったリアルタイム更新付き非同期処理のサンプルアプリケーションです。
 
 ## 🛠️ セットアップ
 
@@ -56,11 +56,21 @@ docker compose up --build
 - 名前とメッセージを入力してジョブを実行
 - 5秒間の処理をシミュレート
 - デフォルトキュー、リトライ3回
+- **完了時にTurbo Streamsでリアルタイム更新**
 
 ### EmailJob（高優先度キュー）
 - メール送信をシミュレート
 - 3秒間の処理時間
 - 高優先度キュー、リトライ5回、バックトレース有効
+- **完了時にTurbo Streamsでリアルタイム更新**
+
+### 🔄 Turbo Streams リアルタイム更新
+- **通知の自動追加**: ジョブ完了時に通知エリアに自動追加
+- **結果リストの更新**: ジョブ結果リストも自動更新
+- **ページ更新不要**: JavaScriptなしでリアルタイム更新
+- **通知音**: ジョブ完了時に音で通知（ブラウザ対応時）
+- **自動フェード**: 5秒後に通知が薄くなる
+- **手動削除**: ×ボタンで通知を手動削除可能
 
 ### Sidekiq Web UI
 - ジョブの実行状況をリアルタイム監視
@@ -72,31 +82,45 @@ docker compose up --build
 
 - **Rails**: Webアプリケーション
 - **Sidekiq**: バックグラウンドジョブ処理（直接利用）
-- **Redis**: ジョブキューのストレージ
+- **Redis**: ジョブキューのストレージ + Turbo Streamsのブロードキャスト
+- **Turbo Streams**: サーバープッシュによるリアルタイムDOM更新
 - **Docker**: コンテナ化された開発環境
 
-## 📝 Sidekiq直接利用の特徴
+## 📝 Turbo Streams の仕組み
 
-### ApplicationJobとの違い
-- `include Sidekiq::Job` でSidekiqを直接継承
-- `perform_async` でジョブを非同期実行
-- `sidekiq_options` で詳細な設定が可能
-
-### 設定例
+### 1. ジョブ完了時の処理フロー
 ```ruby
-class SampleJob
-  include Sidekiq::Job
-  
-  sidekiq_options queue: :default, retry: 3
-  
-  def perform(name, message)
-    # ジョブの処理
-  end
-end
-
-# ジョブの実行
-SampleJob.perform_async("名前", "メッセージ")
+# ジョブ内でTurbo Streamsにブロードキャスト
+Turbo::StreamsChannel.broadcast_prepend_to(
+  "job_notifications",
+  target: "notifications",
+  partial: "shared/job_notification",
+  locals: { ... }
+)
 ```
+
+### 2. フロントエンドでの受信
+```erb
+<!-- Turbo Streamsを購読 -->
+<%= turbo_stream_from "job_notifications" %>
+
+<!-- 更新対象のDOM要素 -->
+<div id="notifications">
+  <!-- ここに通知が自動追加される -->
+</div>
+```
+
+### 3. 技術スタック
+- **Turbo Streams**: サーバープッシュDOM更新
+- **Action Cable**: WebSocket通信（Turbo Streamsが内部利用）
+- **Redis**: メッセージブローカー
+- **パーシャルビュー**: 再利用可能なHTML部品
+
+### 4. Turbo Streamsの利点
+- **シンプル**: JavaScriptコード不要
+- **宣言的**: ERBテンプレートで完結
+- **高性能**: 必要な部分のみ更新
+- **保守性**: サーバーサイドで完結
 
 ## 🔧 開発
 
@@ -129,6 +153,13 @@ docker compose exec web rails console
 > EmailJob.perform_async("test@example.com", "Test Subject", "Test Body")
 ```
 
+### Turbo Streamsの動作確認
+```bash
+# Railsコンソールで手動ブロードキャスト
+docker compose exec web rails console
+> Turbo::StreamsChannel.broadcast_prepend_to("job_notifications", target: "notifications", html: "<div>Test</div>")
+```
+
 ### キューの確認
 ```bash
 # Sidekiqの統計情報
@@ -140,4 +171,4 @@ docker compose exec web rails console
 
 ## 🎉 楽しんでください！
 
-このサンプルを参考に、あなたのアプリケーションにSidekiqを直接導入してみてください！
+このサンプルを参考に、あなたのアプリケーションにTurbo Streamsを使ったリアルタイム更新機能を導入してみてください！

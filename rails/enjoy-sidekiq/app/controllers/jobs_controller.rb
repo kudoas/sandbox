@@ -30,8 +30,21 @@ class JobsController < ApplicationController
     result_file = Rails.root.join("tmp", "job_results.txt")
     File.delete(result_file) if File.exist?(result_file)
 
-    flash[:notice] = "🗑️ 結果をクリアしました。"
-    redirect_to jobs_path
+    # Turbo Streamsで結果リストを更新
+    respond_to do |format|
+      format.html do
+        flash[:notice] = "🗑️ 結果をクリアしました。"
+        redirect_to jobs_path
+      end
+      format.turbo_stream do
+        # 結果リストを空の状態で更新
+        render turbo_stream: turbo_stream.replace(
+          "job_results_content",
+          partial: "results_content",
+          locals: { job_results: [] }
+        )
+      end
+    end
   end
 
   private

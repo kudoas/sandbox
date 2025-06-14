@@ -19,5 +19,46 @@ class SampleJob
     File.open(result_file, "a") do |file|
       file.puts "#{Time.current}: Job completed for #{name} - #{message}"
     end
+
+    # Turbo Streamsで完了通知を送信
+    broadcast_job_completion("SampleJob", name, message)
+  end
+
+  private
+
+  def broadcast_job_completion(job_type, name, message)
+    # Turbo Streamsを使用してページ更新
+    Turbo::StreamsChannel.broadcast_prepend_to(
+      "job_notifications",
+      target: "notifications",
+      partial: "shared/job_notification",
+      locals: {
+        job_type: job_type,
+        name: name,
+        message: message,
+        completed_at: Time.current.strftime("%Y-%m-%d %H:%M:%S")
+      }
+    )
+
+    # 結果リストも更新
+    broadcast_results_update
+  end
+
+  def broadcast_results_update
+    # 結果リストを更新
+    job_results = read_job_results
+    Turbo::StreamsChannel.broadcast_replace_to(
+      "job_notifications",
+      target: "job_results_content",
+      partial: "jobs/results_content",
+      locals: { job_results: job_results }
+    )
+  end
+
+  def read_job_results
+    result_file = Rails.root.join("tmp", "job_results.txt")
+    return [] unless File.exist?(result_file)
+
+    File.readlines(result_file).reverse.first(10)
   end
 end

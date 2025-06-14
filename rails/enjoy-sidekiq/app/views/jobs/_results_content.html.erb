@@ -1,0 +1,11 @@
+<% if job_results.any? %>
+  <div class="bg-gray-50 rounded-lg p-4">
+    <% job_results.each do |result| %>
+      <div class="border-b border-gray-200 py-2 last:border-b-0">
+        <code class="text-sm text-gray-800"><%= result.strip %></code>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p class="text-gray-500 italic">まだジョブが実行されていません。上のフォームからジョブを実行してみてください！</p>
+<% end %> 
