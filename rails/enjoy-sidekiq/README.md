@@ -25,7 +25,7 @@ Things you may want to cover:
 
 # Enjoy Sidekiq 🚀
 
-Rails 8 + Sidekiq + Turbo Streams を使ったプログレスバー付きリアルタイム非同期処理のサンプルアプリケーションです。
+Rails 8 + Sidekiq + Turbo Streams を使ったリアルタイム更新付き非同期処理のサンプルアプリケーションです。
 
 ## 🛠️ セットアップ
 
@@ -54,31 +54,15 @@ docker compose up --build
 
 ### SampleJob（デフォルトキュー）
 - 名前とメッセージを入力してジョブを実行
-- **5段階のプログレス表示**:
-  1. ジョブ初期化
-  2. データ準備
-  3. メイン処理
-  4. 結果保存
-  5. 完了
+- 5秒間の処理をシミュレート
 - デフォルトキュー、リトライ3回
-- **リアルタイムプログレスバー更新**
+- **完了時にTurbo Streamsでリアルタイム更新**
 
 ### EmailJob（高優先度キュー）
 - メール送信をシミュレート
-- **4段階のプログレス表示**:
-  1. メール設定準備
-  2. 内容生成
-  3. 送信処理
-  4. 完了
+- 3秒間の処理時間
 - 高優先度キュー、リトライ5回、バックトレース有効
-- **リアルタイムプログレスバー更新**
-
-### 📊 プログレスバー機能
-- **リアルタイム更新**: Turbo Streamsで進行状況を自動更新
-- **視覚的フィードバック**: アニメーション付きプログレスバー
-- **詳細情報表示**: 現在のステップ、進行率、メッセージ
-- **自動非表示**: 完了後に自動でプログレスバーが消える
-- **スピナーアニメーション**: 処理中を示すローディングアニメーション
+- **完了時にTurbo Streamsでリアルタイム更新**
 
 ### 🔄 Turbo Streams リアルタイム更新
 - **通知の自動追加**: ジョブ完了時に通知エリアに自動追加
@@ -98,64 +82,45 @@ docker compose up --build
 
 - **Rails**: Webアプリケーション
 - **Sidekiq**: バックグラウンドジョブ処理（直接利用）
-- **Redis**: ジョブキューのストレージ + プログレス情報保存 + Turbo Streamsブロードキャスト
+- **Redis**: ジョブキューのストレージ + Turbo Streamsのブロードキャスト
 - **Turbo Streams**: サーバープッシュによるリアルタイムDOM更新
-- **ProgressTrackable**: プログレス管理用Concern
 - **Docker**: コンテナ化された開発環境
 
-## 📝 プログレスバーの仕組み
+## 📝 Turbo Streams の仕組み
 
-### 1. プログレス管理Concern
+### 1. ジョブ完了時の処理フロー
 ```ruby
-module ProgressTrackable
-  def update_progress(current_step, total_steps, message = nil)
-    # Redisにプログレス情報を保存
-    # Turbo Streamsでプログレスバーを更新
-  end
-end
-```
-
-### 2. ジョブでのプログレス更新
-```ruby
-class SampleJob
-  include ProgressTrackable
-  
-  def perform(name, message)
-    update_progress(1, 5, "初期化中...")
-    # 処理...
-    update_progress(2, 5, "データ準備中...")
-    # 処理...
-    complete_progress("完了！")
-  end
-end
-```
-
-### 3. Turbo Streamsでのリアルタイム更新
-```ruby
-# プログレスバーの更新
-Turbo::StreamsChannel.broadcast_replace_to(
+# ジョブ内でTurbo Streamsにブロードキャスト
+Turbo::StreamsChannel.broadcast_prepend_to(
   "job_notifications",
-  target: "progress_#{job_type}_#{job_id}",
-  partial: "shared/progress_bar"
+  target: "notifications",
+  partial: "shared/job_notification",
+  locals: { ... }
 )
 ```
 
-### 4. プログレス情報の永続化
-- **Redis**: プログレス情報を一時保存（5分でexpire）
-- **キー形式**: `job_progress:JobClass:job_id`
-- **データ**: JSON形式で進行率、ステップ、メッセージを保存
+### 2. フロントエンドでの受信
+```erb
+<!-- Turbo Streamsを購読 -->
+<%= turbo_stream_from "job_notifications" %>
 
-## 🎨 UI/UX 特徴
+<!-- 更新対象のDOM要素 -->
+<div id="notifications">
+  <!-- ここに通知が自動追加される -->
+</div>
+```
 
-### プログレスバーデザイン
-- **グラデーション**: 美しいブルーグラデーション
-- **アニメーション**: スムーズな進行アニメーション
-- **スピナー**: 処理中を示すローディングスピナー
-- **パルス効果**: プログレスバー内のパルスアニメーション
+### 3. 技術スタック
+- **Turbo Streams**: サーバープッシュDOM更新
+- **Action Cable**: WebSocket通信（Turbo Streamsが内部利用）
+- **Redis**: メッセージブローカー
+- **パーシャルビュー**: 再利用可能なHTML部品
 
-### レスポンシブ対応
-- **モバイルフレンドリー**: 小画面でも見やすいデザイン
-- **アクセシビリティ**: 色だけでなくテキストでも進行状況を表示
+### 4. Turbo Streamsの利点
+- **シンプル**: JavaScriptコード不要
+- **宣言的**: ERBテンプレートで完結
+- **高性能**: 必要な部分のみ更新
+- **保守性**: サーバーサイドで完結
 
 ## 🔧 開発
 
@@ -188,20 +153,11 @@ docker compose exec web rails console
 > EmailJob.perform_async("test@example.com", "Test Subject", "Test Body")
 ```
 
-### プログレス情報の確認
-```bash
-# Redisでプログレス情報を確認
-docker compose exec web rails console
-> redis = Redis.new(url: ENV['REDIS_URL'])
-> redis.keys("job_progress:*")
-> redis.get("job_progress:SampleJob:job_id")
-```
-
 ### Turbo Streamsの動作確認
 ```bash
 # Railsコンソールで手動ブロードキャスト
 docker compose exec web rails console
-> Turbo::StreamsChannel.broadcast_prepend_to("job_notifications", target: "progress_area", html: "<div>Test</div>")
+> Turbo::StreamsChannel.broadcast_prepend_to("job_notifications", target: "notifications", html: "<div>Test</div>")
 ```
 
 ### キューの確認
@@ -215,4 +171,4 @@ docker compose exec web rails console
 
 ## 🎉 楽しんでください！
 
-このサンプルを参考に、あなたのアプリケーションにプログレスバー付きのリアルタイム非同期処理を導入してみてください！
+このサンプルを参考に、あなたのアプリケーションにTurbo Streamsを使ったリアルタイム更新機能を導入してみてください！
