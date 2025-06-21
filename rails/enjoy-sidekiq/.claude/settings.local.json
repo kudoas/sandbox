@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bundle exec rails:*)",
+      "Bash(bundle exec rubocop:*)",
+      "Bash(bundle exec brakeman:*)"
+    ],
+    "deny": []
+  }
+}
