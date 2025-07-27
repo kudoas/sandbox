@@ -1,0 +1,30 @@
+# Sidekiq-Scheduler Configuration
+# Cron format: minute hour day_of_month month day_of_week
+# Use https://crontab.guru/ for cron expression help
+
+# Health check every 1 minute
+health_check:
+  cron: "*/1 * * * *"
+  class: ScheduledJob
+  args: ["health_check"]
+  description: "System health check - runs every 1 minute"
+
+# Cleanup old data every 10 minutes
+cleanup_task:
+  cron: "*/10 * * * *"
+  class: ScheduledJob
+  args: ["cleanup"]
+  description: "Cleanup old job results - runs every 10 minutes"
+
+# Daily summary at 9 AM JST (0 AM UTC)
+daily_summary:
+  cron: "0 0 * * *"
+  class: ScheduledJob
+  args: ["daily_summary"]
+  description: "Generate daily summary report - runs daily at 9 AM JST"
+# Example: Manual schedule for testing (uncomment to enable)
+# test_schedule:
+#   every: '30s'
+#   class: ScheduledJob
+#   args: ["health_check"]
+#   description: "Test scheduled job - runs every 30 seconds"

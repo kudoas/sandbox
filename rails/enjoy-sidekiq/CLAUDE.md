@@ -36,6 +36,11 @@ bundle exec rails console
 # Manual job execution (in console)
 SampleJob.perform_async("Test User", "Manual job execution")
 EmailJob.perform_async("test@example.com", "Test Subject", "Test Body")
+ScheduledJob.perform_async("health_check")
+
+# Scheduled jobs management (in console)
+Sidekiq.schedule  # View current schedule
+SidekiqScheduler::Scheduler.instance.reload_schedule!  # Reload schedule
 ```
 
 ### Code Quality & Security
@@ -74,8 +79,10 @@ bundle exec rails test test/path/to/test_file.rb
 ### Key Files
 - `app/jobs/sample_job.rb`: Default queue job (5s processing time)
 - `app/jobs/email_job.rb`: High priority queue job (3s processing time)
+- `app/jobs/scheduled_job.rb`: Scheduled background jobs (health check, cleanup, daily summary)
 - `app/controllers/jobs_controller.rb`: Main controller handling job submission
-- `config/initializers/sidekiq.rb`: Sidekiq configuration
+- `config/initializers/sidekiq.rb`: Sidekiq and sidekiq-scheduler configuration
+- `config/schedule.yml`: Scheduled job definitions
 - `app/views/jobs/index.html.erb`: Main UI with Turbo Streams integration
 
 ### Turbo Streams Integration
@@ -87,6 +94,7 @@ bundle exec rails test test/path/to/test_file.rb
 ### Queues
 - `default`: Standard priority jobs (SampleJob)
 - `high_priority`: High priority jobs (EmailJob)
+- `scheduled`: Scheduled jobs (ScheduledJob)
 
 ## Development Notes
 
@@ -116,4 +124,28 @@ Turbo::StreamsChannel.broadcast_prepend_to(
 Sidekiq::Stats.new.queues
 Sidekiq::Queue.new("default").size
 Sidekiq::Queue.new("high_priority").size
+Sidekiq::Queue.new("scheduled").size
+
+# Check scheduled jobs
+Sidekiq::Cron::Job.all  # View all scheduled jobs
 ```
+
+### Scheduled Jobs
+The application includes three types of scheduled jobs:
+
+1. **Health Check** (`*/2 * * * *`): Runs every 2 minutes
+   - Monitors system metrics (memory, CPU usage)
+   - Checks queue sizes
+   - Provides system status updates
+
+2. **Cleanup Task** (`*/10 * * * *`): Runs every 10 minutes  
+   - Removes old job result entries
+   - Keeps only the latest 50 results
+   - Maintains clean data storage
+
+3. **Daily Summary** (`0 0 * * *`): Runs daily at 9 AM JST
+   - Generates job processing statistics
+   - Reports success/failure rates
+   - Provides daily performance metrics
+
+Schedule configuration is managed in `config/schedule.yml` with cron expressions.

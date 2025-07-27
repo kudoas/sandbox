@@ -17,6 +17,7 @@ gem "stimulus-rails"
 
 # Background job processing with Sidekiq
 gem "sidekiq", "~> 7.0"
+gem "sidekiq-scheduler"
 gem "redis", "~> 5.0"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]

@@ -75,11 +75,23 @@
     </div>
   </div>
 
-  <div class="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-4">
+  <!-- スケジュールジョブ情報 -->
+  <div class="mt-8 bg-purple-50 border border-purple-200 rounded-lg p-4">
+    <h3 class="text-lg font-semibold text-purple-800 mb-2">⏰ スケジュールジョブ</h3>
+    <ul class="text-purple-700 space-y-1 text-sm">
+      <li>• <strong>Health Check</strong>: 2分毎にシステム状態をチェック</li>
+      <li>• <strong>Cleanup</strong>: 10分毎に古いデータをクリーンアップ</li>
+      <li>• <strong>Daily Summary</strong>: 毎日9時に日次サマリーを生成</li>
+      <li>• スケジュールは <code>config/schedule.yml</code> で設定</li>
+    </ul>
+  </div>
+
+  <div class="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-4">
     <h3 class="text-lg font-semibold text-blue-800 mb-2">💡 Turbo Streams リアルタイム更新</h3>
     <ul class="text-blue-700 space-y-1">
       <li>• <strong>SampleJob</strong>: デフォルトキュー、リトライ3回、5秒処理</li>
       <li>• <strong>EmailJob</strong>: 高優先度キュー、リトライ5回、3秒処理</li>
+      <li>• <strong>ScheduledJob</strong>: スケジュールキュー、自動実行</li>
       <li>• <strong>Turbo Streams</strong>: ジョブ完了時に自動でページ更新</li>
       <li>• <strong>リアルタイム通知</strong>: 通知エリアに自動追加</li>
       <li>• <strong>結果リスト更新</strong>: 結果リストも自動更新</li>
