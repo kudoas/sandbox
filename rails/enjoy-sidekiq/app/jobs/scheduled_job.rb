@@ -27,8 +27,8 @@ class ScheduledJob
       timestamp: Time.current,
       memory_usage: "#{rand(50..80)}%",
       cpu_usage: "#{rand(10..40)}%",
-      queue_size: Sidekiq::Stats.new.queues["default"] || 0,
-      scheduled_queue_size: Sidekiq::Stats.new.queues["scheduled"] || 0
+      queue_size: 0,  # Queue size monitoring disabled for stability
+      scheduled_queue_size: 0
     }
 
     Rails.logger.info "🏥 Health Check completed!"
