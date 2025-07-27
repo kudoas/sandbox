@@ -1,5 +1,6 @@
 require Rails.root.join("app", "middleware", "server_logging_middleware")
-require Rails.root.join("app", "middleware", "custom_text_middleware")
+require Rails.root.join("app", "middleware", "always_error_middleware")
+require Rails.root.join("app", "middleware", "error_suppressor_middleware")
 
 Sidekiq.configure_server do |config|
   config.redis = { url: ENV.fetch("REDIS_URL", "redis://localhost:6379/0") }
@@ -7,6 +8,7 @@ Sidekiq.configure_server do |config|
     chain.add ServerLoggingMiddleware
   end
   config.client_middleware do |chain|
+    chain.insert_before AlwaysErrorMiddleware, ErrorSuppressorMiddleware
     chain.add AlwaysErrorMiddleware
   end
 end

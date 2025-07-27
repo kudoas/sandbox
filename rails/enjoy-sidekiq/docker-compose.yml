@@ -7,38 +7,5 @@ services:
       - redis_data:/data
     command: redis-server --appendonly yes
 
-  web:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    ports:
-      - "3000:3000"
-    volumes:
-      - .:/rails
-      - bundle_cache:/usr/local/bundle
-    environment:
-      - RAILS_ENV=development
-      - REDIS_URL=redis://redis:6379/0
-    depends_on:
-      - redis
-    command: bundle exec rails server -b 0.0.0.0 -p 3000
-    stdin_open: true
-    tty: true
-
-  sidekiq:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    volumes:
-      - .:/rails
-      - bundle_cache:/usr/local/bundle
-    environment:
-      - RAILS_ENV=development
-      - REDIS_URL=redis://redis:6379/0
-    depends_on:
-      - redis
-    command: bundle exec sidekiq
-
 volumes:
   redis_data:
-  bundle_cache: 

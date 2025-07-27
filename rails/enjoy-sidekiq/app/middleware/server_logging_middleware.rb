@@ -2,11 +2,10 @@ class ServerLoggingMiddleware
   include Sidekiq::ServerMiddleware
 
   def call(worker, job, queue)
-    custom_text = job["aaa"]
-    Rails.logger.info "[SERVER MIDDLEWARE] Processing job #{job['jid']} in queue '#{queue}' with custom text: #{custom_text}"
+    Rails.logger.info "[SERVER MIDDLEWARE] Processing job #{job['jid']} in queue '#{queue}'"
 
     yield
 
-    Rails.logger.info "[SERVER MIDDLEWARE] Completed job #{job['jid']} with custom text: #{custom_text}"
+    Rails.logger.info "[SERVER MIDDLEWARE] Completed job #{job['jid']} in queue '#{queue}'"
   end
 end
