@@ -1,0 +1,32 @@
+<div class="notification-item bg-purple-50 border border-purple-200 rounded-lg p-3 mb-2">
+  <div class="flex items-center justify-between">
+    <div class="flex items-center">
+      <div class="bg-purple-100 text-purple-600 text-xs font-medium px-2 py-1 rounded mr-3">
+        📅 SCHEDULED
+      </div>
+      <div>
+        <div class="font-medium text-purple-800">
+          <%= task_name %> 完了
+        </div>
+        <div class="text-sm text-purple-600">
+          実行時刻: <%= completed_at %>
+        </div>
+        <% if data.is_a?(Hash) %>
+          <div class="text-xs text-purple-500 mt-1">
+            <% case task_name %>
+            <% when "Health Check" %>
+              メモリ: <%= data[:memory_usage] %> | CPU: <%= data[:cpu_usage] %> | キュー: <%= data[:queue_size] %>件
+            <% when "Cleanup" %>
+              クリーンアップ: <%= data[:cleaned_count] %>件削除
+            <% when "Daily Summary" %>
+              合計: <%= data[:total_jobs_today] %>件 | 成功: <%= data[:successful_jobs] %>件 | 失敗: <%= data[:failed_jobs] %>件
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="text-purple-400">
+      ⏰
+    </div>
+  </div>
+</div>

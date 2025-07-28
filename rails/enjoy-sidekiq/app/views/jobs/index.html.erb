@@ -1,0 +1,124 @@
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold text-gray-800 mb-8">🚀 Sidekiq サンプル（Turbo Streams版）</h1>
+
+  <!-- リアルタイム通知エリア -->
+  <div id="notifications" class="mb-4">
+    <!-- 通知がここに動的に追加されます -->
+  </div>
+
+  <% if flash[:notice] %>
+    <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded mb-4">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+
+  <!-- サンプルジョブフォーム -->
+  <div class="bg-white shadow-md rounded-lg p-6 mb-8">
+    <h2 class="text-xl font-semibold text-gray-700 mb-4">📝 サンプルジョブを実行</h2>
+
+    <%= form_with url: jobs_path, method: :post, local: true, class: "space-y-4" do |form| %>
+      <div>
+        <%= form.label :name, "名前:", class: "block text-sm font-medium text-gray-700" %>
+        <%= form.text_field :name, placeholder: "あなたの名前", class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
+      </div>
+
+      <div>
+        <%= form.label :message, "メッセージ:", class: "block text-sm font-medium text-gray-700" %>
+        <%= form.text_area :message, placeholder: "処理したいメッセージを入力してください", rows: 3, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
+      </div>
+
+      <div>
+        <%= form.submit "🚀 サンプルジョブを実行", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- メールジョブフォーム -->
+  <div class="bg-white shadow-md rounded-lg p-6 mb-8">
+    <h2 class="text-xl font-semibold text-gray-700 mb-4">📧 メールジョブを実行（高優先度キュー）</h2>
+
+    <%= form_with url: send_email_jobs_path, method: :post, local: true, class: "space-y-4" do |form| %>
+      <div>
+        <%= form.label :email, "メールアドレス:", class: "block text-sm font-medium text-gray-700" %>
+        <%= form.email_field :email, placeholder: "test@example.com", class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
+      </div>
+
+      <div>
+        <%= form.label :subject, "件名:", class: "block text-sm font-medium text-gray-700" %>
+        <%= form.text_field :subject, placeholder: "メールの件名", class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
+      </div>
+
+      <div>
+        <%= form.label :body, "本文:", class: "block text-sm font-medium text-gray-700" %>
+        <%= form.text_area :body, placeholder: "メールの本文を入力してください", rows: 3, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
+      </div>
+
+      <div>
+        <%= form.submit "📧 メールジョブを実行", class: "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="bg-white shadow-md rounded-lg p-6">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-semibold text-gray-700">📊 ジョブ実行結果</h2>
+      <% if @job_results.any? %>
+        <%= link_to "🗑️ クリア", clear_results_jobs_path, method: :delete, 
+            class: "bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded text-sm",
+            confirm: "結果をクリアしますか？",
+            data: { turbo_method: :delete } %>
+      <% end %>
+    </div>
+
+    <div id="job_results_content">
+      <%= render 'results_content', job_results: @job_results %>
+    </div>
+  </div>
+
+  <!-- スケジュールジョブ情報 -->
+  <div class="mt-8 bg-purple-50 border border-purple-200 rounded-lg p-4">
+    <h3 class="text-lg font-semibold text-purple-800 mb-2">⏰ スケジュールジョブ</h3>
+    <ul class="text-purple-700 space-y-1 text-sm">
+      <li>• <strong>Health Check</strong>: 2分毎にシステム状態をチェック</li>
+      <li>• <strong>Cleanup</strong>: 10分毎に古いデータをクリーンアップ</li>
+      <li>• <strong>Daily Summary</strong>: 毎日9時に日次サマリーを生成</li>
+      <li>• スケジュールは <code>config/schedule.yml</code> で設定</li>
+    </ul>
+  </div>
+
+  <div class="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-4">
+    <h3 class="text-lg font-semibold text-blue-800 mb-2">💡 Turbo Streams リアルタイム更新</h3>
+    <ul class="text-blue-700 space-y-1">
+      <li>• <strong>SampleJob</strong>: デフォルトキュー、リトライ3回、5秒処理</li>
+      <li>• <strong>EmailJob</strong>: 高優先度キュー、リトライ5回、3秒処理</li>
+      <li>• <strong>ScheduledJob</strong>: スケジュールキュー、自動実行</li>
+      <li>• <strong>Turbo Streams</strong>: ジョブ完了時に自動でページ更新</li>
+      <li>• <strong>リアルタイム通知</strong>: 通知エリアに自動追加</li>
+      <li>• <strong>結果リスト更新</strong>: 結果リストも自動更新</li>
+      <li>• Sidekiq Web UI (http://localhost:3000/sidekiq) でリアルタイム監視</li>
+    </ul>
+  </div>
+</div>
+
+<%= turbo_stream_from "job_notifications" %>
+
+<style>
+  .container {
+    max-width: 900px;
+  }
+
+  .notification-item {
+    animation: slideInDown 0.5s ease-out;
+  }
+
+  @keyframes slideInDown {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+</style>

@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bundle exec rails:*)",
+      "Bash(bundle exec rubocop:*)",
+      "Bash(bundle exec brakeman:*)",
+      "Bash(bundle exec sidekiq:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "mcp__ide__executeCode"
+    ],
+    "deny": []
+  }
+}
