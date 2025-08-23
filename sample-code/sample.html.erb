@@ -1,0 +1,75 @@
+
+<my-calendar-icon></my-calendar-icon>
+<my-calendar-icon class="w-10 m-4" aria-hidden="true"></my-calendar-icon>
+
+<my-footer></my-footer>
+
+<my-badge count="99"></my-badge>
+<my-badge count=<%= @comment.count %>></my-badge>
+
+<my-button color="danger">Danger</my-button>
+
+<my-select></my-select>
+<my-header><%= @school.name %></my-header>
+
+<my-header school_name=<%= @school.name %>></my-header>
+<%= javascript_tag do  %>
+  const header = document.querySelector('my-header');
+  header.school_id = <%= @school.id %>; <%# 数値 %>
+  header.isNativeApp = <%= @is_native_app %>; <%# true/false %>
+
+  <%# ユーザー情報: 例. { name: '鈴木 一郎', age: 16 } %>
+  header.user_info = <%== @user.user_profile.to_json %>;
+<% end %>
+
+
+<script>
+  const header = document.querySelector('my-header');
+  header.user_info = {"name": "</script><script>alert('INJECTED')</script>", "age": 16};
+</script>
+
+<my-header data-user-info=<%= @user.user_profile.to_json %>></my-header>
+<%= javascript_tag do  %>
+  const header = document.querySelector('my-header');
+  header.user_info = JSON.parse(header.dataset.userInfo);
+<% end %>
+
+<% @user.user_profile.errors.full_messages.each do |msg| %>
+  <my-form-error><%= msg %></my-form-error>
+<% end %>
+
+<%= javascript_tag do  %> <%# HTML 上は <script></script> に変換される %>
+  const select = document.querySelector('my-select');
+  select.responsive = true;
+  select.size = 5;
+  select.optionList = <%== @categories.map { |c| { value: c.id, text: c.name } }.to_json %>;
+<% end %>
+
+<my-select data-options="<%= @categories.map { |c| { value: c.id, text: c.name } }.to_json %>"></my-select>
+<%= javascript_tag do %>
+  const select = document.querySelector('my-select');
+  select.optionList = JSON.parse(select.dataset.options);
+<% end %>
+<div class="tooltip-container">テキスト</div>
+<my-tooltip>
+  <button>ボタン</button>
+</my-tooltip>
+
+
+
+<%= form_with model: user_profile do |form| %>
+  <%= form.date_field :value,
+    value: user_profile.birth_date
+  %>
+  <my-datepicker></my-datepicker>
+<% end %>
+
+<%= javascript_tag do %>
+  const datepicker = document.querySelector('my-datepicker');
+  const input = document.querySelector('input[type="date"]');
+
+  datepicker.addEventListener('selectedDateChange', (event) => {
+    input.value = event.detail;
+  });
+<% end %>
+

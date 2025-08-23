@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>Date Picker ver3</h1>
+  <form>
+    <input type="date" required />
+    <button id="input-button">インプット入力</button>
+    <button type="submit">Submit</button>
+  </form>
+  <script>
+    const dateInput = document.querySelector('input[type="date"]');
+    dateInput.addEventListener('touchstart', (event) => {
+      event.preventDefault();
+      dateInput.blur();
+    });
+    dateInput.addEventListener('touchmove', (event) => {
+      event.preventDefault();
+      dateInput.blur();
+    });
+    dateInput.addEventListener('touchend', (event) => {
+      event.preventDefault();
+      dateInput.blur();
+    });
+
+    const form = document.querySelector('form');
+    const button = document.querySelector('#input-button');
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
+      dateInput.value = '2023-02-02';
+    });
+  </script>
+  <style>
+    input[type="date"] {
+      width: 200px;
+      padding: 10px;
+      font-size: 16px;
+    }
+  </style>
+</body>
+
+</html>
