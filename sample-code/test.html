@@ -1,19 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-  </head>
 
-  <body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
 
-    <script>
-      const header = document.querySelector('my-header');
-      header.user_info = {"name": "</script><script>alert('INJECTED')</script>"};
-    </script>
+<body>
+  <select name="user[name]" id="user_name" style="width: 70px;">
+    <option value="">選択してください</option>
+    <!-- A組 -->
+    <option value="1">A組</option>
+    <option value="2">A2</option>
+    <option value="3">A3</option>
+  </select>
+
+  <!-- <script>
+    const header = document.querySelector('my-header');
+    // header.user_info = {"name": "</script>
+  <script>alert('INJECTED')</script>"};
+  </script> -->
 
 
 
-  </body>
+</body>
+
 </html>

@@ -1,0 +1,85 @@
+<% form         = local_assigns.fetch(:form) %>
+<% custom_field = local_assigns.fetch(:custom_field) %>
+<% label        = local_assigns.fetch(:label) %>
+<% value        = local_assigns.fetch(:value) %>
+<% input_mode   = local_assigns.fetch(:input_mode) { 'optional' } %>
+
+<div class="relative flex flex-col my-4 break-all" data-testid="<%= custom_field.id %>">
+  <span class="font-semibold">
+    <%= label %>
+    <% if input_mode == 'required' %>
+      <span class="text-xs ml-2 align-top font-normal"><spen-status-information-label appearance="danger-outline">必須</spen-status-information-label></span>
+    <% end %>
+  </span>
+  <div class="relative">
+    <i class="fa fa-calendar absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-lv7 pointer-events-none" aria-hidden="true"></i>
+    <%= form.text_field :value,
+      value: value&.value,
+      readonly: true,
+      placeholder: '日付を選択',
+      data: { dom_id: dom_id(custom_field) },
+      disabled: input_mode == 'uneditable',
+      required: input_mode == 'required',
+      class: "#{dom_id(custom_field)} input w-full cursor-pointer",
+      onclick: "event.preventDefault(); document.querySelector('##{dom_id(custom_field)}_container').classList.toggle('!hidden');"
+    %>
+    <div id='<%= dom_id(custom_field) %>_container' class="!hidden absolute top-full left-0 max-[360px]:-left-4 z-50 bg-white rounded-md shadow-lg w-auto">
+      <moku-datepicker id='<%= dom_id(custom_field) %>'></moku-datepicker>
+    </div>
+  </div>
+  <div class="hidden w-full" id="<%= dom_id(custom_field) %>-required-error"><spen-form-error>この項目は必須です</spen-form-error></div>
+  <span class="text-xs text-gray-lv7 whitespace-pre-wrap mt-1 empty:my-0"><%= display_text_with_link(custom_field.hint) %></span>
+</div>
+
+<%= javascript_tag do %>
+  (function() {
+    document.addEventListener('turbo:load', function() {
+      initializeDatePicker();
+    }, { once: true });
+
+    document.addEventListener('turbo:frame-load', function() {
+      initializeDatePicker();
+    }, { once: true });
+
+    function initializeDatePicker() {
+      const fieldId = '<%= dom_id(custom_field) %>';
+      
+      const datepicker = document.querySelector(`#${fieldId}`);
+      const container = document.querySelector(`#${fieldId}_container`);
+      const input = document.querySelector(`.${fieldId}`);
+      if (!datepicker || !container || !input) return;
+
+      datepicker.addEventListener('selectedDateChange', (event) => {
+        input.value = event.detail;
+        container.classList.add('!hidden');
+      });
+
+      input.form.addEventListener('click', (event) => {
+        if (!container.contains(event.target) && !input.contains(event.target)) {
+          container.classList.add('!hidden');
+        }
+      });
+
+      const errorElement = document.querySelector(`#${input.dataset.domId}-required-error`);
+      const submitButton = input.form.querySelector('input[type="submit"]:not([formnovalidate]):not([disabled])');
+      if (!submitButton) return;
+
+      submitButton.addEventListener('click', (event) => {
+        input.removeAttribute('readonly');
+        errorElement.classList.add('hidden');
+      });
+
+      input.addEventListener('invalid', (event) => {
+        if (!input.value || input.value.trim() === '') {
+          errorElement.classList.remove('hidden');
+        } else {
+          errorElement.classList.add('hidden');
+        }
+      });
+
+      input.addEventListener('focus', () => {
+        input.setAttribute('readonly', 'true');
+      });
+    };
+  })();
+<% end %>

@@ -1,0 +1,38 @@
+
+<%= form_with model: @user do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+
+  <%= form.submit "保存" %>
+<% end %>
+
+
+
+<my-input
+  id="name"
+  name="user[name]"
+  value="<%= @user.name %>"
+  required
+></my-input>
+
+<my-input name="user[name]" value="<%= @user.name %>" required></my-input>
+
+<my-input name="user[birth_date]" id="birth_date"></my-input>
+
+<form action="<%= user_profile_path(@user_profile) %>" method="post">
+<%= csrf_meta_tags %>
+
+  <label for="name">名前</label>
+  <my-input 
+    id="name"
+    type="text"
+    name="user_profile[name]" 
+    value="<%= @user_profile.name %>"
+  ></my-input>
+  <div class="error-message">
+    <%= @user_profile.errors.full_messages_for(:name).join(", ") %>
+  </div>
+
+  <button type="submit">作成</button>
+</form>
+

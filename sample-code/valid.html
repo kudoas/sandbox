@@ -1,0 +1,48 @@
+<form id="myForm">
+  <label for="myInput">必須フィールド:</label>
+  <input type="date" id="myInput" value="" required>
+  <button type="submit">送信</button>
+</form>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const myForm = document.getElementById('myForm');
+    const myInput = document.getElementById('myInput');
+
+    // フォーム送信時の処理
+    myForm.addEventListener('submit', (event) => {
+      // 1. フォーム送信時に一時的に readonly 属性を外す
+      myInput.removeAttribute('readonly');
+
+      // 注意: ここで readonly を再設定すると、ブラウザがフォーカスを当てる前に読み取り専用に戻ってしまう可能性があります。
+      // 元のロジックに従い、フォーカスイベントで再設定するのが適切です。
+    });
+
+    // ユーザーが入力フィールドを操作したときに、カスタムバリデーションをリセットする
+    // これにより、ユーザーが値を入力し始めたらエラーメッセージが消え、
+    // その後にフォームが送信できるようになります。
+    myInput.addEventListener('input', () => {
+      if (myInput.value.trim() !== '') {
+        // 値があればカスタムエラーをクリアする [4]
+        myInput.setCustomValidity('');
+      }
+      // ここでは reportValidity() を呼び出さない方が一般的です。
+      // リアルタイムにエラーメッセージを表示すると、ユーザーの入力体験を妨げることがあるため、
+      // 最終的なチェックと表示は submit 時に行うことが多いです。
+    });
+
+    // 3. input にフォーカスが当たった時に再度 readonly 属性をつける (ご自身の元の実装)
+    // myInput.addEventListener('focus', () => {
+    //   console.log('Focus event reportValidity: ', myInput.reportValidity());
+    //   console.log('Focus event checkValidity: ', myInput.checkValidity());
+    //   myInput.setAttribute('readonly', 'true');
+    //   // reportValidity を確認する
+    //   console.log('Focus event reportValidity after readonly: ', myInput.reportValidity());
+    //   console.log('Focus event checkValidity after readonly: ', myInput.checkValidity());
+    // });
+
+    // input にフォーカスが外れた時 (blur) に readonly を再設定する方が自然な場合もあります
+    // myInput.addEventListener('blur', () => {
+    //     myInput.setAttribute('readonly', 'true');
+    // });
+  });
+</script>

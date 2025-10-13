@@ -1,8 +1,13 @@
 
+<>
+
+<my-custom-button></my-custom-button>
+
 <my-calendar-icon></my-calendar-icon>
-<my-calendar-icon class="w-10 m-4" aria-hidden="true"></my-calendar-icon>
 
 <my-footer></my-footer>
+<my-calendar-icon class="w-10 m-4" aria-hidden="true"></my-calendar-icon>
+
 
 <my-badge count="99"></my-badge>
 <my-badge count=<%= @comment.count %>></my-badge>
@@ -12,26 +17,27 @@
 <my-select></my-select>
 <my-header><%= @school.name %></my-header>
 
-<my-header school_name=<%= @school.name %>></my-header>
+<my-header school-name="<%= @school.name %>"></my-header>
+
 <%= javascript_tag do  %>
   const header = document.querySelector('my-header');
-  header.school_id = <%= @school.id %>; <%# 数値 %>
-  header.isNativeApp = <%= @is_native_app %>; <%# true/false %>
 
-  <%# ユーザー情報: 例. { name: '鈴木 一郎', age: 16 } %>
-  header.user_info = <%== @user.user_profile.to_json %>;
+  header.schoolId = <%= @school.id %>;
+  header.shownGuide = true;
+  header.userInfo = <%= raw @user.to_json %>;
 <% end %>
+
 
 
 <script>
   const header = document.querySelector('my-header');
-  header.user_info = {"name": "</script><script>alert('INJECTED')</script>", "age": 16};
+  header.userInfo = { "name": "</script><script>alert('INJECTED!')</script>" };
 </script>
 
-<my-header data-user-info=<%= @user.user_profile.to_json %>></my-header>
+<my-header data-user-info="<%= @user.to_json %>"></my-header>
 <%= javascript_tag do  %>
   const header = document.querySelector('my-header');
-  header.user_info = JSON.parse(header.dataset.userInfo);
+  header.userInfo = JSON.parse(header.dataset.userInfo);
 <% end %>
 
 <% @user.user_profile.errors.full_messages.each do |msg| %>
@@ -57,19 +63,99 @@
 
 
 
-<%= form_with model: user_profile do |form| %>
-  <%= form.date_field :value,
-    value: user_profile.birth_date
+<%= form_with model: @user do |form| %>
+  <%= form.date_field :birth_date,
+    readonly: true,
+    onclick: %|document.querySelector('my-calendar').classList.toggle('hidden');|
   %>
-  <my-datepicker></my-datepicker>
+  <my-calendar class="hidden"></my-calendar>
 <% end %>
 
 <%= javascript_tag do %>
-  const datepicker = document.querySelector('my-datepicker');
+  const calendar = document.querySelector('my-calendar');
   const input = document.querySelector('input[type="date"]');
 
-  datepicker.addEventListener('selectedDateChange', (event) => {
+  calendar.addEventListener('selectedDateChange', (event) => {
     input.value = event.detail;
   });
 <% end %>
+
+
+<%= form_with model: @user do |form| %>
+  <%= form.my_date_field :birth_date %>
+<% end %>
+
+<%= form_with model: @user do |form| %>
+  <%= form.date_field :birth_date %>
+<% end %>
+
+<%= form_with model: @user do |form| %>
+  <%= form.date_field :birth_date %>
+  <%= form.submit %>
+<% end %>
+
+<form action="/users" method="post" accept-charset="UTF-8">
+  <input type="date" name="user[birth_date]" id="user_birth_date">
+  <input name="commit" type="submit" value="Update User">
+</form>
+
+<%= form_with model: @user, builder: MyFormBuilder do |form| %>
+  <%= form.date_field :birth_date %>
+  <%= form.submit %>
+<% end %>
+
+
+
+<div id="<%= dom_id @user %>">
+  <p>
+    <strong>名前:</strong>
+    <%= @user.name %>
+  </p>
+  <p>
+    <strong>メール:</strong>
+    <%= @user.email %>
+  </p>
+  <my-custom-button>
+    確認する
+  </my-custom-button>
+</div>
+
+
+<%= form_with model: @user_profile do |f| %>
+  <div>
+    <label for="name">名前</label>
+    <%= f.text_field :name, required: true %>
+  </div>
+
+  <div>
+    <label for="grade">学年</label>
+    <% grades = SchoolGrade.all.map { |g| [g.name, g.id] } %>
+    <%= f.select :grade, 
+      options_for_select(grades, @user_profile.grade),
+      include_blank: "選択してください" 
+    %>
+  </div>
+
+  <div>
+    <label for="birth_date">生年月日</label>
+    <%= f.date_field :birth_date, required: true %>
+  </div>
+
+  <%= f.submit "保存" %>
+<% end %>
+
+
+
+<%= form_with model: @user_profile do |f| %>
+  <% grades = SchoolGrade.all.map { |g| [g.name, g.id] } %>
+  <%= f.select :grade, 
+    options_for_select(grades, @user_profile.grade)
+  %>
+  
+  <%= f.submit "保存" %>
+<% end %>
+
+
+<input type="text" name="user[name]" id="user_name" value="">
+<my-form-error>不正な入力です</my-form-error>
 
