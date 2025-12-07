@@ -13,14 +13,14 @@ export const appConfig: ApplicationConfig = {
     {
       provide: CDK_CONNECTED_OVERLAY_DEFAULT_CONFIG,
       useValue: {
-        usePopover: 'inline',
+        usePopover: 'global',
       },
     },
-    // {
-    // provide: OVERLAY_DEFAULT_CONFIG, // overlay.create 時のデフォルト設定
-    //   useValue: {
-    //     usePopover: true,
-    //   },
-    // },
+    {
+      provide: OVERLAY_DEFAULT_CONFIG,
+      useValue: {
+        usePopover: false,
+      },
+    },
   ],
 };

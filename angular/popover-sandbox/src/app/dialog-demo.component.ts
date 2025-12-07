@@ -7,10 +7,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="dialog-demo" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
-      <h2 class="dialog-demo__title">Connected Overlay + Popover（設定不要）</h2>
-      <p class="dialog-demo__hint">
-        コンポーネント側で popover 設定は不要。OverlayPositionBuilder 差し替えで自動適用。
-      </p>
+      <h2 class="dialog-demo__title">Inline Overlay Dialog の例</h2>
       <button mat-raised-button color="primary" type="button" (click)="toggle()">
         {{ isOpen() ? '閉じる' : 'ダイアログを開く' }}
       </button>
@@ -22,8 +19,8 @@ import { OverlayModule } from '@angular/cdk/overlay';
       [cdkConnectedOverlayOpen]="isOpen()"
       [cdkConnectedOverlayHasBackdrop]="true"
       [cdkConnectedOverlayBackdropClass]="'cdk-overlay-transparent-backdrop'"
+      [cdkConnectedOverlayUsePopover]="'inline'"
       (backdropClick)="close()"
-      (overlayKeydown)="onKeydown($event)"
     >
       <div
         class="popover-panel"
@@ -33,9 +30,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
         tabindex="0"
       >
         <h3 class="popover-panel__title">こんにちは 👋</h3>
-        <p class="popover-panel__body">
-          Connected overlay を popover で描画しています（利用側で設定不要）。
-        </p>
+        <p class="popover-panel__body">Inline overlay で描画しています。</p>
         <div class="popover-panel__actions">
           <button mat-stroked-button type="button" (click)="close()">閉じる</button>
         </div>
@@ -49,6 +44,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
         flex-direction: column;
         gap: 12px;
         max-width: 440px;
+        margin: 32px auto 0;
         padding: 16px;
         border: 1px solid #d5d7da;
         border-radius: 8px;
@@ -103,11 +99,5 @@ export class DialogDemoComponent {
 
   close(): void {
     this.isOpen.set(false);
-  }
-
-  onKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Escape') {
-      this.close();
-    }
   }
 }
