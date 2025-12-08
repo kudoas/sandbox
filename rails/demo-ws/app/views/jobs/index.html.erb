@@ -1,0 +1,43 @@
+<%= turbo_stream_from "job_status" %>
+<div class="container">
+  <div class="header">
+    <h1>Sidekiq バックグラウンドジョブ実行</h1>
+    <p>以下のフォームからバックグラウンドジョブを実行できます。</p>
+    <p><small>🔄 リアルタイム更新が有効です</small></p>
+  </div>
+  <!-- SimpleJob実行フォーム -->
+  <div class="job-form">
+    <h2>📋 シンプルジョブ</h2>
+    <p>メッセージを指定した遅延時間でログに出力します。</p>
+    <%= form_with url: jobs_simple_path, method: :post, local: true, class: "simple-job-form" do |form| %>
+      <div class="form-group">
+        <%= form.label :message, "メッセージ:" %>
+        <%= form.text_field :message, value: "Hello from Sidekiq!", class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= form.label :delay, "遅延時間（秒）:" %>
+        <%= form.number_field :delay, value: 5, min: 1, max: 60, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= form.submit "送信する", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+  <!-- リアルタイムログ表示エリア -->
+  <div class="realtime-section">
+    <h2>📊 リアルタイムジョブログ</h2>
+    <div id="job-logs" class="job-logs"></div>
+  </div>
+  <!-- Sidekiq Web UI リンク -->
+  <div class="info-section">
+    <h2>📊 ジョブの状況確認</h2>
+    <p>
+      <%= link_to "Sidekiq Web UI", "/sidekiq", class: "btn btn-info", target: "_blank" %>
+      でジョブの実行状況を確認できます。
+    </p>
+    <p class="note">
+      <strong>注意:</strong> Redisサーバー（<code>docker compose up -d</code>）と
+      Sidekiqワーカー（<code>bundle exec sidekiq</code>）が起動している必要があります。
+    </p>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bin/rails:*)",
+      "Bash(bundle install)",
+      "Bash(docker compose:*)",
+      "Bash(timeout 10 bin/rails server:*)",
+      "Bash(mkdir:*)",
+      "Bash(bundle exec rubocop:*)",
+      "Bash(rm:*)"
+    ],
+    "deny": []
+  }
+}
