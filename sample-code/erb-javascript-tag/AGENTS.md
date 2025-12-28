@@ -1,6 +1,7 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
+
 - `package.json`: VS Code extension manifest (language id, grammar path, configuration).
 - `language-configuration.json`: comment, bracket, and auto-closing rules for the ERB language.
 - `syntaxes/erb.tmLanguage.json`: TextMate grammar that powers syntax highlighting.
@@ -8,15 +9,19 @@
 - `vsc-extension-quickstart.md`: setup and local testing tips.
 
 ## Build, Test, and Development Commands
-- No npm scripts are configured in `package.json`.
+
+- Build scripts are defined in `package.json`:
+  - `bun run build`: Compile `src/` to `dist/`.
+  - `bun run watch`: Rebuild on changes.
 - Run the extension locally using VS Code:
   - Open the folder in VS Code and press `F5` to launch an Extension Development Host.
   - Reload the host window (`Cmd+R` / `Ctrl+R`) after grammar or configuration changes.
 - Manual install for ad‑hoc testing: copy the repo to `~/.vscode/extensions/` and restart VS Code.
 - Install dependencies after changes to `package.json`:
-  - `npm install`
+  - `bun install`
 
 ## Coding Style & Naming Conventions
+
 - Keep JSON formatting consistent with each file:
   - `syntaxes/erb.tmLanguage.json` currently uses tabs for indentation.
   - `package.json` and `language-configuration.json` use 2‑space indentation.
@@ -24,6 +29,7 @@
 - When adding new scopes, follow TextMate naming patterns (e.g., `string.quoted.double.erb`).
 
 ## Testing Guidelines
+
 - No automated tests are present.
 - Minimum manual check before PRs:
   - Launch the Extension Development Host.
@@ -31,6 +37,7 @@
   - Spot-check any new grammar rules with representative ERB snippets.
 
 ## Commit & Pull Request Guidelines
+
 - Recent commits are short and lowercase (e.g., `add server, client`, `generate codes`).
 - Keep commit messages concise and action‑oriented.
 - PRs should include:
@@ -39,7 +46,16 @@
   - Updates to `README.md`/`CHANGELOG.md` for user-facing changes.
 
 ## Notes for Contributors
+
 - This repo is a lightweight language extension; avoid adding heavy dependencies without clear value.
 - Prefer small, focused changes to the grammar and configuration files.
-- JavaScript completions inside `javascript_tag` are powered by a TypeScript LanguageService in `extension.js`.
+- JavaScript completions inside `javascript_tag` are powered by a TypeScript LanguageService in `src/extension.ts`.
   This avoids creating real files in the workspace; do not generate or write temp `.js` files.
+
+## Design Principles & Specs
+
+- Syntax highlighting uses TextMate injection into `text.html.erb` and embeds `source.js` only inside `javascript_tag`.
+- Completion, hover, and definition features run against a virtual JS buffer via TypeScript LanguageService (no on-disk files).
+- Scope boundaries are strict: only `javascript_tag` blocks are analyzed; other ERB/HTML content must remain untouched.
+- Definition jumps may resolve into standard library `.d.ts` files (DOM types).
+- TypeScript is compiled to `dist/` with Bun-based scripts.
