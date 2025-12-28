@@ -3,20 +3,31 @@
   "displayName": "erb-javascript-tag",
   "description": "",
   "version": "0.0.1",
+  "main": "./extension.js",
   "engines": {
     "vscode": "^1.107.0"
   },
+  "activationEvents": [
+    "onLanguage:erb"
+  ],
   "categories": [
     "Programming Languages"
   ],
+  "dependencies": {
+    "typescript": "^5.6.3"
+  },
   "contributes": {
-    "grammars": [{
-      "scopeName": "erb-javascript-tag.injection",
-      "path": "./syntaxes/erb.tmLanguage.json",
-      "injectTo": ["text.html.erb"],
-      "embeddedLanguages": {
-        "source.js": "javascript"
+    "grammars": [
+      {
+        "scopeName": "erb-javascript-tag.injection",
+        "path": "./syntaxes/erb.tmLanguage.json",
+        "injectTo": [
+          "text.html.erb"
+        ],
+        "embeddedLanguages": {
+          "source.js": "javascript"
+        }
       }
-    }]
+    ]
   }
 }
