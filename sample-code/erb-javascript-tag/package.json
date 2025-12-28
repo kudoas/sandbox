@@ -1,0 +1,25 @@
+{
+  "name": "erb-javascript-tag",
+  "displayName": "erb-javascript-tag",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.107.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "erb",
+      "aliases": ["", "erb"],
+      "extensions": [""],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "erb",
+      "scopeName": "",
+      "path": "./syntaxes/erb.tmLanguage.json"
+    }]
+  }
+}
