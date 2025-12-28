@@ -10,16 +10,13 @@
     "Programming Languages"
   ],
   "contributes": {
-    "languages": [{
-      "id": "erb",
-      "aliases": ["", "erb"],
-      "extensions": [""],
-      "configuration": "./language-configuration.json"
-    }],
     "grammars": [{
-      "language": "erb",
-      "scopeName": "",
-      "path": "./syntaxes/erb.tmLanguage.json"
+      "scopeName": "erb-javascript-tag.injection",
+      "path": "./syntaxes/erb.tmLanguage.json",
+      "injectTo": ["text.html.erb"],
+      "embeddedLanguages": {
+        "source.js": "javascript"
+      }
     }]
   }
 }

@@ -13,6 +13,8 @@
   - Open the folder in VS Code and press `F5` to launch an Extension Development Host.
   - Reload the host window (`Cmd+R` / `Ctrl+R`) after grammar or configuration changes.
 - Manual install for ad‑hoc testing: copy the repo to `~/.vscode/extensions/` and restart VS Code.
+- Install dependencies after changes to `package.json`:
+  - `npm install`
 
 ## Coding Style & Naming Conventions
 - Keep JSON formatting consistent with each file:
@@ -39,3 +41,5 @@
 ## Notes for Contributors
 - This repo is a lightweight language extension; avoid adding heavy dependencies without clear value.
 - Prefer small, focused changes to the grammar and configuration files.
+- JavaScript completions inside `javascript_tag` are powered by a TypeScript LanguageService in `extension.js`.
+  This avoids creating real files in the workspace; do not generate or write temp `.js` files.
