@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Sample Page</title>
+  </head>
+  <body>
+    <h1>JavaScript Include Tag Sample</h1>
+
+    <%= javascript_tag do %>
+      console.log('Inline JavaScript with javascript_tag');
+      document.addEventListener('DOMContentLoaded', function() {
+        alert('ページが読み込まれました！');
+      });
+    <% end %>
+    <script>
+      console.log('Inline JavaScript with <script> tag');
+      document.addEventListener('DOMContentLoaded', function() {
+        alert('ページが読み込まれました！');
+      });
+    </script>
+  </body>
+</html>

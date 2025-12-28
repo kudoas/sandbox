@@ -1,0 +1,23 @@
+{
+  "name": "erb-javascript-tag-injection",
+  "displayName": "ERB JavaScript Tag Injection",
+  "description": "Inject JavaScript highlighting for javascript_tag blocks in ERB.",
+  "version": "0.0.1",
+  "publisher": "local",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "contributes": {
+    "grammars": [
+      {
+        "scopeName": "erb.javascript-tag.injection",
+        "path": "./syntaxes/erb-javascript-tag.tmLanguage.json",
+        "injectTo": [
+          "text.html.erb",
+          "text.html.ruby",
+          "text.html.erb.ruby"
+        ]
+      }
+    ]
+  }
+}
