@@ -1,0 +1,31 @@
+{
+	"scopeName": "erb.inline-js.injection",
+	"injectionSelector": "L:text.html.erb",
+	"patterns": [
+		{
+			"include": "#erb-javascript-tag"
+		}
+	],
+	"repository": {
+		"erb-javascript-tag": {
+			"begin": "(?m)^([ \\t]*)<%[-=]?\\s*javascript_tag\\b[^%]*\\bdo\\b[^%]*-?%>",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.section.embedded.begin.erb"
+				}
+			},
+			"end": "(?m)^\\1<%\\s*end\\s*-?%>",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.section.embedded.end.erb"
+				}
+			},
+			"name": "meta.embedded.block.javascript.erb",
+			"patterns": [
+				{
+					"include": "source.js"
+				}
+			]
+		}
+	}
+}

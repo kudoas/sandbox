@@ -1,6 +1,6 @@
 {
-  "name": "erb-javascript-tag",
-  "displayName": "erb-javascript-tag",
+  "name": "erb-inline-js-helper",
+  "displayName": "ERB Inline JS Helper",
   "description": "",
   "version": "0.0.1",
   "main": "./dist/extension.js",
@@ -24,5 +24,15 @@
     "@types/node": "^25.0.3",
     "@types/vscode": "^1.107.0"
   },
-  "contributes": {}
+  "contributes": {
+    "grammars": [
+      {
+        "scopeName": "erb.inline-js.injection",
+        "path": "./syntaxes/erb.tmLanguage.json",
+        "injectTo": [
+          "text.html.erb"
+        ]
+      }
+    ]
+  }
 }
