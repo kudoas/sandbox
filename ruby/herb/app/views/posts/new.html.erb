@@ -1,0 +1,11 @@
+<% content_for :title, "新規投稿" %>
+
+<section class="section-header">
+  <div>
+    <p class="eyebrow">New Post</p>
+    <h1>記事を書く</h1>
+  </div>
+  <%= link_to "一覧へ戻る", posts_path, class: "button button--ghost" %>
+</section>
+
+<%= render "form", post: @post %>

@@ -1,0 +1,27 @@
+<%= form_with(model: post, class: "post-form") do |form| %>
+  <% if post.errors.any? %>
+    <section class="form-errors">
+      <h2>入力内容を確認してください</h2>
+      <ul>
+        <% post.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title, "タイトル" %>
+    <%= form.text_field :title, placeholder: "例: 春の散歩で見つけたもの" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :body, "本文" %>
+    <%= form.textarea :body, rows: 14, placeholder: "本文を入力してください。" %>
+  </div>
+
+  <div class="form-actions">
+    <%= form.submit post.persisted? ? "更新する" : "公開する", class: "button button--primary" %>
+    <%= link_to "キャンセル", post.persisted? ? post : posts_path, class: "button button--ghost" %>
+  </div>
+<% end %>

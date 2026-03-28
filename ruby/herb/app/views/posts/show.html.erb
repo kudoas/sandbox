@@ -1,0 +1,20 @@
+<% content_for :title, @post.title %>
+
+<article class="article">
+  <p class="eyebrow">Article</p>
+  <h1><%= @post.title %></h1>
+  <p class="article__meta">
+    公開日 <%= l(@post.created_at.to_date, format: :long) %>
+    · 更新 <%= l(@post.updated_at, format: :short) %>
+  </p>
+
+  <div class="article__body">
+    <%= simple_format(@post.body) %>
+  </div>
+</article>
+
+<section class="article-actions">
+  <%= link_to "編集する", edit_post_path(@post), class: "button button--primary" %>
+  <%= link_to "一覧へ戻る", posts_path, class: "button button--ghost" %>
+  <%= button_to "削除する", @post, method: :delete, class: "button button--danger" %>
+</section>

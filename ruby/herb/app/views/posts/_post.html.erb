@@ -1,0 +1,5 @@
+<article id="<%= dom_id post %>" class="post-snippet">
+  <p class="post-snippet__meta"><%= l(post.created_at.to_date, format: :long) %></p>
+  <h2><%= post.title %></h2>
+  <p><%= post.excerpt %></p>
+</article>

@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: First post
+  body: This is the first fixture post body. It has enough text to satisfy the validation rules.
+
+two:
+  title: Second post
+  body: This is the second fixture post body. It also has enough text to satisfy the validation rules.

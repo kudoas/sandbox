@@ -1,0 +1,60 @@
+<% content_for :title, "Herb Blog" %>
+
+<section class="hero">
+  <div>
+    <p class="eyebrow">Simple Rails Blog</p>
+    <h1>気軽に書いて、すぐ読めるブログ</h1>
+    <p class="hero__text">
+      一覧、詳細、作成、編集、削除まで一通り試せる、最小構成のブログアプリです。
+    </p>
+  </div>
+  <div class="hero__actions">
+    <%= link_to "最初の記事を書く", new_post_path, class: "button button--primary" %>
+    <%= link_to "サンプルを見る", "#posts", class: "button button--ghost" %>
+  </div>
+</section>
+
+<section class="stats">
+  <article class="stats__card">
+    <span class="stats__label">記事数</span>
+    <strong><%= @posts.size %></strong>
+  </article>
+  <article class="stats__card">
+    <span class="stats__label">最新更新</span>
+    <strong><%= @posts.first ? l(@posts.first.updated_at, format: :short) : "まだありません" %></strong>
+  </article>
+  <article class="stats__card">
+    <span class="stats__label">最近の投稿</span>
+    <strong><%= @recent_posts.map(&:title).presence&.join(" / ") || "これからです" %></strong>
+  </article>
+</section>
+
+<section id="posts" class="section-header">
+  <div>
+    <p class="eyebrow">Posts</p>
+    <h2>記事一覧</h2>
+  </div>
+  <%= link_to "新規投稿", new_post_path, class: "button button--primary" %>
+</section>
+
+<% if @posts.any? %>
+  <div class="post-grid">
+    <% @posts.each do |post| %>
+      <article class="post-card">
+        <p class="post-card__meta"><%= l(post.created_at.to_date, format: :long) %></p>
+        <h3><%= link_to post.title, post, class: "post-card__title" %></h3>
+        <p class="post-card__excerpt"><%= post.excerpt %></p>
+        <div class="post-card__footer">
+          <span>文字数 <%= post.body.length %></span>
+          <%= link_to "読む", post, class: "text-link" %>
+        </div>
+      </article>
+    <% end %>
+  </div>
+<% else %>
+  <section class="empty-state">
+    <h2>まだ記事がありません</h2>
+    <p>最初の1本を作ると、ここに一覧表示されます。</p>
+    <%= link_to "記事を作成する", new_post_path, class: "button button--primary" %>
+  </section>
+<% end %>

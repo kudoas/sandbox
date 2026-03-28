@@ -1,0 +1,14 @@
+<% content_for :title, "記事を編集" %>
+
+<section class="section-header">
+  <div>
+    <p class="eyebrow">Edit Post</p>
+    <h1>記事を編集する</h1>
+  </div>
+  <div class="inline-actions">
+    <%= link_to "記事を見る", @post, class: "button button--ghost" %>
+    <%= link_to "一覧へ戻る", posts_path, class: "button button--ghost" %>
+  </div>
+</section>
+
+<%= render "form", post: @post %>
