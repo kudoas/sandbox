@@ -1,60 +1,64 @@
 <% content_for :title, "Herb Blog" %>
 
-<section class="hero">
+<section class="grid gap-6 rounded-[2rem] border border-stone-900/10 bg-white/70 p-8 shadow-[0_18px_50px_rgba(63,43,20,0.08)] lg:grid-cols-[1.6fr_1fr]">
   <div>
-    <p class="eyebrow">Simple Rails Blog</p>
-    <h1>気軽に書いて、すぐ読めるブログ</h1>
-    <p class="hero__text">
+    <p class="mb-3 text-xs font-bold uppercase tracking-[0.24em] text-orange-700">Simple Rails Blog</p>
+    <h1 class="max-w-[10ch] text-5xl leading-none font-semibold tracking-tight text-stone-900 sm:text-7xl">
+      気軽に書いて、すぐ読めるブログ
+    </h1>
+    <p class="mt-5 max-w-2xl text-base leading-7 text-stone-600 sm:text-lg">
       一覧、詳細、作成、編集、削除まで一通り試せる、最小構成のブログアプリです。
     </p>
   </div>
-  <div class="hero__actions">
-    <%= link_to "最初の記事を書く", new_post_path, class: "button button--primary" %>
-    <%= link_to "サンプルを見る", "#posts", class: "button button--ghost" %>
+  <div class="flex flex-wrap items-end justify-start gap-3 lg:justify-end">
+    <%= link_to "最初の記事を書く", new_post_path, class: "inline-flex min-h-11 items-center justify-center rounded-full bg-orange-700 px-5 text-sm font-medium text-orange-50 transition hover:bg-orange-800" %>
+    <%= link_to "サンプルを見る", "#posts", class: "inline-flex min-h-11 items-center justify-center rounded-full border border-stone-900/10 bg-white/40 px-5 text-sm font-medium text-stone-800 transition hover:bg-white/70" %>
   </div>
 </section>
 
-<section class="stats">
-  <article class="stats__card">
-    <span class="stats__label">記事数</span>
-    <strong><%= @posts.size %></strong>
+<section class="mt-5 grid gap-4 md:grid-cols-3">
+  <article class="rounded-[1.5rem] border border-stone-900/10 bg-white/70 p-6 shadow-[0_18px_50px_rgba(63,43,20,0.08)]">
+    <span class="block text-sm text-stone-500">記事数</span>
+    <strong class="mt-2 block text-3xl font-semibold"><%= @posts.size %></strong>
   </article>
-  <article class="stats__card">
-    <span class="stats__label">最新更新</span>
-    <strong><%= @posts.first ? l(@posts.first.updated_at, format: :short) : "まだありません" %></strong>
+  <article class="rounded-[1.5rem] border border-stone-900/10 bg-white/70 p-6 shadow-[0_18px_50px_rgba(63,43,20,0.08)]">
+    <span class="block text-sm text-stone-500">最新更新</span>
+    <strong class="mt-2 block text-xl font-semibold"><%= @posts.first ? l(@posts.first.updated_at, format: :short) : "まだありません" %></strong>
   </article>
-  <article class="stats__card">
-    <span class="stats__label">最近の投稿</span>
-    <strong><%= @recent_posts.map(&:title).presence&.join(" / ") || "これからです" %></strong>
+  <article class="rounded-[1.5rem] border border-stone-900/10 bg-white/70 p-6 shadow-[0_18px_50px_rgba(63,43,20,0.08)]">
+    <span class="block text-sm text-stone-500">最近の投稿</span>
+    <strong class="mt-2 block text-xl font-semibold"><%= @recent_posts.map(&:title).presence&.join(" / ") || "これからです" %></strong>
   </article>
 </section>
 
-<section id="posts" class="section-header">
+<section id="posts" class="mt-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
   <div>
-    <p class="eyebrow">Posts</p>
-    <h2>記事一覧</h2>
+    <p class="mb-2 text-xs font-bold uppercase tracking-[0.24em] text-orange-700">Posts</p>
+    <h2 class="text-3xl font-semibold tracking-tight">記事一覧</h2>
   </div>
-  <%= link_to "新規投稿", new_post_path, class: "button button--primary" %>
+  <%= link_to "新規投稿", new_post_path, class: "inline-flex min-h-11 items-center justify-center rounded-full bg-orange-700 px-5 text-sm font-medium text-orange-50 transition hover:bg-orange-800" %>
 </section>
 
 <% if @posts.any? %>
-  <div class="post-grid">
+  <div class="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
     <% @posts.each do |post| %>
-      <article class="post-card">
-        <p class="post-card__meta"><%= l(post.created_at.to_date, format: :long) %></p>
-        <h3><%= link_to post.title, post, class: "post-card__title" %></h3>
-        <p class="post-card__excerpt"><%= post.excerpt %></p>
-        <div class="post-card__footer">
+      <article class="flex min-h-72 flex-col rounded-[1.5rem] border border-stone-900/10 bg-white/70 p-6 shadow-[0_18px_50px_rgba(63,43,20,0.08)]">
+        <p class="text-sm text-stone-500"><%= l(post.created_at.to_date, format: :long) %></p>
+        <h3 class="mt-3 text-2xl font-semibold leading-tight">
+          <%= link_to post.title, post, class: "transition hover:text-orange-800" %>
+        </h3>
+        <p class="mt-4 flex-1 text-stone-600"><%= post.excerpt %></p>
+        <div class="mt-5 flex items-center justify-between gap-3 text-sm text-stone-500">
           <span>文字数 <%= post.body.length %></span>
-          <%= link_to "読む", post, class: "text-link" %>
+          <%= link_to "読む", post, class: "font-medium text-stone-900 transition hover:text-orange-800" %>
         </div>
       </article>
     <% end %>
   </div>
 <% else %>
-  <section class="empty-state">
-    <h2>まだ記事がありません</h2>
-    <p>最初の1本を作ると、ここに一覧表示されます。</p>
-    <%= link_to "記事を作成する", new_post_path, class: "button button--primary" %>
+  <section class="mt-6 rounded-[1.5rem] border border-stone-900/10 bg-white/70 px-6 py-10 text-center shadow-[0_18px_50px_rgba(63,43,20,0.08)]">
+    <h2 class="text-2xl font-semibold">まだ記事がありません</h2>
+    <p class="mt-3 text-stone-600">最初の1本を作ると、ここに一覧表示されます。</p>
+    <%= link_to "記事を作成する", new_post_path, class: "mt-6 inline-flex min-h-11 items-center justify-center rounded-full bg-orange-700 px-5 text-sm font-medium text-orange-50 transition hover:bg-orange-800" %>
   </section>
 <% end %>

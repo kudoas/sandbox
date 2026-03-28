@@ -2,3 +2,6 @@
 /tmp/pids/
 /log/
 /storage/
+
+/app/assets/builds/*
+!/app/assets/builds/.keep

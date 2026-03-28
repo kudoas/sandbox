@@ -1,8 +1,8 @@
-<%= form_with(model: post, class: "post-form") do |form| %>
+<%= form_with(model: post, class: "max-w-4xl rounded-[1.75rem] border border-stone-900/10 bg-white/70 p-6 shadow-[0_18px_50px_rgba(63,43,20,0.08)] sm:p-8") do |form| %>
   <% if post.errors.any? %>
-    <section class="form-errors">
-      <h2>入力内容を確認してください</h2>
-      <ul>
+    <section class="mb-6 rounded-3xl border border-red-800/15 bg-red-50 px-5 py-4">
+      <h2 class="text-lg font-semibold text-stone-900">入力内容を確認してください</h2>
+      <ul class="mt-3 list-disc space-y-1 pl-5 text-sm text-stone-700">
         <% post.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -10,18 +10,18 @@
     </section>
   <% end %>
 
-  <div class="field">
-    <%= form.label :title, "タイトル" %>
-    <%= form.text_field :title, placeholder: "例: 春の散歩で見つけたもの" %>
+  <div class="mb-5">
+    <%= form.label :title, "タイトル", class: "mb-2 block text-sm font-semibold text-stone-900" %>
+    <%= form.text_field :title, placeholder: "例: 春の散歩で見つけたもの", class: "w-full rounded-2xl border border-stone-900/15 bg-white px-4 py-3 text-stone-900 outline-none transition placeholder:text-stone-400 focus:border-orange-700 focus:ring-4 focus:ring-orange-700/10" %>
   </div>
 
-  <div class="field">
-    <%= form.label :body, "本文" %>
-    <%= form.textarea :body, rows: 14, placeholder: "本文を入力してください。" %>
+  <div class="mb-6">
+    <%= form.label :body, "本文", class: "mb-2 block text-sm font-semibold text-stone-900" %>
+    <%= form.textarea :body, rows: 14, placeholder: "本文を入力してください。", class: "w-full rounded-3xl border border-stone-900/15 bg-white px-4 py-3 text-stone-900 outline-none transition placeholder:text-stone-400 focus:border-orange-700 focus:ring-4 focus:ring-orange-700/10" %>
   </div>
 
-  <div class="form-actions">
-    <%= form.submit post.persisted? ? "更新する" : "公開する", class: "button button--primary" %>
-    <%= link_to "キャンセル", post.persisted? ? post : posts_path, class: "button button--ghost" %>
+  <div class="flex flex-col gap-3 sm:flex-row">
+    <%= form.submit post.persisted? ? "更新する" : "公開する", class: "inline-flex min-h-11 items-center justify-center rounded-full bg-orange-700 px-5 text-sm font-medium text-orange-50 transition hover:bg-orange-800" %>
+    <%= link_to "キャンセル", post.persisted? ? post : posts_path, class: "inline-flex min-h-11 items-center justify-center rounded-full border border-stone-900/10 bg-white/40 px-5 text-sm font-medium text-stone-800 transition hover:bg-white/70" %>
   </div>
 <% end %>

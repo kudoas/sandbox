@@ -1,13 +1,13 @@
 <% content_for :title, "記事を編集" %>
 
-<section class="section-header">
+<section class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
   <div>
-    <p class="eyebrow">Edit Post</p>
-    <h1>記事を編集する</h1>
+    <p class="mb-2 text-xs font-bold uppercase tracking-[0.24em] text-orange-700">Edit Post</p>
+    <h1 class="text-4xl font-semibold tracking-tight">記事を編集する</h1>
   </div>
-  <div class="inline-actions">
-    <%= link_to "記事を見る", @post, class: "button button--ghost" %>
-    <%= link_to "一覧へ戻る", posts_path, class: "button button--ghost" %>
+  <div class="flex flex-col gap-3 sm:flex-row">
+    <%= link_to "記事を見る", @post, class: "inline-flex min-h-11 items-center justify-center rounded-full border border-stone-900/10 bg-white/40 px-5 text-sm font-medium text-stone-800 transition hover:bg-white/70" %>
+    <%= link_to "一覧へ戻る", posts_path, class: "inline-flex min-h-11 items-center justify-center rounded-full border border-stone-900/10 bg-white/40 px-5 text-sm font-medium text-stone-800 transition hover:bg-white/70" %>
   </div>
 </section>
 

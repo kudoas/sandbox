@@ -18,25 +18,27 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <header class="site-header">
-      <div class="shell site-header__inner">
-        <%= link_to "Herb", root_path, class: "brand" %>
-        <nav class="site-nav">
-          <%= link_to "記事一覧", posts_path %>
-          <%= link_to "新規投稿", new_post_path, class: "button button--primary" %>
+  <body class="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(184,92,56,0.18),_transparent_24%),linear-gradient(180deg,_#f8f2e8_0%,_#f4efe6_100%)] text-stone-900 antialiased">
+    <header class="sticky top-0 z-10 border-b border-stone-900/10 bg-[#f8f2e8]/80 backdrop-blur">
+      <div class="mx-auto flex w-full max-w-6xl items-center justify-between gap-3 px-4 py-4 sm:px-6">
+        <%= link_to "Herb", root_path, class: "text-xl font-semibold uppercase tracking-[0.2em]" %>
+        <nav class="flex flex-wrap items-center gap-3 text-sm sm:text-base">
+          <%= link_to "記事一覧", posts_path, class: "transition hover:text-orange-800" %>
+          <%= link_to "新規投稿", new_post_path, class: "inline-flex min-h-11 items-center justify-center rounded-full bg-orange-700 px-5 text-sm font-medium text-orange-50 transition hover:bg-orange-800" %>
         </nav>
       </div>
     </header>
 
-    <main class="shell site-main">
+    <main class="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 sm:py-12">
       <% if notice.present? %>
-        <p class="flash flash--notice"><%= notice %></p>
+        <p class="mb-6 rounded-2xl border border-orange-700/15 bg-orange-100/80 px-4 py-3 text-sm text-stone-800 shadow-sm">
+          <%= notice %>
+        </p>
       <% end %>
 
       <%= yield %>

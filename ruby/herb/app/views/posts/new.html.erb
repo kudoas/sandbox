@@ -1,11 +1,11 @@
 <% content_for :title, "新規投稿" %>
 
-<section class="section-header">
+<section class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
   <div>
-    <p class="eyebrow">New Post</p>
-    <h1>記事を書く</h1>
+    <p class="mb-2 text-xs font-bold uppercase tracking-[0.24em] text-orange-700">New Post</p>
+    <h1 class="text-4xl font-semibold tracking-tight">記事を書く</h1>
   </div>
-  <%= link_to "一覧へ戻る", posts_path, class: "button button--ghost" %>
+  <%= link_to "一覧へ戻る", posts_path, class: "inline-flex min-h-11 items-center justify-center rounded-full border border-stone-900/10 bg-white/40 px-5 text-sm font-medium text-stone-800 transition hover:bg-white/70" %>
 </section>
 
 <%= render "form", post: @post %>
