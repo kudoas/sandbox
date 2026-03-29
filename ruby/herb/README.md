@@ -1,24 +1,25 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Tailwind class sorting for ERB
 
-Things you may want to cover:
+This project does not use `herb-format` for ERB rewriting.
+It runs only the Tailwind class sorter against HTML-ish ERB templates via `bun`.
 
-* Ruby version
+```sh
+bun run sort:tailwind
+bun run sort:tailwind:check
+```
 
-* System dependencies
+Defaults:
 
-* Configuration
+- Scans `app/views`
+- Targets `*.html.erb`, `*.html+*.erb`, `*.turbo_stream.erb`, and `*.rhtml`
+- Leaves non-HTML ERB files such as `*.json.erb` untouched
+- Rewrites static quoted `class=` and `class:` values only
 
-* Database creation
+You can also pass files or directories explicitly:
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```sh
+bun scripts/sort-tailwind-classes.mjs app/views/posts
+bun scripts/sort-tailwind-classes.mjs app/views/layouts/application.html.erb --check
+```

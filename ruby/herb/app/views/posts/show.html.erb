@@ -1,11 +1,11 @@
 <% content_for :title, @post.title %>
 
 <article class="rounded-[1.75rem] border border-stone-900/10 bg-white/70 p-8 shadow-[0_18px_50px_rgba(63,43,20,0.08)]">
-  <p class="mb-3 text-xs font-bold uppercase tracking-[0.24em] text-orange-700">Article</p>
+  <p class="mb-3 text-xs font-bold tracking-[0.24em] text-orange-700 uppercase">Article</p>
   <h1 class="text-4xl leading-tight font-semibold tracking-tight sm:text-5xl"><%= @post.title %></h1>
+
   <p class="mt-4 text-sm text-stone-500 sm:text-base">
-    公開日 <%= l(@post.created_at.to_date, format: :long) %>
-    · 更新 <%= l(@post.updated_at, format: :short) %>
+    公開日 <%= l(@post.created_at.to_date, format: :long) %> · 更新 <%= l(@post.updated_at, format: :short) %>
   </p>
 
   <div class="mt-8 space-y-6 text-lg leading-8 text-stone-700 [&_p]:mb-6">

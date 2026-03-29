@@ -1,18 +1,21 @@
 <!DOCTYPE html>
+
 <html>
   <head>
     <title><%= content_for(:title) || "Herb" %></title>
+
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Herb">
     <meta name="mobile-web-app-capable" content="yes">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= yield :head %>
 
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+    <%# = tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
@@ -27,6 +30,7 @@
     <header class="sticky top-0 z-10 border-b border-stone-900/10 bg-[#f8f2e8]/80 backdrop-blur">
       <div class="mx-auto flex w-full max-w-6xl items-center justify-between gap-3 px-4 py-4 sm:px-6">
         <%= link_to "Herb", root_path, class: "text-xl font-semibold uppercase tracking-[0.2em]" %>
+
         <nav class="flex flex-wrap items-center gap-3 text-sm sm:text-base">
           <%= link_to "記事一覧", posts_path, class: "transition hover:text-orange-800" %>
           <%= link_to "新規投稿", new_post_path, class: "inline-flex min-h-11 items-center justify-center rounded-full bg-orange-700 px-5 text-sm font-medium text-orange-50 transition hover:bg-orange-800" %>

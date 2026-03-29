@@ -2,6 +2,7 @@
   <% if post.errors.any? %>
     <section class="mb-6 rounded-3xl border border-red-800/15 bg-red-50 px-5 py-4">
       <h2 class="text-lg font-semibold text-stone-900">入力内容を確認してください</h2>
+
       <ul class="mt-3 list-disc space-y-1 pl-5 text-sm text-stone-700">
         <% post.errors.each do |error| %>
           <li><%= error.full_message %></li>
