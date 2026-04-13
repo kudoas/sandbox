@@ -84,6 +84,7 @@ formatter:
   rewriter:
     # Pre-format rewriters (modify AST before formatting)
     pre:
-      - tailwind-class-sorter
+      - tailwind-class-canonicalizor
+      # - tailwind-class-sorter
   #   # Post-format rewriters (modify formatted output string)
   #   post: []

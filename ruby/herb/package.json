@@ -7,7 +7,6 @@
   "devDependencies": {
     "@herb-tools/formatter": "^0.9.2",
     "@herb-tools/node-wasm": "^0.9.2",
-    "@herb-tools/rewriter": "^0.9.2",
-    "tailwindcss": "^4.2.2"
+    "@herb-tools/rewriter": "^0.9.2"
   }
 }
