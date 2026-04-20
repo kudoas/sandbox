@@ -1,0 +1,23 @@
+<div class="job-status-update" id="job-<%= job_data[:job_id] %>">
+  <div class="status-indicator <%= job_data[:status].downcase.tr(' ', '-') %>">
+    <div class="status-icon">
+      <% case job_data[:status] %>
+      <% when "enqueued", "Job enqueued", "Email job enqueued" %>
+        ⏳
+      <% when "processing" %>
+        🔄
+      <% when "completed" %>
+        ✅
+      <% when "failed" %>
+        ❌
+      <% else %>
+        📋
+      <% end %>
+    </div>
+    <div class="status-details">
+      <strong><%= job_data[:status] %></strong>
+      <div class="job-id">Job ID: <code><%= job_data[:job_id] %></code></div>
+      <div class="timestamp"><%= job_data[:timestamp].strftime("%H:%M:%S") %></div>
+    </div>
+  </div>
+</div>
